@@ -14,4 +14,8 @@ public class RetrofitConfig {
 
         BlockchainAPI service = retrofit.create(BlockchainAPI.class);
     }
+
+    public BlockchainAPI getInfoBlockchain() {
+        return this.retrofit.create(BlockchainAPI.class);
+    }
 }
