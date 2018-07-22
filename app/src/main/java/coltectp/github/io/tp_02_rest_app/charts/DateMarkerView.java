@@ -1,4 +1,4 @@
-package coltectp.github.io.tp_02_rest_app;
+package coltectp.github.io.tp_02_rest_app.charts;
 
 import android.content.Context;
 import android.widget.TextView;
@@ -12,6 +12,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import coltectp.github.io.tp_02_rest_app.R;
 
 public class DateMarkerView extends MarkerView {
 

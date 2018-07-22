@@ -1,7 +1,10 @@
-package coltectp.github.io.tp_02_rest_app;
+package coltectp.github.io.tp_02_rest_app.charts.mining;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -14,26 +17,50 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import coltectp.github.io.tp_02_rest_app.BlockchainAPI;
+import coltectp.github.io.tp_02_rest_app.R;
+import coltectp.github.io.tp_02_rest_app.RetrofitConfig;
+import coltectp.github.io.tp_02_rest_app.charts.Chart;
+import coltectp.github.io.tp_02_rest_app.charts.DateMarkerView;
+import coltectp.github.io.tp_02_rest_app.charts.HourAxisValueFormatter;
+import coltectp.github.io.tp_02_rest_app.charts.Point;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TransactionPerBlock extends AppCompatActivity {
+public class MinersRevenueFragment extends Fragment {
+    public static final String ARG_PAGE = "MINERS_REVENUE";
+
+    private int mPage;
+
+    public static MinersRevenueFragment newInstance(int page) {
+        Bundle args = new Bundle();
+        args.putInt(ARG_PAGE, page);
+        MinersRevenueFragment fragment = new MinersRevenueFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transaction_per_block);
+        mPage = getArguments().getInt(ARG_PAGE);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_line_chart, container, false);
 
         BlockchainAPI service = new RetrofitConfig().getInfoBlockchain();
         Map<String, String> data = new HashMap<>();
         data.put("timespan", "30days");
         data.put("rollingAverage", "8hours");
         data.put("format", "json");
-        Call<Chart> transactionPerBlockCall = service.getTransactionsPerBlock(data);
+        Call<Chart> minersRevenueCall = service.getMinersRevenue(data);
 
         // fazendo a requisição de forma assíncrona
-        transactionPerBlockCall.enqueue(new Callback<Chart>() {
+        minersRevenueCall.enqueue(new Callback<Chart>() {
             @Override
             public void onResponse(Call<Chart> call, Response<Chart> response) {
                 Chart chart = response.body();
@@ -47,7 +74,7 @@ public class TransactionPerBlock extends AppCompatActivity {
                 for (Point data : convertingTimeSmallNum(points, points.get(0).getX())) {
                     entries.add(new Entry(data.getX(), data.getY()));
                 }
-                setChart(chart, entries, points.get(0).getX());
+                setChart(view, chart, entries, points.get(0).getX());
             }
 
             @Override
@@ -55,6 +82,8 @@ public class TransactionPerBlock extends AppCompatActivity {
                 // Tratamento de eventual erro de requisição
             }
         });
+
+        return view;
     }
 
     private List<Point> convertingTimeSmallNum(List<Point> points, float referencedTimestamps) {
@@ -66,8 +95,8 @@ public class TransactionPerBlock extends AppCompatActivity {
         return result;
     }
 
-    private void setChart(Chart transactionPerBlock, List<Entry> entries, float referencedTime) {
-        LineChart chart = (LineChart) findViewById(R.id.chart);
+    private void setChart(View view, Chart transactionPerBlock, List<Entry> entries, float referencedTime) {
+        LineChart chart = (LineChart) view;
         LineDataSet dataSet = new LineDataSet(entries, transactionPerBlock.getName()); // add entries to dataset
         LineData lineData = new LineData(dataSet);
 
@@ -75,9 +104,9 @@ public class TransactionPerBlock extends AppCompatActivity {
         xAxis.setValueFormatter(new HourAxisValueFormatter((long)referencedTime));
 
         DateMarkerView myMarkerView = new DateMarkerView(
-                                                        getApplicationContext(),
-                                                        R.layout.custom_marker_view,
-                                                        (long) referencedTime);
+                getActivity(),
+                R.layout.custom_marker_view,
+                (long) referencedTime);
         chart.setMarker(myMarkerView);
 
         chart.setData(lineData);

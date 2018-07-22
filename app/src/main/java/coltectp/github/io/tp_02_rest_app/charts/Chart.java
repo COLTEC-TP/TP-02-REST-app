@@ -1,4 +1,4 @@
-package coltectp.github.io.tp_02_rest_app;
+package coltectp.github.io.tp_02_rest_app.charts;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -14,6 +14,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import coltectp.github.io.tp_02_rest_app.charts.block.BlockChart;
+import coltectp.github.io.tp_02_rest_app.charts.coin.StatsCoinActivity;
+import coltectp.github.io.tp_02_rest_app.charts.mining.MiningInfoActivity;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -83,13 +87,15 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-            Intent intent = new Intent(MainActivity.this, TransactionPerBlock.class);
+        } else if (id == R.id.transaction) {
+            Intent intent = new Intent(MainActivity.this, BlockChart.class);
             startActivity(intent);
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.stats_of_coin) {
+            Intent intent = new Intent(MainActivity.this, StatsCoinActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.info_mining) {
+            Intent intent = new Intent(MainActivity.this, MiningInfoActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

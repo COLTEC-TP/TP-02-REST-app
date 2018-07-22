@@ -21,7 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TransactionPerBlock"></activity>
+        <activity android:name=".charts.block.TransactionPerBlockFragment" />
+        <activity android:name=".charts.block.BlockChart" />
+        <activity android:name=".charts.coin.StatsCoinActivity" />
+        <activity android:name=".charts.mining.MiningInfoActivity"></activity>
     </application>
 
 </manifest>
