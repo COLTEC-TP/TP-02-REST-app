@@ -36,6 +36,10 @@
                 android:id="@+id/info_mining"
                 android:icon="@drawable/ic_mining"
                 android:title="Mining Information" />
+            <item
+                android:id="@+id/pools"
+                android:icon="@drawable/ic_pie_chart_black_24dp"
+                android:title="Pools" />
         </menu>
     </item>
 

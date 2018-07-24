@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import coltectp.github.io.tp_02_rest_app.charts.block.BlockChart;
 import coltectp.github.io.tp_02_rest_app.charts.coin.StatsCoinActivity;
 import coltectp.github.io.tp_02_rest_app.charts.mining.MiningInfoActivity;
+import coltectp.github.io.tp_02_rest_app.charts.pieChart.PoolChartActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -96,8 +97,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.info_mining) {
             Intent intent = new Intent(MainActivity.this, MiningInfoActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.pools) {
+            Intent intent = new Intent(MainActivity.this, PoolChartActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_send) {
 
         }

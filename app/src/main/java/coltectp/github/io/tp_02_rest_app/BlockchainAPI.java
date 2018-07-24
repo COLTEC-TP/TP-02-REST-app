@@ -3,8 +3,10 @@ package coltectp.github.io.tp_02_rest_app;
 import java.util.Map;
 
 import coltectp.github.io.tp_02_rest_app.charts.Chart;
+import coltectp.github.io.tp_02_rest_app.charts.pieChart.PoolChart;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
 public interface BlockchainAPI {
@@ -49,6 +51,21 @@ public interface BlockchainAPI {
     public Call<Chart> getCostPerTransaction(@QueryMap Map<String, String> options);
 
     @GET("pools")
-    public Call<Chart> getPools(@QueryMap Map<String, String> options);
+    public Call<PoolChart> getPieChartPools(@QueryMap Map<String, String> options);
+
+    /**
+     * Group of searching in address specifically
+     */
+    @GET("q/getreceivedbyaddress/{address}")
+    public Call<Chart> getReceivedByAddress(@QueryMap Map<String, String> options,
+                                             @Path("address") String address);
+
+    @GET("q/getsentbyaddress/{address}")
+    public Call<Chart> getSentByAddress(@QueryMap Map<String, String> options,
+                                            @Path("address") String address);
+
+    @GET("q/addressbalance/{address}")
+    public Call<Chart> getAddressBalance(@QueryMap Map<String, String> options,
+                                            @Path("address") String address);
 
 }

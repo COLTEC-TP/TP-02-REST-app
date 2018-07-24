@@ -8,7 +8,7 @@ public class RetrofitConfig {
 
     public RetrofitConfig() {
         this.retrofit = new Retrofit.Builder()
-                .baseUrl(" https://api.blockchain.info/")
+                .baseUrl("https://blockchain.info/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
