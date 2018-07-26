@@ -2,17 +2,17 @@ package br.tp.tp_rest;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Personagem {
+public class Pokemon {
     @SerializedName("name")
     private String nome;
 
-
-    public Personagem(String nome) {
+    public Pokemon(String nome) {
         this.nome = nome;
     }
 
     public String getName() {
         return this.nome;
     }
+
 
 }

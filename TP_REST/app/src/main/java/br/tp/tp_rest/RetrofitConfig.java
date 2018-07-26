@@ -10,16 +10,16 @@ public class RetrofitConfig {
 
         // configura o retrofit para um determinado serviço
         this.retrofit = new Retrofit.Builder()
-                .baseUrl("https://anapioficeandfire.com/") // Url do serviço
+                .baseUrl("http://pokeapi.co/") // Url do serviço
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        PersonagemService service = retrofit.create(PersonagemService.class);
+        PokemonService service = retrofit.create(PokemonService.class);
 
     }
 
-    public PersonagemService getPersonagemService() {
-        return this.retrofit.create(PersonagemService.class);
+    public PokemonService getPersonagemService() {
+        return this.retrofit.create(PokemonService.class);
     }
 
 }
