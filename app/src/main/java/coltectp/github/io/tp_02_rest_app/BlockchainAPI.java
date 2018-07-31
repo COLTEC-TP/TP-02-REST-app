@@ -2,6 +2,8 @@ package coltectp.github.io.tp_02_rest_app;
 
 import java.util.Map;
 
+import coltectp.github.io.tp_02_rest_app.blockExplorer.Block;
+import coltectp.github.io.tp_02_rest_app.blockExplorer.SimpleBlockList;
 import coltectp.github.io.tp_02_rest_app.charts.Chart;
 import coltectp.github.io.tp_02_rest_app.charts.pieChart.PoolChart;
 import retrofit2.Call;
@@ -56,16 +58,12 @@ public interface BlockchainAPI {
     /**
      * Group of searching in address specifically
      */
-    @GET("q/getreceivedbyaddress/{address}")
-    public Call<Chart> getReceivedByAddress(@QueryMap Map<String, String> options,
-                                             @Path("address") String address);
+    @GET("blocks/{block}")
+    public Call<SimpleBlockList> getBlocksBySpecificPool(@QueryMap Map<String, String> options,
+                                                         @Path("block") String block);
 
-    @GET("q/getsentbyaddress/{address}")
-    public Call<Chart> getSentByAddress(@QueryMap Map<String, String> options,
-                                            @Path("address") String address);
-
-    @GET("q/addressbalance/{address}")
-    public Call<Chart> getAddressBalance(@QueryMap Map<String, String> options,
-                                            @Path("address") String address);
+    @GET("rawblock/{blockHash}")
+    public Call<Block> getSingleBlock(@QueryMap Map<String, String> options,
+                                      @Path("blockHash") String blockHash);
 
 }

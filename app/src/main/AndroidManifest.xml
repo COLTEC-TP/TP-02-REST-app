@@ -25,7 +25,8 @@
         <activity android:name=".charts.block.BlockChart" />
         <activity android:name=".charts.coin.StatsCoinActivity" />
         <activity android:name=".charts.mining.MiningInfoActivity" />
-        <activity android:name=".charts.pieChart.PoolChartActivity"></activity>
+        <activity android:name=".charts.pieChart.PoolChartActivity" />
+        <activity android:name=".blockExplorer.activity.BlockExplorerActivity"></activity>
     </application>
 
 </manifest>

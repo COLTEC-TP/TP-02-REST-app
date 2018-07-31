@@ -1,9 +1,23 @@
 package coltectp.github.io.tp_02_rest_app.blockExplorer;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class SimpleBlock {
+    @SerializedName("height")
+    @Expose
     private long height;
+
+    @SerializedName("hash")
+    @Expose
     private String hash;
+
+    @SerializedName("time")
+    @Expose
     private long time;
+
+    @SerializedName("main_chain")
+    @Expose
     private boolean mainChain;
 
     public SimpleBlock(long height, String hash, long time, boolean mainChain) {
@@ -39,3 +53,4 @@ public class SimpleBlock {
     }
 
 }
+

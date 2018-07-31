@@ -28,7 +28,7 @@ public class DateMarkerView extends MarkerView {
         // this markerview only displays a textview
         tvContent = (TextView) findViewById(R.id.tvContent);
         this.referenceTimestamp = referenceTimestamp;
-        this.mDataFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+        this.mDataFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.ROOT);
         this.mDate = new Date();
     }
 

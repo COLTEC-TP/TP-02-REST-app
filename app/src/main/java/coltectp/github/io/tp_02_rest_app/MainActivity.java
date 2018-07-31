@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import coltectp.github.io.tp_02_rest_app.blockExplorer.activity.BlockExplorerActivity;
 import coltectp.github.io.tp_02_rest_app.charts.block.BlockChart;
 import coltectp.github.io.tp_02_rest_app.charts.coin.StatsCoinActivity;
 import coltectp.github.io.tp_02_rest_app.charts.mining.MiningInfoActivity;
@@ -86,8 +87,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.explore) {
+            Intent intent = new Intent(MainActivity.this, BlockExplorerActivity.class);
+            startActivity(intent);
         } else if (id == R.id.transaction) {
             Intent intent = new Intent(MainActivity.this, BlockChart.class);
             startActivity(intent);
