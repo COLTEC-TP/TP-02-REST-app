@@ -1,5 +1,6 @@
 package zen.tp02teste;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -18,7 +19,8 @@ public class ResultsDeserializer implements JsonDeserializer<Results> {
     public Results deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
             throws JsonParseException {
 
-        final JsonObject jsonObject = json.getAsJsonObject();
+        final JsonArray jsonArray = json.getAsJsonArray();
+        final JsonObject jsonObject = jsonArray.get(0).getAsJsonObject();
         Geometry geometry = context.deserialize(jsonObject.get("geometry"), Geometry.class);
         final String formatted_address = jsonObject.get("formatted_address").getAsString();
 

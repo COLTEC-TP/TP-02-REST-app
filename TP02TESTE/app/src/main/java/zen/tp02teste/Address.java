@@ -9,11 +9,8 @@ import java.util.ArrayList;
 public class Address {
 
     private String formatted_address;
-    private ArrayList<String> location;
-
-    Address() {
-        this.setLocation(new ArrayList<String>());
-    }
+    private String lat;
+    private String lng;
 
     public String getFormatted_address() {
         return formatted_address;
@@ -23,11 +20,19 @@ public class Address {
         this.formatted_address = formatted_address;
     }
 
-    public ArrayList<String> getLocation() {
-        return location;
+    public String getLat() {
+        return lat;
     }
 
-    public void setLocation(ArrayList<String> location) {
-        this.location = location;
+    public void setLat(String lat) {
+        this.lat = lat;
+    }
+
+    public String getLng() {
+        return lng;
+    }
+
+    public void setLng(String lng) {
+        this.lng = lng;
     }
 }

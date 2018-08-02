@@ -10,14 +10,13 @@ import java.util.ArrayList;
 
 public class Geometry {
 
-    private ArrayList<String> location;
+    private Location location;
 
-
-    public ArrayList<String> getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(ArrayList<String> location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 }
