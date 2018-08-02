@@ -25,8 +25,29 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ListView listPokemons = findViewById(R.id.pokemonsList);
-        listPokemons.setAdapter(new PokemonAdapter(this, PokemonDAO.getInstance().getPokemons()));
+        final PokemonDAO dao = new PokemonDAO(this);
+
+        for (int i=1; i<=dao.getNum_pokemons(); i++) {
+            Callback<Pokemon> cb = new Callback<Pokemon>() {
+                @Override
+                public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
+                    Pokemon pokemon = response.body();
+                    dao.addPokemon(pokemon);
+                    ListView listPokemons = findViewById(R.id.pokemonsList);
+                    listPokemons.setAdapter(new PokemonAdapter(dao.getContext(), dao.getPokemons()));
+                }
+
+                @Override
+                public void onFailure(Call<Pokemon> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            };
+            dao.carregarPokemons(i, cb);
+
+        }
+
+
+        //ArrayList<Pokemon> pokemons = PokemonDAO.getInstance().getPokemons();
 
     }
 }
@@ -38,20 +59,18 @@ public class MainActivity extends Activity {
         // recupera os imóveis cadastrados no DAO até o momento e os carrega na lista
 //        PokemonDAO dao = PokemonDAO.getInstance();
 //        this.atualizarLista(dao.getPokemons());
-    }
+//    }
 
     // MUDAR PQ EH INEFICIENTE //
-    private void atualizarLista(ArrayList<Pokemon> pokemons) {
+ //   private void atualizarLista(ArrayList<Pokemon> pokemons) {
 
         // Não precisa criar outro adapter //
-        ListView imoveisList = findViewById(R.id.pokemonsList);
-        imoveisList.setAdapter(new PokemonAdapter(this, pokemons));
+        //ListView imoveisList = findViewById(R.id.pokemonsList);
+        //imoveisList.setAdapter(new PokemonAdapter(this, pokemons));
         //adapter.notifyDataSetChanged();
         //ListView listImoveis = findViewById(R.id.imoveisList);
         //listImoveis.setAdapter(adapter);
-    }
-
-    /*
+    //}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -1,5 +1,6 @@
 package br.tp.tp_rest;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,46 +14,23 @@ public class PokemonDAO {
 
     private static int num_pokemons = 151;
     private ArrayList<Pokemon> pokemons;
-
-    // singleton para lidar com única instância do DAO
-    private static PokemonDAO instance;
+    private Context context;
 
     // Construtor Privado
-    private PokemonDAO() {
-        pokemons = new ArrayList<>();
-        carregarPokemons();
+    public PokemonDAO(Context context) {
+        this.pokemons = new ArrayList<>();
+        this.context = context;
     }
 
-    public static PokemonDAO getInstance() {
-
-        if(instance == null)
-            instance = new PokemonDAO();
-
-        return instance;
-    }
 
     // Carrega a lista inicial de pokemons
-    private void carregarPokemons() {
+    public void carregarPokemons(final int pokemon_id, Callback<Pokemon> cb) {
 
         PokemonService service = new RetrofitConfig().getPersonagemService();
+        Call<Pokemon> enderecoCall = service.getPokemon(String.valueOf(pokemon_id));
 
-        for (int i = 1; i < num_pokemons; i++) {
-            Call<Pokemon> enderecoCall = service.getPokemon(String.valueOf(i));
-
-            // fazendo a requisição de forma assíncrona
-            enderecoCall.enqueue(new Callback<Pokemon>() {
-                @Override
-                public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
-                    Pokemon pokemon = response.body();
-                    pokemons.add(new Pokemon(pokemon.getName()));
-                }
-
-                @Override
-                public void onFailure(Call<Pokemon> call, Throwable t) {
-                    t.printStackTrace();
-                }
-            });
-        }
+        // fazendo a requisição de forma assíncrona
+        enderecoCall.enqueue(cb);
     }
 
     // Faz a filtragem dos pokemons por nome //
@@ -70,6 +48,19 @@ public class PokemonDAO {
 
     // Recupera lista completa dos imóveis //
     public ArrayList<Pokemon> getPokemons() {
-        return instance.pokemons;
+        return this.pokemons;
+    }
+
+    // Adiciona Pokemon //
+    public void addPokemon(Pokemon p){
+        this.pokemons.add(p);
+    }
+
+    public int getNum_pokemons(){
+        return num_pokemons;
+    }
+
+    public Context getContext() {
+        return context;
     }
 }
