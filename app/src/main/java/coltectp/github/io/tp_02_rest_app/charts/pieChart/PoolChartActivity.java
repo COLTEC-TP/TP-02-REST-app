@@ -32,7 +32,7 @@ public class PoolChartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pool_chart_acitivity);
 
-        BlockchainAPI service = new RetrofitConfig().getInfoBlockchain();
+        BlockchainAPI service = new RetrofitConfig(getApplicationContext()).getInfoBlockchain();
 
         Map<String, String> data = new HashMap<>();
         data.put("format", "json");

@@ -3,6 +3,7 @@ package coltectp.github.io.tp_02_rest_app.blockExplorer.activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,8 +35,10 @@ public class SimpleBlockFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "SIMPLE_BLOCK_FRAGMENT";
-//    private OnListFragmentInteractionListener mListener;
+    //    private OnListFragmentInteractionListener mListener;
     private SimpleBlockList mSimpleBlocks;
+    private RecyclerView mRecyclerView;
+    private SimpleBlockRecyclerViewAdapter mAdapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -65,13 +68,16 @@ public class SimpleBlockFragment extends Fragment {
         final View layoutView = inflater.inflate(R.layout.fragment_item_list, container, false);
 
         ImageButton mButtonSearch = layoutView.findViewById(R.id.search_text_api_btn);
+        Context context = layoutView.getContext();
+        mRecyclerView = (RecyclerView) layoutView.findViewById(R.id.list);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
 
         View.OnClickListener search = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditText searchEditText = layoutView.findViewById(R.id.search_text_api_et);
 
-                BlockchainAPI service = new RetrofitConfig().getInfoBlockchain();
+                BlockchainAPI service = new RetrofitConfig(layoutView.getContext()).getInfoBlockchain();
 
                 Map<String, String> data = new HashMap<>();
                 data.put("format", "json");
@@ -88,15 +94,16 @@ public class SimpleBlockFragment extends Fragment {
                         Log.d(SimpleBlockList.class.getSimpleName(), "Making msg");
                         mSimpleBlocks = response.body();
 
-                        // Set the adapter
-                        if (layoutView instanceof RecyclerView) {
-                            Context context = layoutView.getContext();
-                            RecyclerView recyclerView = (RecyclerView) layoutView.findViewById(R.id.list);
-                            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                            SimpleBlockRecyclerViewAdapter adapter = new SimpleBlockRecyclerViewAdapter(mSimpleBlocks.getBlocks());
-                            recyclerView.setAdapter(adapter);
-                            adapter.notifyDataSetChanged();
-                            //Loader
+                        if (mSimpleBlocks.getBlocks() != null) {
+
+                            mAdapter = new SimpleBlockRecyclerViewAdapter(mSimpleBlocks.getBlocks());
+                            mRecyclerView.setAdapter(mAdapter);
+
+                        } else {
+
+                            // Erro: Esse app parou de funcionar
+                            Snackbar.make(layoutView, "Nada encontrado", Snackbar.LENGTH_SHORT)
+                                    .setAction("Action", null).show();
                         }
                     }
 
@@ -145,4 +152,5 @@ public class SimpleBlockFragment extends Fragment {
 //        // TODO: Update argument type and name
 //        void onListFragmentInteraction(SimpleBlock item);
 //    }
+
 }
