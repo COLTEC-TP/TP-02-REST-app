@@ -1,5 +1,6 @@
 package coltectp.github.io.tp_02_rest_app.blockExplorer.activity;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ public class SimpleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SimpleB
 //        mListener = listener;
     }
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())

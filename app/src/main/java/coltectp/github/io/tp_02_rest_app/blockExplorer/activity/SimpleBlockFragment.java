@@ -4,13 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageButton;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,8 +34,6 @@ public class SimpleBlockFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "SIMPLE_BLOCK_FRAGMENT";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
 //    private OnListFragmentInteractionListener mListener;
     private SimpleBlockList mSimpleBlocks;
 
@@ -58,51 +57,60 @@ public class SimpleBlockFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        final View layoutView = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-        BlockchainAPI service = new RetrofitConfig().getInfoBlockchain();
+        ImageButton mButtonSearch = layoutView.findViewById(R.id.search_text_api_btn);
 
-        Map<String, String> data = new HashMap<>();
-        data.put("format", "json");
-
-        Call<SimpleBlockList> blocksBySpecificPoolCall =
-                service.getBlocksBySpecificPool(data, "BTC.com");
-
-        // fazendo a requisição de forma assíncrona
-        blocksBySpecificPoolCall.enqueue(new Callback<SimpleBlockList>() {
+        View.OnClickListener search = new View.OnClickListener() {
             @Override
-            public void onResponse(@NonNull Call<SimpleBlockList> call, @NonNull Response<SimpleBlockList> response) {
-                Log.d(SimpleBlockList.class.getSimpleName(), "Making msg");
-                mSimpleBlocks = response.body();
+            public void onClick(View view) {
+                EditText searchEditText = layoutView.findViewById(R.id.search_text_api_et);
 
-                // Set the adapter
-                if (view instanceof RecyclerView) {
-                    Context context = view.getContext();
-                    RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
-                    if (mColumnCount <= 1) {
-                        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                    } else {
-                        recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                BlockchainAPI service = new RetrofitConfig().getInfoBlockchain();
+
+                Map<String, String> data = new HashMap<>();
+                data.put("format", "json");
+
+                Log.d(SimpleBlockList.class.getSimpleName(), searchEditText.getText().toString());
+
+                Call<SimpleBlockList> blocksBySpecificPoolCall =
+                        service.getBlocksBySpecificPool(searchEditText.getText().toString());
+
+                // fazendo a requisição de forma assíncrona
+                blocksBySpecificPoolCall.enqueue(new Callback<SimpleBlockList>() {
+                    @Override
+                    public void onResponse(@NonNull Call<SimpleBlockList> call, @NonNull Response<SimpleBlockList> response) {
+                        Log.d(SimpleBlockList.class.getSimpleName(), "Making msg");
+                        mSimpleBlocks = response.body();
+
+                        // Set the adapter
+                        if (layoutView instanceof RecyclerView) {
+                            Context context = layoutView.getContext();
+                            RecyclerView recyclerView = (RecyclerView) layoutView.findViewById(R.id.list);
+                            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                            SimpleBlockRecyclerViewAdapter adapter = new SimpleBlockRecyclerViewAdapter(mSimpleBlocks.getBlocks());
+                            recyclerView.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                            //Loader
+                        }
                     }
-                    recyclerView.setAdapter(new SimpleBlockRecyclerViewAdapter(mSimpleBlocks.getBlocks()));
-                }
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<SimpleBlockList> call, @NonNull Throwable t) {
+                    @Override
+                    public void onFailure(@NonNull Call<SimpleBlockList> call, @NonNull Throwable t) {
+                        Log.d(SimpleBlockList.class.getSimpleName(), "Failed", t);
+                    }
+                });
             }
-        });
+        };
 
-        return view;
+        mButtonSearch.setOnClickListener(search);
+
+        return layoutView;
     }
 
 //

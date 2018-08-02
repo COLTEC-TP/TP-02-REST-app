@@ -58,8 +58,8 @@ public interface BlockchainAPI {
     /**
      * Group of searching in address specifically
      */
-    @GET("blocks/{block}")
-    public Call<SimpleBlockList> getBlocksBySpecificPool(@QueryMap Map<String, String> options,
+    @GET("blocks/{block}?format=json")
+    public Call<SimpleBlockList> getBlocksBySpecificPool(
                                                          @Path("block") String block);
 
     @GET("rawblock/{blockHash}")
