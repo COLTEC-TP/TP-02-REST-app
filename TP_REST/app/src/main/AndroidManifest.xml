@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.tp.tp_rest">
 
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- Permissao para acessar a internet -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Permissao para acessar a internet -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +18,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".LoadingActivity"
+                  android:parentActivityName="br.tp.tp_rest.MainActivity" >
         </activity>
     </application>
 

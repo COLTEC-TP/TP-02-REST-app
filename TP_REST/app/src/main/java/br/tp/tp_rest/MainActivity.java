@@ -2,6 +2,7 @@ package br.tp.tp_rest;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,30 +28,47 @@ public class MainActivity extends Activity {
 
         final PokemonDAO dao = new PokemonDAO(this);
 
-        for (int i=1; i<=dao.getNum_pokemons(); i++) {
-            Callback<Pokemon> cb = new Callback<Pokemon>() {
-                @Override
-                public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
-                    Pokemon pokemon = response.body();
-                    dao.addPokemon(pokemon);
-                    ListView listPokemons = findViewById(R.id.pokemonsList);
-                    listPokemons.setAdapter(new PokemonAdapter(dao.getContext(), dao.getPokemons()));
-                }
-
-                @Override
-                public void onFailure(Call<Pokemon> call, Throwable t) {
-                    t.printStackTrace();
-                }
-            };
-            dao.carregarPokemons(i, cb);
-
+        AppDB db = new AppDB(this);
+        //db.deleteAll();
+        if (db.getAllPokemons().size() < dao.getNum_pokemons()) {
+            Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
+            startActivity(intent);
+        } else {
+            ListView listPokemons = findViewById(R.id.pokemonsList);
+            listPokemons.setAdapter(new PokemonAdapter(this, db.getAllPokemons()));
         }
-
-
-        //ArrayList<Pokemon> pokemons = PokemonDAO.getInstance().getPokemons();
 
     }
 }
+        /*
+        final PokemonDAO dao = new PokemonDAO(this);
+        requisita(1, dao);
+    }
+    private void requisita(final int id, final PokemonDAO dao) {
+        Callback<Pokemon> cb = new Callback<Pokemon>() {
+            @Override
+            public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
+                Pokemon pokemon = response.body();
+                dao.addPokemon(pokemon);
+                ListView listPokemons = findViewById(R.id.pokemonsList);
+                listPokemons.setAdapter(new PokemonAdapter(dao.getContext(), dao.getPokemons()));
+                if (id <= dao.getNum_pokemons()) {
+                    requisita(id + 1, dao);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Pokemon> call, Throwable t) {
+                t.printStackTrace();
+            }
+        };
+
+        dao.carregarPokemons(id, cb);
+
+    } */
+        //ArrayList<Pokemon> pokemons = PokemonDAO.getInstance().getPokemons();
+
+
 /*
         // Prepara Action Bar //
    //     ActionBar actionBar = getActionBar();
