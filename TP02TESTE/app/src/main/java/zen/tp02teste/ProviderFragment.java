@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -32,16 +33,17 @@ public class ProviderFragment extends SupportMapFragment implements OnMapReadyCa
             locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
             Criteria criteria = new Criteria();
             String provider = locationManager.getBestProvider(criteria, true);
-            Toast.makeText(getActivity(), "Provider: " + provider.toString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), "Provider: " + provider, Toast.LENGTH_LONG).show();
             mMap = googleMap;
             mMap.getUiSettings().setCompassEnabled(true);
             mMap.setMyLocationEnabled(true);
+            Double myLat = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false)).getLatitude();
+            Double myLng = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false)).getLongitude();
+            LatLng myLatLng =  new LatLng(myLat, myLng);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLng));
+            mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
         } catch (SecurityException ex) {
             Log.e(TAG, "Error", ex);
         }
-        LatLng local = new LatLng(MapsFragment.getLat(), MapsFragment.getLng());
-        mMap.addMarker(new MarkerOptions().position(local).title("Marker :)"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(local));
     }
-
 }
