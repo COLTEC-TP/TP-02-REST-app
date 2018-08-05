@@ -52,7 +52,7 @@ public class BlockSizeFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_line_chart, container, false);
 
-        BlockchainAPI service = new RetrofitConfig(view.getContext()).getInfoBlockchain();
+        BlockchainAPI service = new RetrofitConfig(view.getContext()).getInfoBlockchain(view.getContext());
         Map<String, String> data = new HashMap<>();
         data.put("timespan", "30days");
         data.put("rollingAverage", "8hours");

@@ -77,7 +77,7 @@ public class SimpleBlockFragment extends Fragment {
             public void onClick(View view) {
                 EditText searchEditText = layoutView.findViewById(R.id.search_text_api_et);
 
-                BlockchainAPI service = new RetrofitConfig(layoutView.getContext()).getInfoBlockchain();
+                BlockchainAPI service = new RetrofitConfig(layoutView.getContext()).getInfoBlockchain(layoutView.getContext());
 
                 Map<String, String> data = new HashMap<>();
                 data.put("format", "json");
@@ -102,8 +102,7 @@ public class SimpleBlockFragment extends Fragment {
                         } else {
 
                             // Erro: Esse app parou de funcionar
-                            Snackbar.make(layoutView, "Nada encontrado", Snackbar.LENGTH_SHORT)
-                                    .setAction("Action", null).show();
+                            Snackbar.make(layoutView, "Nada encontrado", Snackbar.LENGTH_SHORT).show();
                         }
                     }
 

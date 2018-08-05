@@ -1,22 +1,44 @@
 package coltectp.github.io.tp_02_rest_app.blockExplorer;
 
-public class Output {
-    private int n;
-    private long value;
-    private String address;
-    private long txIndex;
-    private String script;
-    private boolean spent;
-    private boolean spentToAddress;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-    public Output(int n, long value, String address, long txIndex, String script, boolean spent, boolean spentToAddress) {
+public class Output {
+    @SerializedName("n")
+    @Expose
+    private int n;
+
+    @SerializedName("value")
+    @Expose
+    private long value;
+
+    @SerializedName("address")
+    @Expose
+    private String address;
+
+    @SerializedName("tx_index")
+    @Expose
+    private long txIndex;
+
+    @SerializedName("script")
+    @Expose
+    private String script;
+
+    @SerializedName("spent")
+    @Expose
+    private boolean spent;
+
+    @SerializedName("type")
+    @Expose
+    private Integer type;
+
+    public Output(int n, long value, String address, long txIndex, String script, boolean spent) {
         this.n = n;
         this.value = value;
         this.address = address;
         this.txIndex = txIndex;
         this.script = script;
         this.spent = spent;
-        this.spentToAddress = spentToAddress;
     }
 
     @Override
@@ -50,9 +72,5 @@ public class Output {
 
     public boolean isSpent() {
         return spent;
-    }
-
-    public boolean isSpentToAddress() {
-        return spentToAddress;
     }
 }

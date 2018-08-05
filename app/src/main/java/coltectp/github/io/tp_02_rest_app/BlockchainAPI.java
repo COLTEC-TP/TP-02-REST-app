@@ -62,8 +62,8 @@ public interface BlockchainAPI {
     public Call<SimpleBlockList> getBlocksBySpecificPool(
                                                          @Path("block") String block);
 
-    @GET("rawblock/{blockHash}")
-    public Call<Block> getSingleBlock(@QueryMap Map<String, String> options,
+    @GET("rawblock/{blockHash}?format=json")
+    public Call<Block> getSingleBlock(
                                       @Path("blockHash") String blockHash);
 
 }

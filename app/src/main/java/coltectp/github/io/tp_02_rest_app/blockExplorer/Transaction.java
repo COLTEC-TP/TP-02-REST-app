@@ -1,27 +1,47 @@
 package coltectp.github.io.tp_02_rest_app.blockExplorer;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Transaction {
-    private boolean doubleSpend;
-    private long blockHeight;
+
+    @SerializedName("time")
+    @Expose
     private long time;
+
+    @SerializedName("lock_time")
+    @Expose
     private long lockTime;
+
+    @SerializedName("relayed_by")
+    @Expose
     private String relayedBy;
+
+    @SerializedName("hash")
+    @Expose
     private String hash;
+
+    @SerializedName("tx_index")
+    @Expose
     private long index;
+
+    @SerializedName("ver")
+    @Expose
     private int version;
+
+    @SerializedName("size")
+    @Expose
     private long size;
+
+    @SerializedName("inputs")
+    @Expose
     private List<Input> inputs;
+
+    @SerializedName("out")
+    @Expose
     private List<Output> outputs;
-
-    public boolean isDoubleSpend() {
-        return doubleSpend;
-    }
-
-    public long getBlockHeight() {
-        return blockHeight;
-    }
 
     public long getTime() {
         return time;

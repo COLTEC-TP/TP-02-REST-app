@@ -1,18 +1,53 @@
 package coltectp.github.io.tp_02_rest_app.blockExplorer;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Block extends SimpleBlock {
+    @SerializedName("ver")
+    @Expose
     private int version;
+
+    @SerializedName("prev_block")
+    @Expose
     private String previousBlockHash;
+
+    @SerializedName("mrkl_root")
+    @Expose
     private String merkleRoot;
+
+    @SerializedName("bits")
+    @Expose
     private long bits;
+
+    @SerializedName("fee")
+    @Expose
     private long fees;
+
+    @SerializedName("nonce")
+    @Expose
     private long nonce;
+
+    @SerializedName("size")
+    @Expose
     private long size;
+
+    @SerializedName("block_index")
+    @Expose
     private long index;
+
+    @SerializedName("received_time")
+    @Expose
     private long receivedTime;
+
+    @SerializedName("relayed_by")
+    @Expose
     private String relayedBy;
+
+    @SerializedName("tx")
+    @Expose
     private List<Transaction> transactions;
 
     public Block(long height, String hash, long time, boolean mainChain, int version,

@@ -1,8 +1,24 @@
 package coltectp.github.io.tp_02_rest_app.blockExplorer;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Input {
+
+    @SerializedName("prev_out")
+    @Expose
     private Output previousOutput;
+
+    @SerializedName("sequence")
+    @Expose
     private long sequence;
+
+    @SerializedName("witness")
+    @Expose
+    private String witness;
+
+    @SerializedName("script")
+    @Expose
     private String scriptSignature;
 
     public Input (Output previousOutput, long sequence, String scriptSignature) {
@@ -21,6 +37,10 @@ public class Input {
 
     public String getScriptSignature() {
         return scriptSignature;
+    }
+
+    public String getWitness() {
+        return witness;
     }
 
     @Override
