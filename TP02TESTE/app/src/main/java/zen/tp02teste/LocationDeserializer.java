@@ -1,5 +1,7 @@
 package zen.tp02teste;
 
+import android.util.Log;
+
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -18,11 +20,9 @@ public class LocationDeserializer implements JsonDeserializer<Location> {
     @Override
     public Location deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
             throws JsonParseException {
-
         final JsonObject jsonObject = json.getAsJsonObject();
         final String lat = jsonObject.get("lat").getAsString();
         final String lng = jsonObject.get("lng").getAsString();
-
         final Location location = new Location();
         location.setLat(lat);
         location.setLng(lng);

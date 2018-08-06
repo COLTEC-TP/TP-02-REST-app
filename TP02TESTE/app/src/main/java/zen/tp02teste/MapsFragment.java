@@ -24,8 +24,9 @@ public class MapsFragment extends SupportMapFragment implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setPadding(0, 100, 0, 0);
         mMap.getUiSettings().setCompassEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
         LatLng local = new LatLng(MapsFragment.getLat(), MapsFragment.getLng());
         mMap.addMarker(new MarkerOptions().position(local).title("Marker :)"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(local));

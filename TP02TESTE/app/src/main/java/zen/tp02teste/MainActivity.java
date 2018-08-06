@@ -20,15 +20,18 @@ import android.widget.Toast;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
     private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        fragmentManager = getSupportFragmentManager();
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED ||
@@ -49,53 +52,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        fragmentManager = getSupportFragmentManager();
-        AddressService service = new RetrofitConfig().getEnderecoService();
-        Call<Address> enderecoCall = service.getAddress("Brasil");
-
-        enderecoCall.enqueue(new Callback<Address>() {
-            @Override
-            public void onResponse(Call<Address> call, Response<Address> response) {
-                Address address = response.body();
-                MapsFragment.setLat(Float.parseFloat(address.getLat().toString()));
-                MapsFragment.setLng(Float.parseFloat(address.getLng().toString()));
-
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.add(R.id.mapsFrame, new MapsFragment(), "MapsFragment");
-                fragmentTransaction.commitAllowingStateLoss();
-            }
-
-            @Override
-            public void onFailure(Call<Address> call, Throwable t) {
-                Log.d("ERROR - retrofit2", t.toString());
-                Toast.makeText(MainActivity.this, "ERROR - retrofit2", Toast.LENGTH_SHORT).show();
-            }
-        });
+        getMap("add", "");
 
         final EditText editTextAddress = findViewById(R.id.editTextAddress);
         editTextAddress.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(keyCode == KeyEvent.KEYCODE_ENTER) {
-                    AddressService service = new RetrofitConfig().getEnderecoService();
-                    Call<Address> newLocationCall = service.getAddress(editTextAddress.getText().toString());
-                    newLocationCall.enqueue(new Callback<Address>() {
-                        @Override
-                        public void onResponse(Call<Address> call, Response<Address> response) {
-                            Address address = response.body();
-                            MapsFragment.setLat(Float.parseFloat(address.getLat().toString()));
-                            MapsFragment.setLng(Float.parseFloat(address.getLng().toString()));
-                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.mapsFrame, new MapsFragment(), "MapsFragment");
-                            fragmentTransaction.commit();
-                        }
-
-                        @Override
-                        public void onFailure(Call<Address> call, Throwable t) {
-                            Log.d("ERROR - retrofit2", t.toString());
-                            Toast.makeText(MainActivity.this, "ERROR - retrofit2", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                    getMap("replace", editTextAddress.getText().toString());
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editTextAddress.getWindowToken(),
                             InputMethodManager.RESULT_UNCHANGED_SHOWN);
@@ -104,6 +68,97 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void getMap(final String addReplace, String place){
+        RetrofitConfig retrofitConfig = new RetrofitConfig(getBaseContext());
+        retrofitConfig.getRetrofit();
+        AddressService addressService = retrofitConfig.getAddressService();
+
+        RetrofitConfig retrofitConfigCached = new RetrofitConfig(getBaseContext());
+        retrofitConfigCached.getCachedRetrofit();
+        AddressService addressServiceCached = retrofitConfigCached.getAddressCachedService();
+
+        if(place.equals("")){place = "Brasil";}
+        if(addReplace.equals("add")) {
+            Call<Address> addressCall = addressService.getAddress(place, getResources().getString(R.string.google_maps_key));
+//            Call<Address> addressCachedCall = addressServiceCached.getAddress(place, getResources().getString(R.string.google_maps_key));
+//
+//            addressCachedCall.enqueue(new Callback<Address>() {
+//
+//                @Override
+//                public void onResponse(Call<Address> call, Response<Address> response) {
+//                    Address address = response.body();
+//                    MapsFragment.setLat(Float.parseFloat(address.getLat()));
+//                    MapsFragment.setLng(Float.parseFloat(address.getLng()));
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.add(R.id.mapsFrame, new MapsFragment(), "MapsFragment");
+//                    fragmentTransaction.commitAllowingStateLoss();
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Address> call, Throwable t) {
+//                    Log.d(TAG, t.toString());
+//                }
+//            });
+
+            addressCall.enqueue(new Callback<Address>() {
+
+                @Override
+                public void onResponse(Call<Address> call, Response<Address> response) {
+                    Address address = response.body();
+                    MapsFragment.setLat(Float.parseFloat(address.getLat()));
+                    MapsFragment.setLng(Float.parseFloat(address.getLng()));
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(R.id.mapsFrame, new MapsFragment(), "MapsFragment");
+                    fragmentTransaction.commitAllowingStateLoss();
+                }
+
+                @Override
+                public void onFailure(Call<Address> call, Throwable t) {
+                    Log.d(TAG, t.toString());
+                }
+            });
+        } else {
+            Call<Address> addressCall = addressServiceCached.getAddress(place, getResources().getString(R.string.google_maps_key));
+//            Call<Address> addressCachedCall = addressServiceCached.getAddress(place, getResources().getString(R.string.google_maps_key));
+//
+//            addressCachedCall.enqueue(new Callback<Address>() {
+//
+//                @Override
+//                public void onResponse(Call<Address> call, Response<Address> response) {
+//                    Address address = response.body();
+//                    MapsFragment.setLat(Float.parseFloat(address.getLat()));
+//                    MapsFragment.setLng(Float.parseFloat(address.getLng()));
+//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                    fragmentTransaction.replace(R.id.mapsFrame, new MapsFragment(), "MapsFragment");
+//                    fragmentTransaction.commitAllowingStateLoss();
+//                }
+//
+//                @Override
+//                public void onFailure(Call<Address> call, Throwable t) {
+//                    Log.d(TAG, t.toString());
+//                }
+//            });
+
+            addressCall.enqueue(new Callback<Address>() {
+
+                @Override
+                public void onResponse(Call<Address> call, Response<Address> response) {
+                    Address address = response.body();
+                    MapsFragment.setLat(Float.parseFloat(address.getLat()));
+                    MapsFragment.setLng(Float.parseFloat(address.getLng()));
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.mapsFrame, new MapsFragment(), "MapsFragment");
+                    fragmentTransaction.commitAllowingStateLoss();
+                }
+
+                @Override
+                public void onFailure(Call<Address> call, Throwable t) {
+                    Log.d(TAG, t.toString());
+                }
+            });
+        }
     }
 
     public void getMyLocation(View view) {

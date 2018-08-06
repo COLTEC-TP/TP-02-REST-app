@@ -1,5 +1,7 @@
 package zen.tp02teste;
 
+import android.util.Log;
+
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -18,7 +20,6 @@ public class GeometryDeserializer implements JsonDeserializer<Geometry>{
     @Override
     public Geometry deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
             throws JsonParseException {
-
         final JsonObject jsonObject = json.getAsJsonObject();
         Location location = context.deserialize(jsonObject.get("location"), Location.class);
 

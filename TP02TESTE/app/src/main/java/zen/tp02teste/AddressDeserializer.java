@@ -1,6 +1,7 @@
 package zen.tp02teste;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
@@ -20,7 +21,6 @@ public class AddressDeserializer implements JsonDeserializer<Address> {
     @Override
     public Address deserialize(final JsonElement json, final Type typeOfT, final JsonDeserializationContext context)
             throws JsonParseException {
-
         final JsonObject jsonObject = json.getAsJsonObject();
         Results results = context.deserialize(jsonObject.get("results"), Results.class);
         final Address address = new Address();

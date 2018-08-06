@@ -1,5 +1,8 @@
 package zen.tp02teste;
 
+import android.content.res.Resources;
+import android.os.Bundle;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -10,6 +13,6 @@ import retrofit2.http.Query;
 
 public interface AddressService {
 
-    @GET("maps/api/geocode/json?key=AIzaSyC0Ovirs8akz3HLbseYkPIr--ZTh8q0q80")
-    public Call<Address> getAddress(@Query("address") String address);
+    @GET("maps/api/geocode/json")
+    public Call<Address> getAddress(@Query("address") String address, @Query("key") String key);
 }

@@ -35,7 +35,9 @@ public class ProviderFragment extends SupportMapFragment implements OnMapReadyCa
             String provider = locationManager.getBestProvider(criteria, true);
             Toast.makeText(getActivity(), "Provider: " + provider, Toast.LENGTH_LONG).show();
             mMap = googleMap;
+            mMap.setPadding(0, 100, 0, 0);
             mMap.getUiSettings().setCompassEnabled(true);
+            mMap.getUiSettings().setMyLocationButtonEnabled(false);
             mMap.setMyLocationEnabled(true);
             Double myLat = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false)).getLatitude();
             Double myLng = locationManager.getLastKnownLocation(locationManager.getBestProvider(criteria, false)).getLongitude();
