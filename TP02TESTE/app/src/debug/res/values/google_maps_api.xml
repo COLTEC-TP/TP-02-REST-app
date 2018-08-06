@@ -1,4 +1,4 @@
 <resources>
     <!--TODO: https://console.cloud.google.com/apis/credentials/key/5499417848639280279?project=fiery-bit-211322&hl=pt-BR to generate new key-->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD62e35BGlPEjOZQ4k4EOZ9F_A2Gbdk84o</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBOjVnbq7nm_MG7ef-tAq2DTuRCZn0kCJQ</string>
 </resources>
