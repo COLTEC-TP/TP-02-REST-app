@@ -2,5 +2,12 @@
     <string name="app_name">MovieMe</string>
     <string name="lgn_mail">E-mail</string>
     <string name="lgn_pass">Password</string>
-    <string name="lgn_button">Login</string>
+    <string name="lgn_button">Log in</string>
+    <string name="ent_register">Sign in</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
