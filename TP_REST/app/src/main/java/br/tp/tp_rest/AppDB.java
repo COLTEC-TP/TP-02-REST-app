@@ -1,7 +1,7 @@
 package br.tp.tp_rest;
 
+import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -14,7 +14,7 @@ public class AppDB extends SQLiteOpenHelper {
         private static final int DB_VERSAO = 1;
         private static final String SCRIPT_CREATE = "CREATE TABLE Pokemons (nome TEXT)";
 
-        public AppDB(Context context){
+        public AppDB(Activity context){
             super(context, DB_NOME, null, DB_VERSAO);
         }
 

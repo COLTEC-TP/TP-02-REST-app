@@ -6,9 +6,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ola"
-        android:textSize="30dp"
-        android:id="@+id/lbl_nome"/>
+        android:text="Psyduck"
+        android:textSize="17dp"
+        android:id="@+id/Pokemon_Nome"/>
+    <ImageView
+        android:layout_width="110dp"
+        android:layout_height="140dp"
+        android:src="@drawable/confuse"
+        />
 
 
 </RelativeLayout>

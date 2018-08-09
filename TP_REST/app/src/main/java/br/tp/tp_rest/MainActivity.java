@@ -1,23 +1,10 @@
 package br.tp.tp_rest;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 public class MainActivity extends Activity {
 
@@ -34,8 +21,13 @@ public class MainActivity extends Activity {
             Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
             startActivity(intent);
         } else {
-            ListView listPokemons = findViewById(R.id.pokemonsList);
-            listPokemons.setAdapter(new PokemonAdapter(this, db.getAllPokemons()));
+            //ListView listPokemons = findViewById(R.id.pokemonsList);
+            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pokemonsList);
+            recyclerView.setAdapter(new PokemonAdapter(db.getAllPokemons(), this));
+
+            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+
+            recyclerView.setLayoutManager(layoutManager);
         }
 
     }
