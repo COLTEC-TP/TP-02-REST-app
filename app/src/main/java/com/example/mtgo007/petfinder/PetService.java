@@ -7,13 +7,13 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PetService {
 
-    @GET("pet.find?key=e8399e728f691a086c1769fd314bf83e&format=json&animal={animal}&location={location}")
-    public Call<List<Pet>> getPets(@Path("animal") String animal,
-                                   @Path("location") String location
+    @GET("pet.find?key=e8399e728f691a086c1769fd314bf83e&format=json")
+    public Call<List<Pet>> getPets(@Query("animal") String animal,
+                                   @Query("location") String location
                                   );
 
 }
