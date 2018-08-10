@@ -6,10 +6,55 @@
     android:layout_height="match_parent"
     tools:context="com.example.mtgo007.petfinder.MainActivity">
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tableLayout"
+        android:stretchColumns="1"
+        >
+
+        <TableRow>
+
+            <Spinner
+                android:id="@+id/pet_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:id="@+id/zipcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"
+                android:hint="Zipcode"
+                android:text="90001" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tableLayout"
+        android:id="@+id/tb2"
+        android:layout_marginBottom="15dp"
+        android:stretchColumns="0">
+
+        <TableRow>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:id="@+id/btnSearch"/>
+        </TableRow>
+    </TableLayout>
+
     <ListView
+        android:id="@+id/pet_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/pet_list"
-        />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tb2" />
 
 </RelativeLayout>

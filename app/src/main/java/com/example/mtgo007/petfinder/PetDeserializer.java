@@ -4,6 +4,9 @@ package com.example.mtgo007.petfinder;
  * Created by a2016952827 on 09/08/18.
  */
 
+import android.util.Log;
+import android.widget.Toast;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,10 +102,11 @@ public class PetDeserializer implements JsonDeserializer<List> {
             JsonObject raca = obj.get("breeds").getAsJsonObject();
 
 
-            if(raca.isJsonNull() != false){
-
-                raca = raca.get("breed").getAsJsonObject();
-                pet.setRaça(raca.get("$t").getAsString());
+            if(obj.get("breeds") != null ){
+                if(raca.get("breed").isJsonObject()){
+                    raca = raca.get("breed").getAsJsonObject();
+                    pet.setRaça(raca.get("$t").getAsString());
+                }
             } else {
                 pet.setRaça("");
             }
