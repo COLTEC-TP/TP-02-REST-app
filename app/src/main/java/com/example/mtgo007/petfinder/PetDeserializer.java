@@ -39,7 +39,7 @@ public class PetDeserializer implements JsonDeserializer<List> {
             pet.setNome(nome.get("$t").getAsString());
 
             JsonObject descricao = obj.get("description").getAsJsonObject();
-            if (descricao.isJsonNull() != false) {
+            if (descricao.get("$t") != null) {
                 pet.setDescricao(descricao.get("$t").getAsString());
             }
 

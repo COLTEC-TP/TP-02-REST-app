@@ -1,6 +1,8 @@
 package com.example.mtgo007.petfinder;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,18 +58,6 @@ public class PetAdapter extends BaseAdapter {
         TextView nome = newView.findViewById(R.id.nome);
         nome.setText(pet.getNome());
 
-        TextView telefone = newView.findViewById(R.id.telefone);
-        telefone.setText(pet.getTelefone());
-
-        TextView estado = newView.findViewById(R.id.estado);
-        estado.setText(pet.getEstado());
-
-        TextView cidade = newView.findViewById(R.id.cidade);
-        cidade.setText(pet.getCidade());
-
-        TextView endereco = newView.findViewById(R.id.endereco);
-        endereco.setText(pet.getEndereco());
-
         TextView idade = newView.findViewById(R.id.idade);
         idade.setText(pet.getIdade());
 
@@ -77,7 +67,24 @@ public class PetAdapter extends BaseAdapter {
         TextView raca = newView.findViewById(R.id.raca);
         raca.setText(pet.getRaça());
 
+        final Intent intent = new Intent(context, DetalhePet.class);
+        intent.putExtra("foto", pet.getFoto());
+        intent.putExtra("nome", pet.getNome());
+        intent.putExtra("idade", pet.getIdade());
+        intent.putExtra("sexo", pet.getSexo());
+        intent.putExtra("raca", pet.getRaça());
+        intent.putExtra("endereco", pet.getEndereco());
+        intent.putExtra("cidade", pet.getCidade());
+        intent.putExtra("estado", pet.getEstado());
+        intent.putExtra("telefone", pet.getTelefone());
+        intent.putExtra("descricao", pet.getDescricao());
 
+        newView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(intent);
+            }
+        });
         return newView;
     }
 }
