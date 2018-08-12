@@ -2,6 +2,8 @@ package com.example.mtgo007.petfinder;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +12,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by a2016952827 on 09/08/18.
@@ -48,7 +54,7 @@ public class PetAdapter extends BaseAdapter {
         // cria o componente que será carregado na lista
         View newView = LayoutInflater.from(this.context).inflate(R.layout.pet_layout, viewGroup, false);
 
-        ImageView foto = newView.findViewById(R.id.foto);
+        CircleImageView foto = (CircleImageView) newView.findViewById(R.id.foto);
         if(pet.getFoto() != null){
             new DownloadImageTask(foto)
                     .execute(pet.getFoto());
