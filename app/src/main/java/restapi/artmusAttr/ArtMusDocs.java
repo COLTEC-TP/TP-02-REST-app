@@ -2,10 +2,19 @@ package restapi.artmusAttr;
 
 public class ArtMusDocs {
     private String id;
-    private Integer landID;
+    private Integer langID;
     private String url;
     private String title;
     private String band;
+
+    public ArtMusDocs(String id, Integer langID, String url, String title, String band){
+        this.id = id;
+        this.langID = langID;
+        this.url = url;
+        this.title = title;
+        this.band = band;
+    }
+
 
     public String getId() {
         return id;
@@ -15,12 +24,12 @@ public class ArtMusDocs {
         this.id = id;
     }
 
-    public Integer getLandID() {
-        return landID;
+    public Integer getLangID() {
+        return langID;
     }
 
-    public void setLandID(Integer landID) {
-        this.landID = landID;
+    public void setLangID(Integer langID) {
+        this.langID = langID;
     }
 
     public String getUrl() {
