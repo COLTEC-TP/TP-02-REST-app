@@ -23,4 +23,12 @@
         android:layout_marginTop="20dp"
         />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn"
+        android:id="@+id/btnCity"
+        android:layout_centerHorizontal="true"
+        android:text="Alterar cidade"/>
+
 </RelativeLayout>

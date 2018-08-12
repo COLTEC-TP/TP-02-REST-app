@@ -1,5 +1,6 @@
 package com.gui_rei.tempopreparar.rest;
 
+import com.gui_rei.tempopreparar.rest.city.BuscaCidadeService;
 import com.gui_rei.tempopreparar.rest.current.ClimaAtualService;
 
 import retrofit2.Retrofit;
@@ -19,6 +20,10 @@ public class RetrofitConfig {
 
     public ClimaAtualService getClimaAtualService() {
         return this.retrofit.create(ClimaAtualService.class);
+    }
+
+    public BuscaCidadeService getBuscaCidadeService() {
+        return this.retrofit.create(BuscaCidadeService.class);
     }
 
 }
