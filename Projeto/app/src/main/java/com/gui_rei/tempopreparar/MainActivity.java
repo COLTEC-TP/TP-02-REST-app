@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +21,7 @@ public class MainActivity extends Activity {
     private static final String SP_ID = "3477";
     //Ex:
     // atual: http://apiadvisor.climatempo.com.br/api/v1/weather/locale/6879/current?token=
-    // 15 dias (ou 6, n entendi): apiadvisor.climatempo.com.br/api/v1/forecast/locale/6879/days/15?token=
+    // 15 dias (ou 7, n entendi): apiadvisor.climatempo.com.br/api/v1/forecast/locale/6879/days/15?token=
 
     private void atualizaTemp(){
         Prefs prefs = Prefs.getInstance();
@@ -30,7 +29,7 @@ public class MainActivity extends Activity {
 
         RetrofitConfig retrofitConfig = new RetrofitConfig();
         final ClimaAtualService serviceA = retrofitConfig.getClimaAtualService();
-        final TextView labelTemp = findViewById(R.id.txt);
+        final TextView labelTemp = findViewById(R.id.txt_mostraClimaMain);
         Call<ClimaAtual> request = serviceA.getClima(city.toString());
         Toast.makeText(MainActivity.this,"Buscando por temperatura", Toast.LENGTH_SHORT).show();
         request.enqueue(new Callback<ClimaAtual>() {
@@ -56,7 +55,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnAtualiza = findViewById(R.id.btn);
+        Button btnAtualiza = findViewById(R.id.btn_alterarCidadeMain);
         Button btnAlteraCidade = findViewById(R.id.btnCity);
 
         btnAtualiza.setOnClickListener(new View.OnClickListener() {

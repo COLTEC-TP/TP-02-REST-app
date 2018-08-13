@@ -6,18 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- Botão temporario -->
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt"
+        android:layout_below="@id/txt_mostraClimaMain"
         android:layout_centerHorizontal="true"
         android:text="Atualizar"
-        android:id="@+id/btn"/>
+        android:id="@+id/btn_alterarCidadeMain"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txt"
+        android:id="@+id/txt_mostraClimaMain"
         android:text="Por enquanto nada"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
@@ -26,7 +27,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn"
+        android:layout_below="@id/btn_alterarCidadeMain"
         android:id="@+id/btnCity"
         android:layout_centerHorizontal="true"
         android:text="Alterar cidade"/>
