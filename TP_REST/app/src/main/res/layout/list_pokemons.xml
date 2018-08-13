@@ -8,12 +8,62 @@
         android:layout_height="wrap_content"
         android:text="Psyduck"
         android:textSize="17dp"
-        android:id="@+id/Pokemon_Nome"/>
+        android:id="@+id/Pokemon_Nome"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="250dp"/>
+
     <ImageView
         android:layout_width="110dp"
         android:layout_height="140dp"
-        android:src="@drawable/confuse"
-        />
+        android:id="@+id/Pokemon_Img"
+        android:src="@drawable/psyduck" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Ataque_Txt"
+        android:text="ATQ"
+        android:layout_below="@+id/Pokemon_Img"
+        android:layout_alignStart="@+id/Pokemon_Img"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="70"
+        android:id="@+id/Ataque_Num"
+        android:layout_toRightOf="@+id/Ataque_Txt"
+        android:layout_alignBaseline="@+id/Ataque_Txt"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Defesa_Num"
+        android:text="70" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Agilidade_Num"
+        android:text="70" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Ataque_Especial_Num"
+        android:text="70" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/Defesa_Especial_Num"
+        android:text="70" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/HP_Num"
+        android:text="70" />
+
 
 
 </RelativeLayout>
