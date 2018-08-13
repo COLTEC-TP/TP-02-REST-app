@@ -1,35 +1,104 @@
 package br.tp.tp_rest;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.SearchView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
+
+    PokemonDAO dao = PokemonDAO.getInstance(this);
+    PokemonAdapter adapter = null;
+    AppDB db = new AppDB(this);
+    RecyclerView.LayoutManager layoutManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
 
-        final PokemonDAO dao = new PokemonDAO(this);
-
-        AppDB db = new AppDB(this);
-        //db.deleteAll();
         if (db.getAllPokemons().size() < dao.getNum_pokemons()) {
             Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
             startActivity(intent);
         } else {
+            ArrayList<Pokemon> pokemons = db.getAllPokemons();
             //ListView listPokemons = findViewById(R.id.pokemonsList);
             RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pokemonsList);
-            recyclerView.setAdapter(new PokemonAdapter(db.getAllPokemons(), this));
 
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-
+            adapter = new PokemonAdapter(pokemons, this);
+            recyclerView.setAdapter(adapter);
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
             recyclerView.setLayoutManager(layoutManager);
+
+            // Atualiza DAO
+            for (int i=0; i<pokemons.size(); i++){
+                dao.addPokemon(pokemons.get(i));
+            }
         }
 
+
+
+        // Prepara Action Bar //
+        ActionBar actionBar = getActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0000ff")));
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                /*s = s.toUpperCase();
+                ArrayList<Pokemon> pokemonsFiltrados = new ArrayList<>();
+                ArrayList<Pokemon> pokemons = db.getAllPokemons();
+                for (int i=0; i<pokemons.size(); i++){
+                    if(pokemons.get(i).getName().toUpperCase().contains(s)){
+                        pokemonsFiltrados.add(pokemons.get(i));
+                    }
+                }*/
+                ArrayList<Pokemon> pokemonsFiltrados = dao.filtrarPokemons(s);
+                adapter.atualiza(pokemonsFiltrados);
+                adapter.notifyDataSetChanged();
+                layoutManager.scrollToPosition(0);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                // executado enquanto texto é alterado pelo usuário
+                return false;
+            }
+
+        });
+
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                adapter.atualiza(db.getAllPokemons());
+                adapter.notifyDataSetChanged();
+                layoutManager.scrollToPosition(0);
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 }
         /*

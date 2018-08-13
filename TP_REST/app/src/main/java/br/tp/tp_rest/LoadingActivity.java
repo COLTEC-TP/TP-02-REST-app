@@ -21,7 +21,7 @@ public class LoadingActivity extends Activity {
         setContentView(R.layout.activity_loading);
 
         AppDB db = new AppDB(this);
-        final PokemonDAO dao = new PokemonDAO(this);
+        final PokemonDAO dao = PokemonDAO.getInstance(this);
         requisita(1, dao, this, db);
     }
 

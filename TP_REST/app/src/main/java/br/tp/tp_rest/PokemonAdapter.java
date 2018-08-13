@@ -56,6 +56,10 @@ public class PokemonAdapter extends RecyclerView.Adapter {
             nome = (TextView) itemView.findViewById(R.id.Pokemon_Nome);
         }
     }
+
+    public void atualiza(ArrayList<Pokemon> pokemons){
+        this.pokemons = pokemons;
+    }
 }
 
 /*

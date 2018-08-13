@@ -16,8 +16,20 @@ public class PokemonDAO {
     private ArrayList<Pokemon> pokemons;
     private Context context;
 
+    // singleton para lidar com única instância do DAO
+    private static PokemonDAO instance;
+
+
+    public static PokemonDAO getInstance(Context context) {
+
+        if(instance == null)
+            instance = new PokemonDAO(context);
+
+        return instance;
+    }
+
     // Construtor Privado
-    public PokemonDAO(Context context) {
+    private PokemonDAO(Context context) {
         this.pokemons = new ArrayList<>();
         this.context = context;
     }
