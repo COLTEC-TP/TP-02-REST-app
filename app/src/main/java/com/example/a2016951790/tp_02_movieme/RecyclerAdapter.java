@@ -1,57 +1,72 @@
 package com.example.a2016951790.tp_02_movieme;
 
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by a2016951790 on 09/08/18.
  */
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    private String[] mDataset;
+public class RecyclerAdapter extends RecyclerView.Adapter {
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView mTextView;
-        public ViewHolder(TextView v) {
-            super(v);
-            mTextView = v;
-        }
-    }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-    public RecyclerAdapter(String[] myDataset) {
-        mDataset = myDataset;
-    }
-
-    // Create new views (invoked by the layout manager)
     @Override
-    public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
-        // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_next, parent, false);
-        ViewHolder vh = new ViewHolder(v);
-        return vh;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_holder, parent, false);
+        return new ListViewHolder(view);
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        holder.mTextView.setText(mDataset[position]);
-
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        ((ListViewHolder) holder).bindView(position);
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return DataTeste.titulo.length;
+    }
+
+    private class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        private TextView mTitulo;
+        private ImageView mCartaz;
+        private TextView mRating;
+        private TextView mAno;
+        private TextView mDiretor;
+
+        public ListViewHolder(View itemView){
+
+            super(itemView);
+            mTitulo = itemView.findViewById(R.id.rcv_title);
+            mCartaz = itemView.findViewById(R.id.rcv_photo);
+            mRating = itemView.findViewById(R.id.rcv_grade);
+            mAno = itemView.findViewById(R.id.rcv_release_date);
+            mDiretor = itemView.findViewById(R.id.rcv_director);
+            itemView.setOnClickListener(this);
+        }
+
+        public void bindView(int position) {
+            mTitulo.setText(DataTeste.titulo[position]);
+            mRating.setText(DataTeste.rating[position]);
+            mDiretor.setText(DataTeste.diretor[position]);
+            mAno.setText(DataTeste.ano[position]);
+            mCartaz.setImageResource(DataTeste.movie[position]);
+
+        }
+
+        @Override
+        public void onClick(View view) {
+
+        }
     }
 }
