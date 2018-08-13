@@ -3,7 +3,9 @@ package com.gui_rei.tempopreparar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.gui_rei.tempopreparar.rest.RetrofitConfig;
@@ -16,14 +18,22 @@ import retrofit2.Response;
 
 public class CityActivity extends Activity {
 
+    private static final String[] estados = new String[]{  "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city);
+
+        Spinner comboEstados = findViewById(R.id.listaEstados);
+        ArrayAdapter comboAdap = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, estados);
+        comboAdap.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        comboEstados.setAdapter(comboAdap);
+
     }
 
-    public void procura(View view) {
-        //Prefs prefs = Prefs.getInstance();
+    public void procura(View view) //Toda a ação a ser executada quando o botão que seleciona a cidade pelo nome for clicado
+    {
 
         EditText txtCidade = findViewById(R.id.txtCityS);
         String cidade = txtCidade.getText().toString();

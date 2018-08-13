@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:stretchColumns="0">
-        <TableRow>
+        <TableRow android:gravity="bottom">
             <EditText
                 android:hint="Nome da cidade"
                 android:id="@+id/txtCityS"/>
@@ -22,16 +22,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ou então faça a busca (ainda não funfa essa parte)"
+        android:text="Ou então faça a busca"
         android:padding="10dp"
         android:layout_marginTop="25dp"/>
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="1">
+        android:stretchColumns="1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp">
         <TableRow>
-            <Spinner></Spinner>
+            <Spinner
+                android:id="@+id/listaEstados" />
             <EditText
                 android:hint="Filtrar"/>
         </TableRow>
