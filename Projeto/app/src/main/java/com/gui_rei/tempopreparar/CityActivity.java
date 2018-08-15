@@ -17,6 +17,7 @@ import com.gui_rei.tempopreparar.rest.city.BuscaCidade;
 import com.gui_rei.tempopreparar.rest.city.BuscaCidadeListAdapter;
 import com.gui_rei.tempopreparar.rest.city.BuscaCidadeService;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -27,7 +28,7 @@ import retrofit2.Response;
 public class CityActivity extends Activity{
 
     private static final String[] estados = new String[]{  "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"};
-    //TODO adicionar estado "All" para ser o primeiro
+    //TODO adicionar estado "All" para ser o primeiro se conseguir fazer isso sem passar 10 requisição por minuto
 
     private ArrayList<BuscaCidade> buscaArray = new ArrayList<>();
     private ArrayList<BuscaCidade> buscaArrayB = new ArrayList<>();
@@ -94,7 +95,8 @@ public class CityActivity extends Activity{
         int n = buscaArrayB.size();
         int i = 0;
         while (i<n){
-            if(buscaArrayB.get(i).getName().toLowerCase().contains(txtFiltro.toLowerCase())) newList.add(buscaArrayB.get(i));
+            String normalizada = sAcento(buscaArrayB.get(i).getName().toLowerCase());
+            if(normalizada.contains(sAcento(txtFiltro.toLowerCase()))) newList.add(buscaArrayB.get(i));
             i++;
         }
         return newList;
@@ -163,6 +165,10 @@ public class CityActivity extends Activity{
         });
     }
 
+    public static String sAcento(String str) //!!!!! Essa função está muito pesada
+    {
+        return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+    }
 }
 
 
