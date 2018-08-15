@@ -23,24 +23,27 @@ public class MainActivity extends Activity {
     // atual: http://apiadvisor.climatempo.com.br/api/v1/weather/locale/6879/current?token=
     // 15 dias (ou 7, n entendi): apiadvisor.climatempo.com.br/api/v1/forecast/locale/6879/days/15?token=
 
+    private void preencheTela(ClimaAtual clima){ //Função responsável for preencher o frontend
+        TextView txtTemp = findViewById(R.id.txt_mostraClimaMain);
+        txtTemp.setText("Clima em " + clima.getName().toString() + ": \n" +
+                        "Temperatura: " + clima.getData().getTemperature().toString() + "° \n" +
+                        "Vento: " + clima.getData().getWind_velocity().toString() + " KM/h"
+        );
+    }
+
     private void atualizaTemp(){
         Prefs prefs = Prefs.getInstance();
         Integer city = prefs.getCity();
 
         RetrofitConfig retrofitConfig = new RetrofitConfig();
         final ClimaAtualService serviceA = retrofitConfig.getClimaAtualService();
-        final TextView labelTemp = findViewById(R.id.txt_mostraClimaMain);
         Call<ClimaAtual> request = serviceA.getClima(city.toString());
         Toast.makeText(MainActivity.this,"Buscando por temperatura", Toast.LENGTH_SHORT).show();
         request.enqueue(new Callback<ClimaAtual>() {
             @Override
             public void onResponse(Call<ClimaAtual> call, Response<ClimaAtual> response) {// executado quando resposta for recebida
                 ClimaAtual clima = response.body();
-                labelTemp.setText(
-                        "Clima em " + clima.getName().toString() + ": \n" +
-                                "Temperatura: " + clima.getData().getTemperature().toString() + "° \n" +
-                                "Vento: " + clima.getData().getWind_velocity().toString() + " KM/h"
-                );
+                preencheTela(clima);
             }
             @Override
             public void onFailure(Call<ClimaAtual> call, Throwable t) {//executado quando houver erros
