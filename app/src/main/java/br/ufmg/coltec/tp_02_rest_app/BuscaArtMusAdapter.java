@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class BuscaArtMusAdapter extends BaseAdapter{
             info2.setText(item.getBand());
         }else{
             info1.setText(item.getBand());
-            info2.setText("Ver dicografia");
+            info2.setText("Ver discografia");
         }
 
         return newView;

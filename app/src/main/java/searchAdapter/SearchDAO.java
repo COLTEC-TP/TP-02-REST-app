@@ -9,11 +9,12 @@ import restapi.artmusAttr.ArtMusDocs;
 public class SearchDAO {
     private ArrayList<ArtMusDocs> resultados;
     private static SearchDAO instance;
-    Context context;
+    private Context context;
 
     private SearchDAO(Context cont){
         context = cont;
         resultados = new ArrayList<>();
+        carregaSearch();
     }
 
     public static SearchDAO getInstance(Context cont) {
@@ -23,12 +24,10 @@ public class SearchDAO {
     }
 
     private void carregaSearch() {
-
-        /*Aqui as informações serão recuperadas do banco de dados*/
-//        produtos.add(new Produto("Sabão", "Limpeza", 15.54));
-//        produtos.add(new Produto("Escova de dentes", "Higiene", 3.7));
-//        produtos.add(new Produto("Escova de dentes", "Higiene", 3.7));
-
+        /*resultados.add(new ArtMusDocs("456789", 2, "oi.com", "2u", "u2"));
+        resultados.add(new ArtMusDocs("456789", 2, "oi.com", "2u", "u2"));
+        resultados.add(new ArtMusDocs("456789", 2, "oi.com", "2u", "u2"));
+        */
     }
     public void adiconaItem (ArtMusDocs novoItem){
         instance.resultados.add(novoItem);
