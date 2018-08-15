@@ -32,9 +32,10 @@ public class LoadingActivity extends Activity {
                 Pokemon pokemon = response.body();
                 dao.addPokemon(pokemon);
                 db.insert(pokemon);
+                Toast.makeText(context, String.valueOf(pokemon.getStats().get(0).getBase_stat()) + " " +String.valueOf(db.getAllPokemons().get(0).getStats().get(0).getBase_stat()), Toast.LENGTH_SHORT).show();
+
                 if (id < dao.getNum_pokemons()) {
                     requisita(id + 1, dao, context, db);
-                    Toast.makeText(context, pokemon.getName(), Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(context, "Todos os pokemons foram carregados", Toast.LENGTH_SHORT).show();
                     finish();
@@ -46,6 +47,10 @@ public class LoadingActivity extends Activity {
             @Override
             public void onFailure(Call<Pokemon> call, Throwable t) {
                 t.printStackTrace();
+                Toast.makeText(context, "Falha ao carregar pokemons", Toast.LENGTH_SHORT).show();
+                finish();
+                Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         };
 

@@ -12,7 +12,7 @@ import retrofit2.Response;
 
 public class PokemonDAO {
 
-    private static int num_pokemons = 5;
+    private static int num_pokemons = 10;
     private ArrayList<Pokemon> pokemons;
     private Context context;
 

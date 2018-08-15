@@ -12,7 +12,7 @@ public class AppDB extends SQLiteOpenHelper {
 
         private static String DB_NOME = "Pokemons";
         private static final int DB_VERSAO = 1;
-        private static final String SCRIPT_CREATE = "CREATE TABLE Pokemons (nome TEXT)";
+        private static final String SCRIPT_CREATE = "CREATE TABLE Pokemons (nome TEXT, agilidade INT, hp INT, ataque INT, defesa INT, super_ataque INT, super_defesa INT)";
 
         public AppDB(Activity context){
             super(context, DB_NOME, null, DB_VERSAO);
@@ -33,6 +33,22 @@ public class AppDB extends SQLiteOpenHelper {
             try {
                 ContentValues cv = new ContentValues();
                 cv.put("nome", p.getName());
+
+                /** 0 -> agilidade
+                 *  1 -> super defesa
+                 *  2 -> super ataque
+                 *  3 -> defesa
+                 *  4 -> ataque
+                 *  5-> hp
+                **/
+
+                cv.put("ataque", p.getStats().get(4).getBase_stat());
+                cv.put("defesa", p.getStats().get(3).getBase_stat());
+                cv.put("agilidade", p.getStats().get(0).getBase_stat());
+                cv.put("hp", p.getStats().get(5).getBase_stat());
+                cv.put("super_ataque", p.getStats().get(2).getBase_stat());
+                cv.put("super_defesa", p.getStats().get(1).getBase_stat());
+
                 db.insert("Pokemons", null, cv);
             }catch (Exception e){
                 e.printStackTrace();
@@ -51,8 +67,15 @@ public class AppDB extends SQLiteOpenHelper {
                 if(c.moveToFirst()) {
                     do {
                         String nome = c.getString(c.getColumnIndex("nome"));
+                        ArrayList<Stat> stats = new ArrayList<>();
+                        stats.add(new Stat(c.getInt(c.getColumnIndex("ataque"))));
+                        stats.add(new Stat(c.getInt(c.getColumnIndex("defesa"))));
+                        stats.add(new Stat(c.getInt(c.getColumnIndex("agilidade"))));
+                        stats.add(new Stat(c.getInt(c.getColumnIndex("hp"))));
+                        stats.add(new Stat(c.getInt(c.getColumnIndex("super_ataque"))));
+                        stats.add(new Stat(c.getInt(c.getColumnIndex("super_defesa"))));
 
-                        Pokemon p = new Pokemon(nome);
+                        Pokemon p = new Pokemon(nome, stats);
 
                         // adiciona user na lista que será retornada
                         pokemons.add(p);
@@ -67,20 +90,6 @@ public class AppDB extends SQLiteOpenHelper {
             return pokemons;
         }
 
-        public void insertAll(ArrayList<Pokemon> pokemons) {
-            SQLiteDatabase db = this.getWritableDatabase();
-            for (int i = 0; i < pokemons.size(); i++) {
-                try {
-                    ContentValues cv = new ContentValues();
-                    cv.put("nome", pokemons.get(i).getName());
-                    db.insert("Pokemons", null, cv);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                } finally {
-                    db.close();
-                }
-            }
-        }
 
         public void deleteAll(){
             SQLiteDatabase db = this.getWritableDatabase();

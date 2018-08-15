@@ -28,7 +28,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
 
-        if (db.getAllPokemons().size() < dao.getNum_pokemons()) {
+        if (db.getAllPokemons().size() != dao.getNum_pokemons()) {
+            db.deleteAll();
             Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
             startActivity(intent);
         } else {
@@ -38,7 +39,7 @@ public class MainActivity extends Activity {
 
             adapter = new PokemonAdapter(pokemons, this);
             recyclerView.setAdapter(adapter);
-            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
 
             // Atualiza DAO
