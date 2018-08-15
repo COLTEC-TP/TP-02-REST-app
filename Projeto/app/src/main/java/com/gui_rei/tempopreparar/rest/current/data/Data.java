@@ -12,22 +12,22 @@ public class Data {
     private String wind_direction;
     @SerializedName("wind_velocity")
     @Expose
-    private Integer wind_velocity;
+    private Float wind_velocity;
     @SerializedName("humidity")
     @Expose
-    private Integer humidity;
+    private Float humidity;
     @SerializedName("condition")
     @Expose
     private String condition;
     @SerializedName("pressure")
     @Expose
-    private Integer pressure;
+    private Float pressure;
     @SerializedName("icon")
     @Expose
     private String icon;
     @SerializedName("sensation")
     @Expose
-    private Integer sensation;
+    private Float sensation;
     @SerializedName("date")
     @Expose
     private String date;
@@ -44,16 +44,16 @@ public class Data {
     public void setWind_direction(String wind_direction) {
         this.wind_direction = wind_direction;
     }
-    public Integer getWind_velocity() {
+    public Float getWind_velocity() {
         return wind_velocity;
     }
-    public void setWind_velocity(Integer wind_velocity) {
+    public void setWind_velocity(Float wind_velocity) {
         this.wind_velocity = wind_velocity;
     }
-    public Integer getHumidity() {
+    public Float getHumidity() {
         return humidity;
     }
-    public void setHumidity(Integer humidity) {
+    public void setHumidity(Float humidity) {
         this.humidity = humidity;
     }
     public String getCondition() {
@@ -62,10 +62,10 @@ public class Data {
     public void setCondition(String condition) {
         this.condition = condition;
     }
-    public Integer getPressure() {
+    public Float getPressure() {
         return pressure;
     }
-    public void setPressure(Integer pressure) {
+    public void setPressure(Float pressure) {
         this.pressure = pressure;
     }
     public String getIcon() {
@@ -74,10 +74,10 @@ public class Data {
     public void setIcon(String icon) {
         this.icon = icon;
     }
-    public Integer getSensation() {
+    public Float getSensation() {
         return sensation;
     }
-    public void setSensation(Integer sensation) {
+    public void setSensation(Float sensation) {
         this.sensation = sensation;
     }
     public String getDate() {
