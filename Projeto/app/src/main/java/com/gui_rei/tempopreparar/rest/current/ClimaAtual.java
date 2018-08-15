@@ -8,7 +8,7 @@ public class ClimaAtual {
     public class Data {
         @SerializedName("temperature")
         @Expose
-        private Integer temperature;
+        private Float temperature;
         @SerializedName("wind_direction")
         @Expose
         private String wind_direction;
@@ -34,10 +34,10 @@ public class ClimaAtual {
         @Expose
         private String date;
 
-        public Integer getTemperature() {
+        public Float getTemperature() {
             return temperature;
         }
-        public void setTemperature(Integer temperature) {
+        public void setTemperature(Float temperature) {
             this.temperature = temperature;
         }
         public String getWind_direction() {

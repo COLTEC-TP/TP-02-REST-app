@@ -25,7 +25,6 @@
         android:text="Ou então faça a busca"
         android:padding="10dp"
         android:layout_marginTop="25dp"/>
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,7 +35,15 @@
             <Spinner
                 android:id="@+id/listaEstados" />
             <EditText
-                android:hint="Filtrar"/>
+                android:hint="Filtrar"
+                android:id="@+id/filtroCity"/>
         </TableRow>
     </TableLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listaCidadeBusca"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+
 </LinearLayout>
