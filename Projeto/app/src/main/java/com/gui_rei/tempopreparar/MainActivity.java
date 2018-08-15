@@ -24,10 +24,20 @@ public class MainActivity extends Activity {
     // 15 dias (ou 7, n entendi): apiadvisor.climatempo.com.br/api/v1/forecast/locale/6879/days/15?token=
 
     private void preencheTela(ClimaAtual clima){ //Função responsável for preencher o frontend
-        TextView txtTemp = findViewById(R.id.txt_mostraClimaMain);
-        txtTemp.setText("Clima em " + clima.getName().toString() + ": \n" +
-                        "Temperatura: " + clima.getData().getTemperature().toString() + "° \n" +
-                        "Vento: " + clima.getData().getWind_velocity().toString() + " KM/h"
+
+        //Mostrar a cidade
+        TextView txtCidade = findViewById(R.id.txt_cidade);
+        txtCidade.setText(clima.getName().toString());
+
+        //Mostrar velocidade do vento
+//        TextView txtTemp = findViewById(R.id.txt_vento);
+//        txtTemp.setText("Clima em " + clima.getName().toString() + ": \n" +
+//                "Vento: " + clima.getData().getWind_velocity().toString() + " KM/h"
+//        );
+
+        //Mostrar a temperatura atual
+        TextView temperaturaAtual = findViewById(R.id.txtTemperaturaAtual);
+        temperaturaAtual.setText(clima.getData().getTemperature().toString() + "°"
         );
     }
 
@@ -57,6 +67,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Remover Action Bar
+        getActionBar().hide();
 
         Button btnAtualiza = findViewById(R.id.btn_alterarCidadeMain);
         Button btnAlteraCidade = findViewById(R.id.btnCity);

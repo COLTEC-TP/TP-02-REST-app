@@ -4,32 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgroundescuro"
     tools:context=".MainActivity">
 
     <!-- Botão temporario -->
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_mostraClimaMain"
-        android:layout_centerHorizontal="true"
-        android:text="Atualizar"
-        android:id="@+id/btn_alterarCidadeMain"/>
+        android:id="@+id/btn_alterarCidadeMain"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/atualizar" />
 
     <TextView
+        android:id="@+id/txt_cidade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/txt_mostraClimaMain"
-        android:text="Por enquanto nada"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        />
+        android:layout_marginTop="101dp"
+        android:text="Belo Horizonte"
+        android:textColor="#FFB700"
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/txtTemperaturaAtual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="34dp"
+        android:text="x Cº"
+        android:textColor="#FFB700"
+        android:textSize="70dp" />
 
     <Button
+        android:id="@+id/btnCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_alterarCidadeMain"
-        android:id="@+id/btnCity"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="61dp"
+        android:background="@android:color/transparent"
+        android:textSize="17dp"
+        android:text="Alterar cidade"
+        android:textColor="#FFB700" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="156dp"
+        android:src="@drawable/solnuvem" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Alterar cidade"/>
+        android:layout_marginBottom="35dp"
+        android:text="Sol com algumas nuvens\n\nPegue o guarda chuva\n\nVista o seu casaco"
+        android:textAlignment="center"
+        android:textColor="#FFB700"
+        android:textSize="20dp" />
 
 </RelativeLayout>
