@@ -26,7 +26,7 @@ public class BuscaCidadeListAdapter extends BaseAdapter {
         return cidadesEncontradas.size();
     }
     @Override
-    public Object getItem(int i) {
+    public BuscaCidade getItem(int i) {
         return cidadesEncontradas.get(i);
     }
     @Override

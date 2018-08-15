@@ -53,7 +53,16 @@ public class CityActivity extends Activity{
             }
         });
 
-        //onclick
+        cidadesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int city = buscaArray.get(i).getId();
+                Prefs prefs = Prefs.getInstance();
+                prefs.setCity(city);
+
+                finish();
+            }
+        });
     }
 
     private void carregaListEstado(String estado){
@@ -116,3 +125,9 @@ public class CityActivity extends Activity{
     }
 
 }
+
+
+
+
+
+
