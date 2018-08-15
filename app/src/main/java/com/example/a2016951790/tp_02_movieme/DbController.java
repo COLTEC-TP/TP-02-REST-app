@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 /**
  * Created by a2016951790 on 07/08/18.
@@ -18,13 +17,15 @@ public class DbController {
         banco = new DbOpener(context);
     }
 
-    public String insertUser(String mail, String pass){
+    public String insertUser(String mail, String pass, String name, String user){
         ContentValues valores;
         long resultado;
 
         db = banco.getWritableDatabase();
         valores = new ContentValues();
         valores.put(DbOpener.EMAIL_USUARIO, mail);
+        valores.put(DbOpener.USUARIO, user);
+        valores.put(DbOpener.NOME_USUARIO, name);
         valores.put(DbOpener.SENHA_USUARIO, pass);
 
         resultado = db.insert(DbOpener.TABELA_USUARIO, null, valores);
@@ -37,19 +38,18 @@ public class DbController {
 
     }
 
-    public Integer pegarUsuarioPorEmail(String email, String pass){
+    public Integer pegarUsuarioPorEmail(String user, String pass){
 
         db = banco.getReadableDatabase();
 
         Integer valor;
 
-        String querySql = "SELECT senha FROM usuarios WHERE email = ?";
-        Cursor cursor = db.rawQuery(querySql, new String[] {email});
+        String querySql = "SELECT senha FROM usuarios WHERE user = ?";
+        Cursor cursor = db.rawQuery(querySql, new String[] {user});
 
         cursor.moveToFirst();
 
         if(cursor.getCount() > 0){
-            Log.i("User", cursor.getString(0));
             if(cursor.getString(0).equals(pass)){
                 valor = 2;
             } else{

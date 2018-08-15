@@ -11,6 +11,8 @@ import android.database.sqlite.SQLiteOpenHelper;
         static final String NOME_BANCO_USUARIO = "usuario.db";
         static final String TABELA_USUARIO = "usuarios";
         static final String ID = "_id";
+        static final String NOME_USUARIO = "name";
+        static final String USUARIO = "user";
         static final String EMAIL_USUARIO = "email";
         static final String SENHA_USUARIO = "senha";
         static final int VERSAO = 1;
@@ -23,6 +25,8 @@ import android.database.sqlite.SQLiteOpenHelper;
         public void onCreate(SQLiteDatabase db) {
             String sql = "CREATE TABLE "+TABELA_USUARIO+" ("
                     + ID + " integer primary key autoincrement,"
+                    + USUARIO + " text,"
+                    + NOME_USUARIO + " text,"
                     + EMAIL_USUARIO + " text,"
                     + SENHA_USUARIO + " text"
                     +")";

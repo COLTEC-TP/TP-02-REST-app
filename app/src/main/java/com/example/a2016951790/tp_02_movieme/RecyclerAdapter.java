@@ -1,16 +1,14 @@
 package com.example.a2016951790.tp_02_movieme;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +17,13 @@ import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter {
 
+    private List<Filme> filmes;
+    private Context context;
+
+    public RecyclerAdapter(Context c, List<Filme> p){
+        this.context = c;
+        this.filmes = p;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -33,10 +38,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return DataTeste.titulo.length;
+        return this.filmes.size();
     }
 
     private class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
 
         private TextView mTitulo;
         private ImageView mCartaz;
@@ -56,10 +62,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         }
 
         public void bindView(int position) {
-            mTitulo.setText(DataTeste.titulo[position]);
-            mRating.setText(DataTeste.rating[position]);
-            mDiretor.setText(DataTeste.diretor[position]);
-            mAno.setText(DataTeste.ano[position]);
+            Filme filme = filmes.get(position);
+            Log.i(filme.getAno(), filme.getTitulo());
+            mTitulo.setText(filme.getTitulo());
+            mRating.setText(filme.getRating());
+            mDiretor.setText(filme.getDiretor());
+            mAno.setText(filme.getAno());
             mCartaz.setImageResource(DataTeste.movie[position]);
 
         }

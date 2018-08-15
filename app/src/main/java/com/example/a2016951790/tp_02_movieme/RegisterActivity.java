@@ -18,6 +18,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         final EditText mailr = findViewById(R.id.reg_mail);
         final EditText passr = findViewById(R.id.reg_pass);
+        final EditText userr = findViewById(R.id.reg_user);
+        final EditText namer = findViewById(R.id.reg_name);
         Button sign = findViewById(R.id.reg_button);
 
         sign.setOnClickListener(new View.OnClickListener() {
@@ -26,12 +28,14 @@ public class RegisterActivity extends AppCompatActivity {
                 DbController crud = new DbController(getBaseContext());
                 String mailString = mailr.getText().toString();
                 String passString = passr.getText().toString();
+                String userString = userr.getText().toString();
+                String nameString = namer.getText().toString();
                 String resultado;
 
-                resultado = crud.insertUser(mailString, passString);
+                resultado = crud.insertUser(mailString, passString, nameString, userString);
                 Log.i(resultado, resultado);
 
-                Toast.makeText(RegisterActivity.this, "Usuario " + mailString + " cadastrado", Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, "Usuario " + userString + " cadastrado", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(RegisterActivity.this, EnterActivity.class);
                 startActivity(intent);
