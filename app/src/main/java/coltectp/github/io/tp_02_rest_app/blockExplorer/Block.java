@@ -112,6 +112,8 @@ public class Block extends SimpleBlock {
         return transactions;
     }
 
+    public Transaction getTransaction(int i) {return transactions.get(i);}
+
     @Override
     public int hashCode () {
         int result = version;

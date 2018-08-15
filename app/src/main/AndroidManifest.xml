@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,12 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".charts.block.TransactionPerBlockFragment" />
-        <activity android:name=".charts.block.BlockChart" />
-        <activity android:name=".charts.coin.StatsCoinActivity" />
-        <activity android:name=".charts.mining.MiningInfoActivity" />
-        <activity android:name=".charts.pieChart.PoolChartActivity" />
-        <activity android:name=".blockExplorer.activity.BlockExplorerActivity"></activity>
+
+        <activity android:name=".charts.block.BlockChart" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".charts.coin.StatsCoinActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".charts.mining.MiningInfoActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".charts.pieChart.PoolChartActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".blockExplorer.activity.SimpleBlockActivity" android:parentActivityName=".MainActivity"/>
+        <activity android:name=".blockExplorer.activity.SingleBlockActivity" android:parentActivityName=".blockExplorer.activity.SimpleBlockActivity"/>
+        <activity android:name=".blockExplorer.activity.TransactionActivity" android:parentActivityName=".blockExplorer.activity.SingleBlockActivity"></activity>
     </application>
 
 </manifest>

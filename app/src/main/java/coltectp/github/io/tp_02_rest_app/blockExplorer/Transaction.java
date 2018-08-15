@@ -79,6 +79,7 @@ public class Transaction {
         return outputs;
     }
 
+
     @Override
     public int hashCode () {
         int result = hash != null ? hash.hashCode() : 0;

@@ -18,6 +18,8 @@ public class SimpleBlockList {
         return blocks;
     }
 
+    public SimpleBlock getBlock(int i) {return blocks.get(i);}
+
     public void setBlocks(List<SimpleBlock> blocks) {
         this.blocks = blocks;
     }
