@@ -2,6 +2,8 @@ package com.gui_rei.tempopreparar;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -25,8 +27,10 @@ import retrofit2.Response;
 public class CityActivity extends Activity{
 
     private static final String[] estados = new String[]{  "AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"};
+    //TODO adicionar estado "All" para ser o primeiro
 
     private ArrayList<BuscaCidade> buscaArray = new ArrayList<>();
+    private ArrayList<BuscaCidade> buscaArrayB = new ArrayList<>();
     private BuscaCidadeListAdapter buscaAdapter = new BuscaCidadeListAdapter(this,buscaArray);
 
     @Override
@@ -63,6 +67,37 @@ public class CityActivity extends Activity{
                 finish();
             }
         });
+
+        EditText txtFiltro = findViewById(R.id.filtroCity);
+        txtFiltro.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                ArrayList<BuscaCidade> filtrado = filtrarBusca(charSequence.toString());
+                buscaArray.clear();
+                buscaArray.addAll(filtrado);
+                buscaAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    public ArrayList<BuscaCidade> filtrarBusca(String txtFiltro) {
+        ArrayList<BuscaCidade> newList = new ArrayList<>();
+
+        int n = buscaArrayB.size();
+        int i = 0;
+        while (i<n){
+            if(buscaArrayB.get(i).getName().toLowerCase().contains(txtFiltro.toLowerCase())) newList.add(buscaArrayB.get(i));
+            i++;
+        }
+        return newList;
     }
 
     private void carregaListEstado(String estado){
@@ -77,6 +112,10 @@ public class CityActivity extends Activity{
                 buscaArray.clear();
                 buscaArray.addAll(Arrays.asList(resultados));
                 buscaAdapter.notifyDataSetChanged();
+                //criar backup
+                buscaArrayB.clear();
+                buscaArrayB.addAll(buscaArray);
+
                 if(resultados.length<1) Toast.makeText(CityActivity.this,"Ocorreu um erro, nenhuma cidade encontrada para esse estado",Toast.LENGTH_SHORT).show();
             }
             @Override
