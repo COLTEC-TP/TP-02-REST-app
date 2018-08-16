@@ -17,7 +17,7 @@ public class Pokemon {
     @SerializedName("sprites")
     private Sprite sprite = null;
 
-    private Bitmap imagem;
+    private Bitmap imagem = null;
 
     public Pokemon(String nome, ArrayList<Stat> stats, Sprite sprite) {
         this.nome = nome;

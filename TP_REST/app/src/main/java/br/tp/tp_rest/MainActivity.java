@@ -2,6 +2,8 @@ package br.tp.tp_rest;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -31,7 +36,6 @@ public class MainActivity extends Activity {
     AppDB db = new AppDB(this);
     RecyclerView.LayoutManager layoutManager = null;
     ArrayList<Pokemon> pokemons = new ArrayList<>();
-    int pokemon_img = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +50,35 @@ public class MainActivity extends Activity {
         } else {
             pokemons = db.getAllPokemons();
 
-            // Atualiza DAO
+            // Atualiza DAO & Carrega Imagens
             for (int i=0; i<pokemons.size(); i++){
-                dao.addPokemon(pokemons.get(i));
+
+                try {
+                    ContextWrapper cw = new ContextWrapper(getApplicationContext());
+                    File dir= cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+                    File f=new File(dir.getAbsolutePath(), String.valueOf(i+1) + ".png");
+                    Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+                    pokemons.get(i).setBitmap(b);
+                    dao.addPokemon(pokemons.get(i));
+                    if (dao.getPokemons().get(i).getImagem() == null){
+                        Toast.makeText(this, "Dueu ruim", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                catch (FileNotFoundException e)
+                {
+                    e.printStackTrace();
+                }
             }
 
-            // Baixa Imagens
-            DownloadImage download = new DownloadImage();
-            try {
-                download.execute(pokemons.get(pokemon_img).getSprite().getUrl()).get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
+            //ListView listPokemons = findViewById(R.id.pokemonsList);
+            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pokemonsList);
+
+            adapter = new PokemonAdapter(pokemons, MainActivity.this);
+            recyclerView.setAdapter(adapter);
+            layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
+            recyclerView.setLayoutManager(layoutManager);
+
         }
 
 
@@ -101,77 +120,14 @@ public class MainActivity extends Activity {
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                adapter.atualiza(db.getAllPokemons());
+                adapter.atualiza(pokemons);
                 adapter.notifyDataSetChanged();
                 layoutManager.scrollToPosition(0);
 
-                // Baixa Imagens
-                DownloadImage download = new DownloadImage();
-                try {
-                    download.execute(pokemons.get(pokemon_img).getSprite().getUrl()).get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
                 return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
     }
 
-
-    private class DownloadImage extends AsyncTask<String, String, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... params) {
-            Bitmap imagemBitmap = null;
-            try{
-                imagemBitmap = baixarImagem(params[0]);
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-
-            return imagemBitmap;
-        }
-        @Override
-        protected void onPostExecute(Bitmap bitmap){
-            if(bitmap!=null) {
-                pokemons.get(pokemon_img).setBitmap(bitmap);
-                if (pokemon_img == pokemons.size() - 1){ // Terminou de carregar as imagens
-                    //ListView listPokemons = findViewById(R.id.pokemonsList);
-                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pokemonsList);
-
-                    adapter = new PokemonAdapter(pokemons, MainActivity.this);
-                    recyclerView.setAdapter(adapter);
-                    layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
-                    recyclerView.setLayoutManager(layoutManager);
-                }else{
-                    pokemon_img++;
-                    DownloadImage download = new DownloadImage();
-                    try {
-                        download.execute(pokemons.get(pokemon_img).getSprite().getUrl()).get();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-    }
-
-    public static Bitmap baixarImagem(String url) throws IOException{
-        URL endereco;
-        InputStream inputStream;
-        Bitmap imagem;
-
-        endereco = new URL(url);
-        inputStream = endereco.openStream();
-        imagem = BitmapFactory.decodeStream(inputStream);
-
-        inputStream.close();
-
-        return imagem;
-    }
 }
