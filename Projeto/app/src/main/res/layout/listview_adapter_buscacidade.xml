@@ -13,6 +13,7 @@
             android:layout_height="wrap_content"
             android:text="   XX, Cidade"
             android:textSize="27dp"
+            android:textColor="#FFB700"
             android:id="@+id/item_list_busca"/>
     </RelativeLayout>
 

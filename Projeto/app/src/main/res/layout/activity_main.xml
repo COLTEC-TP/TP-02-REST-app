@@ -7,16 +7,23 @@
     android:background="@drawable/backgroundescuro"
     tools:context=".MainActivity">
 
-    <!-- Botão temporario -->
-    <Button
-        android:id="@+id/btn_alterarCidadeMain"
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_sort_by_size"
+        android:background="#0fff"
+        android:id="@+id/btn_menu"/>
+    <ImageButton
+        android:id="@+id/btn_atualizar"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/atualizar" />
+        android:background="@null"
+        android:tint="#FFB700"
+        android:src="@android:drawable/ic_popup_sync" />
 
     <TextView
         android:id="@+id/txt_cidade"
@@ -24,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="101dp"
+        android:layout_marginTop="88dp"
         android:text="Belo Horizonte"
         android:textColor="#FFB700"
         android:textSize="35dp" />
@@ -33,10 +40,10 @@
         android:id="@+id/txtTemperaturaAtual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="34dp"
-        android:text="x Cº"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="166dp"
+        android:text="23.0 Cº"
         android:textColor="#FFB700"
         android:textSize="70dp" />
 
@@ -54,12 +61,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignParentStart="true"
+        android:layout_width="147dp"
+        android:layout_height="146dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="156dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="119dp"
         android:src="@drawable/solnuvem" />
 
     <TextView
