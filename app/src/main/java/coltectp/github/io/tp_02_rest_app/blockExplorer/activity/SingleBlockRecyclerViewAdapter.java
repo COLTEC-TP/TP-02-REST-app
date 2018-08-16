@@ -2,10 +2,12 @@ package coltectp.github.io.tp_02_rest_app.blockExplorer.activity;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -39,7 +41,6 @@ public class SingleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SingleB
         holder.mOutputView.setText("Total Output: " + String.valueOf(BlockExplorerHelper.sumOfValueOut(mValues.get(position).getOutputs())) + "BTC");
         holder.mOutputButton.setText(String.valueOf(BlockExplorerHelper.sumOfInputValue(mValues.get(position).getInputs())));
 
-
     }
 
     @Override
@@ -53,8 +54,6 @@ public class SingleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SingleB
         public final TextView mHashView;
         public final TextView mInputView;
         public final Button mOutputButton;
-//        public final Button mExpandButton;
-//        public final ListView mListView;
         public Transaction mItem;
 
         public ViewHolder(View view) {
@@ -64,8 +63,6 @@ public class SingleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SingleB
             mHashView = (TextView) view.findViewById(R.id.hash_tv_editable);
             mInputView = (TextView) view.findViewById(R.id.input_tv_editable);
             mOutputButton = (Button) view.findViewById(R.id.output_btn_editable);
-//            mExpandButton = (Button) view.findViewById(R.id.expand_button);
-//            mListView = (ListView) view.findViewById(R.id.listView);
 
             itemView.setOnClickListener(this);
         }
