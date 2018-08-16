@@ -40,7 +40,7 @@ public class SingleBlockActivity extends AppCompatActivity {
         String hash = activityBundle.getString("hash");
         mContext = getApplicationContext();
         mLayout = findViewById(R.id.singleBlockLayoutActivity);
-        mRecyclerView = (RecyclerView) findViewById(R.id.list);
+        mRecyclerView = (RecyclerView) findViewById(R.id.single_block_list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(1, 4, true));
 

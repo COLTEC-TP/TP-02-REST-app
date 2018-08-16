@@ -1,15 +1,11 @@
 package coltectp.github.io.tp_02_rest_app.blockExplorer.activity;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -21,6 +17,7 @@ import coltectp.github.io.tp_02_rest_app.blockExplorer.Transaction;
 public class SingleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SingleBlockRecyclerViewAdapter.ViewHolder> {
     private static SimpleBlockRecyclerViewAdapter.ClickListener clickListener;
     private final List<Transaction> mValues;
+    private int mExpandedPosition = -1;
 
     public SingleBlockRecyclerViewAdapter(List<Transaction> items) {
         mValues = items;
@@ -35,11 +32,14 @@ public class SingleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SingleB
     }
 
     @Override
-    public void onBindViewHolder(final SingleBlockRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final SingleBlockRecyclerViewAdapter.ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mInputView.setText(String.valueOf(BlockExplorerHelper.sumOfInputValue(mValues.get(position).getInputs())));
+        holder.mInputView.setText("Total Input: " + String.valueOf(BlockExplorerHelper.sumOfInputValue(mValues.get(position).getInputs())) + "BTC");
         holder.mHashView.setText(mValues.get(position).getHash());
-        holder.mOutputView.setText(String.valueOf(BlockExplorerHelper.sumOfValueOut(mValues.get(position).getOutputs())));
+        holder.mOutputView.setText("Total Output: " + String.valueOf(BlockExplorerHelper.sumOfValueOut(mValues.get(position).getOutputs())) + "BTC");
+        holder.mOutputButton.setText(String.valueOf(BlockExplorerHelper.sumOfInputValue(mValues.get(position).getInputs())));
+
+
     }
 
     @Override
@@ -52,7 +52,9 @@ public class SingleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SingleB
         public final TextView mOutputView;
         public final TextView mHashView;
         public final TextView mInputView;
-        public final CardView mCardView;
+        public final Button mOutputButton;
+//        public final Button mExpandButton;
+//        public final ListView mListView;
         public Transaction mItem;
 
         public ViewHolder(View view) {
@@ -61,28 +63,9 @@ public class SingleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SingleB
             mOutputView = (TextView) view.findViewById(R.id.output_tv_editable);
             mHashView = (TextView) view.findViewById(R.id.hash_tv_editable);
             mInputView = (TextView) view.findViewById(R.id.input_tv_editable);
-            mCardView = (CardView) view.findViewById(R.id.card_view);
-
-            WindowManager windowmanager = (WindowManager)view.getContext().getSystemService(Context.WINDOW_SERVICE);
-            DisplayMetrics dimension = new DisplayMetrics();
-            if (windowmanager != null) {
-                windowmanager.getDefaultDisplay().getMetrics(dimension);
-            }
-            final int height = dimension.heightPixels;
-
-            mCardView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-
-                @Override
-                public boolean onPreDraw() {
-                    mCardView.getViewTreeObserver().removeOnPreDrawListener(this);
-                    int minHeight = mCardView.getHeight();
-                    ViewGroup.LayoutParams layoutParams = mCardView.getLayoutParams();
-                    layoutParams.height = minHeight;
-                    mCardView.setLayoutParams(layoutParams);
-
-                    return true;
-                }
-            });
+            mOutputButton = (Button) view.findViewById(R.id.output_btn_editable);
+//            mExpandButton = (Button) view.findViewById(R.id.expand_button);
+//            mListView = (ListView) view.findViewById(R.id.listView);
 
             itemView.setOnClickListener(this);
         }
