@@ -44,19 +44,42 @@ public class DbController {
 
         Integer valor;
 
-        String querySql = "SELECT senha FROM usuarios WHERE user = ?";
+        String querySql = "SELECT * FROM usuarios WHERE user = ?";
         Cursor cursor = db.rawQuery(querySql, new String[] {user});
 
         cursor.moveToFirst();
 
         if(cursor.getCount() > 0){
-            if(cursor.getString(0).equals(pass)){
-                valor = 2;
+            if(cursor.getString(4).equals(pass)){
+                valor = cursor.getInt(0);
             } else{
-                valor = 1;
+                valor = -2;
             }
         } else {
-            valor = 0;
+            valor = -1;
+        }
+
+        cursor.close();
+        db.close();
+
+        return valor;
+    }
+
+    public String[] pegarUsuarioPorID(String id){
+
+        db = banco.getReadableDatabase();
+
+        String[] valor = new String[2];
+
+        String querySql = "SELECT * FROM usuarios WHERE _id = ?";
+        Cursor cursor = db.rawQuery(querySql, new String[]{id});
+        cursor.moveToFirst();
+
+        if(cursor.getCount() > 0){
+            if(cursor.getInt(0) == Integer.parseInt(id)) {
+                valor[0] = cursor.getString(2);
+                valor[1] = cursor.getString(3);
+            }
         }
 
         cursor.close();

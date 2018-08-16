@@ -23,19 +23,28 @@ public class FilmeDeserializer implements JsonDeserializer<List>{
 
         List<Filme> filmes = new ArrayList<>();
 
-        JsonObject resp = jsonObject.get("petfinder").getAsJsonObject();
-        resp = resp.get("pets").getAsJsonObject();
-        JsonArray p = resp.get("pet").getAsJsonArray();
+        JsonArray p = jsonObject.get("results").getAsJsonArray();
 
         for(int i =0; i<p.size();i++){
             JsonObject obj = p.get(i).getAsJsonObject();
             Filme filme = new Filme();
+            JsonArray genresid;
+            int[] numbers;
 
             filme.setTitulo(obj.get("title").getAsString());
             filme.setAno(obj.get("release_date").getAsString());
-            filme.setDiretor(obj.get("title").getAsString());
+            genresid = obj.get("genre_ids").getAsJsonArray();
             filme.setRating(obj.get("vote_average").getAsString());
-            filme.setFoto(obj.get("poster_path").getAsInt());
+            filme.setFoto(obj.get("poster_path").getAsString());
+
+            numbers = new int[genresid.size()];
+
+            for (int j = 0; j < genresid.size(); ++j) {
+                numbers[j] = genresid.get(j).getAsInt();
+            }
+
+            filme.setGender(numbers);
+
             filmes.add(filme);
         }
 

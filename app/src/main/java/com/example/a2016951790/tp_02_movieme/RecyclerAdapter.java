@@ -2,12 +2,13 @@ package com.example.a2016951790.tp_02_movieme;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.loopj.android.image.SmartImageView;
 
 import java.util.List;
 
@@ -45,10 +46,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
 
 
         private TextView mTitulo;
-        private ImageView mCartaz;
+        private SmartImageView mCartaz;
         private TextView mRating;
         private TextView mAno;
-        private TextView mDiretor;
+        private TextView mGenero;
 
         public ListViewHolder(View itemView){
 
@@ -57,18 +58,65 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             mCartaz = itemView.findViewById(R.id.rcv_photo);
             mRating = itemView.findViewById(R.id.rcv_grade);
             mAno = itemView.findViewById(R.id.rcv_release_date);
-            mDiretor = itemView.findViewById(R.id.rcv_director);
+            mGenero = itemView.findViewById(R.id.rcv_gender);
             itemView.setOnClickListener(this);
         }
 
         public void bindView(int position) {
             Filme filme = filmes.get(position);
-            Log.i(filme.getAno(), filme.getTitulo());
+            int[] generoint = filme.getGender();
+            String genero = "";
+
+            for(int i = 0; i < generoint.length && i < 3; i++) {
+                if (generoint[i] == 28) {
+                    genero = genero + "/" + context.getResources().getString(R.string.action);
+                } else if (generoint[i] == 12) {
+                    genero = genero + "/" + context.getResources().getString(R.string.adventure);
+                } else if (generoint[i] == 16) {
+                    genero = genero + "/" + context.getResources().getString(R.string.animation);
+                } else if (generoint[i] == 35) {
+                    genero = genero + "/" + context.getResources().getString(R.string.comedy);
+                } else if (generoint[i] == 80) {
+                    genero = genero + "/" + context.getResources().getString(R.string.crime);
+                } else if (generoint[i] == 99) {
+                    genero = genero + "/" + context.getResources().getString(R.string.documentary);
+                } else if (generoint[i] == 18) {
+                    genero = genero + "/" + context.getResources().getString(R.string.drama);
+                } else if (generoint[i] == 10751) {
+                    genero = genero + "/" + context.getResources().getString(R.string.family);
+                } else if (generoint[i] == 14) {
+                    genero = genero + "/" + context.getResources().getString(R.string.fantasy);
+                } else if (generoint[i] == 36) {
+                    genero = genero + "/" + context.getResources().getString(R.string.history);
+                } else if (generoint[i] == 27) {
+                    genero = genero + "/" + context.getResources().getString(R.string.horror);
+                } else if (generoint[i] == 10402) {
+                    genero = genero + "/" + context.getResources().getString(R.string.music);
+                } else if (generoint[i] == 9648) {
+                    genero = genero + "/" + context.getResources().getString(R.string.mystery);
+                } else if (generoint[i] == 10749) {
+                    genero = genero + "/" + context.getResources().getString(R.string.romance);
+                } else if (generoint[i] == 878) {
+                    genero = genero + "/" + context.getResources().getString(R.string.science_fiction);
+                } else if (generoint[i] == 10770) {
+                    genero = genero + "/" + context.getResources().getString(R.string.tv_movie);
+                } else if (generoint[i] == 53) {
+                    genero = genero + "/" + context.getResources().getString(R.string.thriller);
+                } else if (generoint[i] == 10752) {
+                    genero = genero + "/" + context.getResources().getString(R.string.war);
+                } else if (generoint[i] == 37) {
+                    genero = genero + "/" + context.getResources().getString(R.string.western);
+                }
+
+            }
+
+            genero = genero.replaceFirst("/", "");
+
             mTitulo.setText(filme.getTitulo());
             mRating.setText(filme.getRating());
-            mDiretor.setText(filme.getDiretor());
-            mAno.setText(filme.getAno());
-            mCartaz.setImageResource(DataTeste.movie[position]);
+            mGenero.setText(genero);
+            mAno.setText("Ano: " + filme.getAno().substring(0,4));
+            mCartaz.setImageUrl("https://image.tmdb.org/t/p/original" + filme.getFoto());
 
         }
 

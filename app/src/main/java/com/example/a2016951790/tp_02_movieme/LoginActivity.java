@@ -1,6 +1,8 @@
 package com.example.a2016951790.tp_02_movieme;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,16 +29,24 @@ public class LoginActivity extends AppCompatActivity {
                 String mails = mail.getText().toString();
                 String passs = pass.getText().toString();
                 Integer conf = crud.pegarUsuarioPorEmail(mails, passs);
+                SharedPreferences sharedPreferences = getSharedPreferences("pref_key", Context.MODE_PRIVATE);
 
 
-                if(conf == 0){
+
+                if(conf == -1){
                     Toast.makeText(LoginActivity.this, "User Not Found", Toast.LENGTH_LONG).show();
-                } else if(conf == 1){
+                } else if(conf == -2){
                     Toast.makeText(LoginActivity.this, "Password Incorrect", Toast.LENGTH_LONG).show();
-                } else if(conf == 2){
+                } else if(conf >= 0){
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("user_id", conf.toString());
+                    editor.apply();
                 }
+
+
+
             }
         });
     }

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="110dp">
 
-    <ImageView
+    <com.loopj.android.image.SmartImageView
         android:id="@+id/rcv_photo"
         android:layout_width="54.4dp"
         android:layout_height="80dp"
@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/rcv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="28dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="16dp"
         android:text="Titulo do Filme"
@@ -27,26 +27,19 @@
         app:layout_constraintStart_toEndOf="@+id/rcv_photo"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/rcv_rating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="23dp"
-        android:layout_marginTop="16dp"
-        android:text="Rating"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/rcv_grade"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="4dp"
         android:text="5.5"
         android:textSize="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rcv_rating" />
+        app:layout_constraintTop_toBottomOf="@+id/rcv_title" />
 
     <TextView
         android:id="@+id/rcv_release_date"
@@ -59,7 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rcv_title" />
 
     <TextView
-        android:id="@+id/rcv_director"
+        android:id="@+id/rcv_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"

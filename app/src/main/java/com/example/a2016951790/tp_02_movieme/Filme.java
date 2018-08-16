@@ -8,9 +8,9 @@ public class Filme {
 
     private String Titulo;
     private String Rating;
-    private String Diretor;
+    private int[] Gender;
     private String Ano;
-    private int foto;
+    private String foto;
 
     public String getTitulo() {
         return Titulo;
@@ -28,12 +28,12 @@ public class Filme {
         Rating = rating;
     }
 
-    public String getDiretor() {
-        return Diretor;
+    public int[] getGender() {
+        return Gender;
     }
 
-    public void setDiretor(String diretor) {
-        Diretor = diretor;
+    public void setGender(int[] gender) {
+        Gender = gender;
     }
 
     public String getAno() {
@@ -44,11 +44,11 @@ public class Filme {
         Ano = ano;
     }
 
-    public int getFoto() {
+    public String getFoto() {
         return foto;
     }
 
-    public void setFoto(int foto) {
+    public void setFoto(String foto) {
         this.foto = foto;
     }
 }
