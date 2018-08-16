@@ -12,7 +12,7 @@ public class AppDB extends SQLiteOpenHelper {
 
         private static String DB_NOME = "Pokemons";
         private static final int DB_VERSAO = 1;
-        private static final String SCRIPT_CREATE = "CREATE TABLE Pokemons (nome TEXT, agilidade INT, hp INT, ataque INT, defesa INT, super_ataque INT, super_defesa INT)";
+        private static final String SCRIPT_CREATE = "CREATE TABLE Pokemons (nome TEXT, agilidade INT, hp INT, ataque INT, defesa INT, super_ataque INT, super_defesa INT, imagem TEXT)";
 
         public AppDB(Activity context){
             super(context, DB_NOME, null, DB_VERSAO);
@@ -33,7 +33,7 @@ public class AppDB extends SQLiteOpenHelper {
             try {
                 ContentValues cv = new ContentValues();
                 cv.put("nome", p.getName());
-
+                cv.put("imagem", p.getSprite().getUrl());
                 /** 0 -> agilidade
                  *  1 -> super defesa
                  *  2 -> super ataque
@@ -75,7 +75,8 @@ public class AppDB extends SQLiteOpenHelper {
                         stats.add(new Stat(c.getInt(c.getColumnIndex("super_ataque"))));
                         stats.add(new Stat(c.getInt(c.getColumnIndex("super_defesa"))));
 
-                        Pokemon p = new Pokemon(nome, stats);
+                        Sprite sprite = new Sprite(c.getString(c.getColumnIndex("imagem")));
+                        Pokemon p = new Pokemon(nome, stats, sprite);
 
                         // adiciona user na lista que será retornada
                         pokemons.add(p);

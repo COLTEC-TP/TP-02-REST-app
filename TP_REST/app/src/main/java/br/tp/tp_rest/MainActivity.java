@@ -3,17 +3,26 @@ package br.tp.tp_rest;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends Activity {
 
@@ -21,30 +30,35 @@ public class MainActivity extends Activity {
     PokemonAdapter adapter = null;
     AppDB db = new AppDB(this);
     RecyclerView.LayoutManager layoutManager = null;
+    ArrayList<Pokemon> pokemons = new ArrayList<>();
+    int pokemon_img = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
 
         if (db.getAllPokemons().size() != dao.getNum_pokemons()) {
             db.deleteAll();
             Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
             startActivity(intent);
         } else {
-            ArrayList<Pokemon> pokemons = db.getAllPokemons();
-            //ListView listPokemons = findViewById(R.id.pokemonsList);
-            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pokemonsList);
-
-            adapter = new PokemonAdapter(pokemons, this);
-            recyclerView.setAdapter(adapter);
-            layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-            recyclerView.setLayoutManager(layoutManager);
+            pokemons = db.getAllPokemons();
 
             // Atualiza DAO
             for (int i=0; i<pokemons.size(); i++){
                 dao.addPokemon(pokemons.get(i));
+            }
+
+            // Baixa Imagens
+            DownloadImage download = new DownloadImage();
+            try {
+                download.execute(pokemons.get(pokemon_img).getSprite().getUrl()).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
         }
 
@@ -64,17 +78,11 @@ public class MainActivity extends Activity {
 
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) item.getActionView();
+        ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                /*s = s.toUpperCase();
-                ArrayList<Pokemon> pokemonsFiltrados = new ArrayList<>();
-                ArrayList<Pokemon> pokemons = db.getAllPokemons();
-                for (int i=0; i<pokemons.size(); i++){
-                    if(pokemons.get(i).getName().toUpperCase().contains(s)){
-                        pokemonsFiltrados.add(pokemons.get(i));
-                    }
-                }*/
                 ArrayList<Pokemon> pokemonsFiltrados = dao.filtrarPokemons(s);
                 adapter.atualiza(pokemonsFiltrados);
                 adapter.notifyDataSetChanged();
@@ -96,115 +104,74 @@ public class MainActivity extends Activity {
                 adapter.atualiza(db.getAllPokemons());
                 adapter.notifyDataSetChanged();
                 layoutManager.scrollToPosition(0);
+
+                // Baixa Imagens
+                DownloadImage download = new DownloadImage();
+                try {
+                    download.execute(pokemons.get(pokemon_img).getSprite().getUrl()).get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
                 return false;
             }
         });
         return super.onCreateOptionsMenu(menu);
     }
-}
-        /*
-        final PokemonDAO dao = new PokemonDAO(this);
-        requisita(1, dao);
-    }
-    private void requisita(final int id, final PokemonDAO dao) {
-        Callback<Pokemon> cb = new Callback<Pokemon>() {
-            @Override
-            public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
-                Pokemon pokemon = response.body();
-                dao.addPokemon(pokemon);
-                ListView listPokemons = findViewById(R.id.pokemonsList);
-                listPokemons.setAdapter(new PokemonAdapter(dao.getContext(), dao.getPokemons()));
-                if (id <= dao.getNum_pokemons()) {
-                    requisita(id + 1, dao);
+
+
+    private class DownloadImage extends AsyncTask<String, String, Bitmap> {
+
+        @Override
+        protected Bitmap doInBackground(String... params) {
+            Bitmap imagemBitmap = null;
+            try{
+                imagemBitmap = baixarImagem(params[0]);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+            return imagemBitmap;
+        }
+        @Override
+        protected void onPostExecute(Bitmap bitmap){
+            if(bitmap!=null) {
+                pokemons.get(pokemon_img).setBitmap(bitmap);
+                if (pokemon_img == pokemons.size() - 1){ // Terminou de carregar as imagens
+                    //ListView listPokemons = findViewById(R.id.pokemonsList);
+                    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pokemonsList);
+
+                    adapter = new PokemonAdapter(pokemons, MainActivity.this);
+                    recyclerView.setAdapter(adapter);
+                    layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
+                    recyclerView.setLayoutManager(layoutManager);
+                }else{
+                    pokemon_img++;
+                    DownloadImage download = new DownloadImage();
+                    try {
+                        download.execute(pokemons.get(pokemon_img).getSprite().getUrl()).get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-
-            @Override
-            public void onFailure(Call<Pokemon> call, Throwable t) {
-                t.printStackTrace();
-            }
-        };
-
-        dao.carregarPokemons(id, cb);
-
-    } */
-        //ArrayList<Pokemon> pokemons = PokemonDAO.getInstance().getPokemons();
-
-
-/*
-        // Prepara Action Bar //
-   //     ActionBar actionBar = getActionBar();
-  //      actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0000ff")));
-
-        // recupera os imóveis cadastrados no DAO até o momento e os carrega na lista
-//        PokemonDAO dao = PokemonDAO.getInstance();
-//        this.atualizarLista(dao.getPokemons());
-//    }
-
-    // MUDAR PQ EH INEFICIENTE //
- //   private void atualizarLista(ArrayList<Pokemon> pokemons) {
-
-        // Não precisa criar outro adapter //
-        //ListView imoveisList = findViewById(R.id.pokemonsList);
-        //imoveisList.setAdapter(new PokemonAdapter(this, pokemons));
-        //adapter.notifyDataSetChanged();
-        //ListView listImoveis = findViewById(R.id.imoveisList);
-        //listImoveis.setAdapter(adapter);
-    //}
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // infla menu na tela
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        // busca pelo SearchView e customiza suas ações
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) item.getActionView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                PokemonDAO dao = PokemonDAO.getInstance();
-                ArrayList<Pokemon> filtrados = dao.filtrarPokemons(s);
-                ListView listImoveis = findViewById(R.id.pokemonsList);
-                atualizarLista(filtrados);
-
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                // executado enquanto texto é alterado pelo usuário
-                return false;
-            }
-
-        });
-
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                PokemonDAO dao = PokemonDAO.getInstance();
-                atualizarLista(dao.getPokemons());
-                return false;
-            }
-        });
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // recupera id do item selecionado
-        int id = item.getItemId();
-
-        // verifica qual é o botão selecionado com base no id
-        switch (id) {
-            case R.id.action_add:
-                Intent intent = new Intent(MainActivity.this, NovoImovelActivity.class);
-                startActivity(intent);
-                this.atualizarLista(ImovelDAO.getInstance().getImoveis());
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
     }
+
+    public static Bitmap baixarImagem(String url) throws IOException{
+        URL endereco;
+        InputStream inputStream;
+        Bitmap imagem;
+
+        endereco = new URL(url);
+        inputStream = endereco.openStream();
+        imagem = BitmapFactory.decodeStream(inputStream);
+
+        inputStream.close();
+
+        return imagem;
+    }
 }
-*/

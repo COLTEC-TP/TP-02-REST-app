@@ -3,11 +3,18 @@ package br.tp.tp_rest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,11 +39,10 @@ public class LoadingActivity extends Activity {
                 Pokemon pokemon = response.body();
                 dao.addPokemon(pokemon);
                 db.insert(pokemon);
-                Toast.makeText(context, String.valueOf(pokemon.getStats().get(0).getBase_stat()) + " " +String.valueOf(db.getAllPokemons().get(0).getStats().get(0).getBase_stat()), Toast.LENGTH_SHORT).show();
 
                 if (id < dao.getNum_pokemons()) {
                     requisita(id + 1, dao, context, db);
-                }else {
+                } else {
                     Toast.makeText(context, "Todos os pokemons foram carregados", Toast.LENGTH_SHORT).show();
                     finish();
                     Intent intent = new Intent(LoadingActivity.this, MainActivity.class);
@@ -57,4 +63,5 @@ public class LoadingActivity extends Activity {
         dao.carregarPokemons(id, cb);
 
     }
+
 }

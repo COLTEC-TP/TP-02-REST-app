@@ -1,19 +1,16 @@
 package br.tp.tp_rest;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-
 public class PokemonAdapter extends RecyclerView.Adapter {
 
     private Context context;
@@ -41,14 +38,15 @@ public class PokemonAdapter extends RecyclerView.Adapter {
 
         Pokemon pokemon = pokemons.get(position);
         viewHolder.nome.setText(pokemon.getName());
+        viewHolder.imagem.setImageBitmap(pokemon.getImagem());
         ArrayList<Stat> stats = pokemon.getStats();
-
         viewHolder.ataque.setText("ATQ " + String.valueOf(stats.get(0).getBase_stat()));
         viewHolder.defesa.setText("DEF " + String.valueOf(stats.get(1).getBase_stat()));
         viewHolder.agilidade.setText("SPD " + String.valueOf(stats.get(2).getBase_stat()));
         viewHolder.hp.setText("HP " + String.valueOf(stats.get(3).getBase_stat()));
         viewHolder.super_ataque.setText("SAT " + String.valueOf(stats.get(4).getBase_stat()));
         viewHolder.super_defesa.setText("SDE " + String.valueOf(stats.get(5).getBase_stat()));
+
     }
 
     @Override
@@ -65,6 +63,7 @@ public class PokemonAdapter extends RecyclerView.Adapter {
         final TextView hp;
         final TextView super_ataque;
         final TextView super_defesa;
+        final ImageView imagem;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -75,7 +74,7 @@ public class PokemonAdapter extends RecyclerView.Adapter {
             hp = (TextView) itemView.findViewById(R.id.HP_Num);
             super_ataque = (TextView) itemView.findViewById(R.id.Ataque_Especial_Num);
             super_defesa = (TextView) itemView.findViewById(R.id.Defesa_Especial_Num);
-
+            imagem = (ImageView) itemView.findViewById(R.id.Pokemon_Img);
         }
     }
 
@@ -83,20 +82,3 @@ public class PokemonAdapter extends RecyclerView.Adapter {
         this.pokemons = pokemons;
     }
 }
-
-/*
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        Pokemon pokemon = (Pokemon) this.getItem(i);
-
-        // Mecanismo de estilização da lista //
-        View newView = LayoutInflater.from(this.context).inflate(R.layout.list_pokemons, viewGroup, false);
-
-        TextView nome = newView.findViewById(R.id.lbl_nome);
-        nome.setText(pokemon.getName());
-
-        notifyDataSetChanged();
-
-        return newView;
-    }
-*/
