@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+
     }
 
 
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 // inicia a activity BuscaArtMus quando o usuário clica no botão correspondente
                 Intent intent = new Intent(MainActivity.this, BuscaArtMus.class);
                 startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+
                 return true;
 
             default:

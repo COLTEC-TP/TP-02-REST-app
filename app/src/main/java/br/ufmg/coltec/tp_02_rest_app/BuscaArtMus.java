@@ -32,8 +32,6 @@ public class BuscaArtMus extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_busca_artmus);
 
-
-
         ListView ProdutosListView = findViewById(R.id.lista_busca);
         adapter = new BuscaArtMusAdapter(this);
         ProdutosListView.setAdapter(adapter);
@@ -112,21 +110,12 @@ public class BuscaArtMus extends AppCompatActivity {
 
                     }
                 });
-
-
-
-
-
-
-
-
                 return false;
             }
-
-
         });
         return super.onCreateOptionsMenu(menu);
     }
+
     private void mostraBusca(ArrayList<ArtMusDocs> lista) {
         final ArrayList<ArtMusDocs> lista_aux = lista;
 
@@ -139,8 +128,16 @@ public class BuscaArtMus extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Object listItem = auxList.getItemAtPosition(position);
 
-                Toast toast = Toast.makeText(getApplicationContext(), lista_aux.get(position).getTitle(), Toast.LENGTH_SHORT);
-                toast.show();
+                if(lista_aux.get(position).getTitle()!=null){//se for uma música
+                    Toast toast = Toast.makeText(getApplicationContext(), lista_aux.get(position).getTitle(), Toast.LENGTH_SHORT);
+                    toast.show();
+                    
+                 }else{
+                    Toast toast = Toast.makeText(getApplicationContext(), "Esse é um artista.", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }
+
 
 
             }
