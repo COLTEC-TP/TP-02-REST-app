@@ -2,6 +2,7 @@ package com.gui_rei.tempopreparar.rest;
 
 import com.gui_rei.tempopreparar.rest.city.BuscaCidadeService;
 import com.gui_rei.tempopreparar.rest.current.ClimaAtualService;
+import com.gui_rei.tempopreparar.rest.days.DiasService;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -24,6 +25,10 @@ public class RetrofitConfig {
 
     public BuscaCidadeService getBuscaCidadeService() {
         return this.retrofit.create(BuscaCidadeService.class);
+    }
+
+    public DiasService getDDiasService(){
+        return this.retrofit.create(DiasService.class);
     }
 
 }
