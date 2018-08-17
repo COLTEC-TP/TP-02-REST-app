@@ -40,12 +40,22 @@
         android:id="@+id/txtTemperaturaAtual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="166dp"
+        android:layout_below="@id/imageView"
         android:text="23.0 Cº"
         android:textColor="#FFB700"
         android:textSize="70dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/txtTemperaturaAtual"
+        android:text="Amanhã temp"
+        android:textAlignment="center"
+        android:textColor="#FFB700"
+        android:textSize="20dp"
+        android:id="@+id/txt_tempAmanha"/>
 
     <Button
         android:id="@+id/btnCity"
@@ -75,7 +85,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="35dp"
-        android:text="Sol com algumas nuvens\n\nPegue o guarda chuva\n\nVista o seu casaco"
+        android:text="Pegue o guarda chuva\n\nVista o seu casaco"
         android:textAlignment="center"
         android:textColor="#FFB700"
         android:textSize="20dp" />

@@ -12,6 +12,9 @@ import android.widget.Toast;
 import com.gui_rei.tempopreparar.rest.current.ClimaAtual;
 import com.gui_rei.tempopreparar.rest.current.ClimaAtualService;
 import com.gui_rei.tempopreparar.rest.RetrofitConfig;
+import com.gui_rei.tempopreparar.rest.days.Dias;
+import com.gui_rei.tempopreparar.rest.days.DiasService;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,19 +41,24 @@ public class MainActivity extends Activity {
 
         //Mostrar a temperatura atual
         TextView temperaturaAtual = findViewById(R.id.txtTemperaturaAtual);
-        temperaturaAtual.setText(clima.getData().getTemperature().toString() + "°"
-        );
+        temperaturaAtual.setText(clima.getData().getTemperature().toString() + "°");
+    }
+    private void preencheTela(Dias clima){ //Função responsável for colocar dados de outros dias
+        ((TextView) findViewById(R.id.txt_tempAmanha)).setText("Temp max amanhã: " + clima.getData().get(1).getTemperature().getMax() + "°"); // get(1) seria amanha
+        Toast.makeText(MainActivity.this,"Amanha é: " + clima.getData().get(1).getDate_br(), Toast.LENGTH_SHORT).show();
     }
 
     private void atualizaTemp(){
         Prefs prefs = Prefs.getInstance();
         Integer city = prefs.getCity();
 
+
         RetrofitConfig retrofitConfig = new RetrofitConfig();
+
         final ClimaAtualService serviceA = retrofitConfig.getClimaAtualService();
-        Call<ClimaAtual> request = serviceA.getClima(city.toString());
+        Call<ClimaAtual> requestA = serviceA.getClima(city.toString());
         Toast.makeText(MainActivity.this,"Buscando por temperatura", Toast.LENGTH_SHORT).show();
-        request.enqueue(new Callback<ClimaAtual>() {
+        requestA.enqueue(new Callback<ClimaAtual>() {
             @Override
             public void onResponse(Call<ClimaAtual> call, Response<ClimaAtual> response) {// executado quando resposta for recebida
                 ClimaAtual clima = response.body();
@@ -62,6 +70,23 @@ public class MainActivity extends Activity {
                 Toast.makeText(MainActivity.this,"Algo deu errado",Toast.LENGTH_SHORT).show();
             }
         });
+
+        final DiasService serviceB = retrofitConfig.getDDiasService();
+        Call<Dias> requestB = serviceB.getDias(city.toString());
+        Toast.makeText(MainActivity.this,"Buscando por temperatura da amanha", Toast.LENGTH_SHORT).show();
+        requestB.enqueue(new Callback<Dias>() {
+            @Override
+            public void onResponse(Call<Dias> call, Response<Dias> response) {// executado quando resposta for recebida
+                Dias clima = response.body();
+                preencheTela(clima);
+            }
+            @Override
+            public void onFailure(Call<Dias> call, Throwable t) {//executado quando houver erros
+                t.printStackTrace();
+                Toast.makeText(MainActivity.this,"Algo deu errado",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override
