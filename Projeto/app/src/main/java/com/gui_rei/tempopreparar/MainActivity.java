@@ -3,9 +3,11 @@ package com.gui_rei.tempopreparar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -90,22 +92,39 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.my_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.btn_atualizar) {
+            atualizaTemp();
+        }
+        else if (id == R.id.btn_rotina) {
+            startActivity(new Intent(MainActivity.this,RotinaActivity.class));
+        }
+        else if (id == R.id.btn_conf) {
+            startActivity(new Intent(MainActivity.this,ConfiguracoesActivity.class));
+        }
+        else if (id == R.id.btn_sobre) {
+            startActivity(new Intent(MainActivity.this,SobreActivity.class));
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Remover Action Bar
-        getActionBar().hide();
-
-        ImageButton btnAtualiza = findViewById(R.id.btn_atualizar);
         Button btnAlteraCidade = findViewById(R.id.btnCity);
 
-        btnAtualiza.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                atualizaTemp();
-            }
-        });
         btnAlteraCidade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

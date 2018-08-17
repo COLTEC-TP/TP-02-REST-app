@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:icon="@android:drawable/stat_notify_sync"
+        android:iconTint="#FFB700"
+        android:id="@+id/btn_atualizar"
+        android:showAsAction="ifRoom"
+        android:title="teste" />
+
+    <item
+        android:id="@+id/btn_rotina"
+        android:title="Rotina" />
+    <item
+        android:id="@+id/btn_conf"
+        android:title="Configurações" />
+    <item
+        android:id="@+id/btn_sobre"
+        android:title="Sobre" />
+</menu>
