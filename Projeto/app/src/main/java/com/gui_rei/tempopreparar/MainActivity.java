@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -71,7 +72,7 @@ public class MainActivity extends Activity {
         //Remover Action Bar
         getActionBar().hide();
 
-        Button btnAtualiza = findViewById(R.id.btn_alterarCidadeMain);
+        ImageButton btnAtualiza = findViewById(R.id.btn_atualizar);
         Button btnAlteraCidade = findViewById(R.id.btnCity);
 
         btnAtualiza.setOnClickListener(new View.OnClickListener() {
