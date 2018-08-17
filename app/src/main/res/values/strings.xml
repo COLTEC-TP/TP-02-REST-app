@@ -3,6 +3,7 @@
     <string name="lgn_user">Username</string>
     <string name="lgn_pass">Password</string>
     <string name="lgn_button">Log in</string>
+    <string name="user">User</string>
 
     <string name="reg_name">Name</string>
     <string name="reg_mail">E-mail</string>
@@ -13,7 +14,7 @@
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="nav_home">Home</string>
-    <string name="nav_profile">Profile</string>
+    <string name="nav_search">Search</string>
     <string name="nav_favorite">Favorites</string>
     <string name="nav_next">Watch Next</string>
     <string name="nav_watched">Watched</string>
@@ -39,9 +40,17 @@
     <string name="war">War</string>
     <string name="western">Western</string>
 
+    <string name="year">Year</string>
 
+    <string name="failed">Fail to Insert User</string>
+
+    <string name="type_anything">Type the movie\'s Title Here</string>
+    <string name="connection_error">Connection Error</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

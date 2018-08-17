@@ -115,7 +115,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             mTitulo.setText(filme.getTitulo());
             mRating.setText(filme.getRating());
             mGenero.setText(genero);
-            mAno.setText("Ano: " + filme.getAno().substring(0,4));
+            mAno.setText(context.getResources().getString(R.string.year) + ": " + filme.getAno().substring(0,4));
             mCartaz.setImageUrl("https://image.tmdb.org/t/p/original" + filme.getFoto());
 
         }

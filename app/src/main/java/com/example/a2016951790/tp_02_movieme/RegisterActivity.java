@@ -30,12 +30,15 @@ public class RegisterActivity extends AppCompatActivity {
                 String passString = passr.getText().toString();
                 String userString = userr.getText().toString();
                 String nameString = namer.getText().toString();
-                String resultado;
+                long resultado;
 
                 resultado = crud.insertUser(mailString, passString, nameString, userString);
-                Log.i(resultado, resultado);
 
-                Toast.makeText(RegisterActivity.this, "Usuario " + userString + " cadastrado", Toast.LENGTH_LONG).show();
+                if(resultado == -1) {
+                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.failed), Toast.LENGTH_LONG).show();
+                }else
+                    Toast.makeText(RegisterActivity.this, getResources().getString(R.string.user) + ":" + userString, Toast.LENGTH_LONG).show();
+
 
                 Intent intent = new Intent(RegisterActivity.this, EnterActivity.class);
                 startActivity(intent);

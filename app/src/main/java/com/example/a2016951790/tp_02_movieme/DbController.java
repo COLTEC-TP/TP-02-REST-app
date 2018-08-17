@@ -17,7 +17,7 @@ public class DbController {
         banco = new DbOpener(context);
     }
 
-    public String insertUser(String mail, String pass, String name, String user){
+    public long insertUser(String mail, String pass, String name, String user){
         ContentValues valores;
         long resultado;
 
@@ -31,10 +31,7 @@ public class DbController {
         resultado = db.insert(DbOpener.TABELA_USUARIO, null, valores);
         db.close();
 
-        if (resultado ==-1)
-            return "Erro ao inserir registro";
-        else
-            return "Registro Inserido com sucesso";
+        return resultado;
 
     }
 

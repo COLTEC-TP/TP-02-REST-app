@@ -1,24 +1,14 @@
 package com.example.a2016951790.tp_02_movieme;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.SharedPreferences;
+
+import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -27,18 +17,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * Created by a2016951790 on 09/08/18.
- */
+public class ResultsFragment extends Fragment {
 
-public class HomeFragment extends Fragment {
-
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_home, container, false);
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_results, container, false);
         FilmeService service = new RetrofitConfig().getFilmeService();
-        Call<List<Filme>> filmeCall = service.getFilme();
+        String myDataFromActivity = getArguments().getString("Key");
+        Call<List<Filme>> filmeCall = service.getFilmeByName(myDataFromActivity);
+
 
         filmeCall.enqueue(new Callback<List<Filme>>() {
             @Override
@@ -56,14 +43,12 @@ public class HomeFragment extends Fragment {
                 Toast toast = Toast.makeText(container.getContext(), container.getResources().getString(R.string.connection_error),Toast.LENGTH_SHORT);
                 toast.show();
             }
+
         });
 
 
 
         return view;
-
     }
 
 }
-
-

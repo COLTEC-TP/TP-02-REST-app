@@ -1,6 +1,9 @@
 package com.example.a2016951790.tp_02_movieme;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,7 +15,6 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -65,9 +67,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new HomeFragment()).commit();
                 break;
-            case R.id.nav_profile:
+            case R.id.nav_search:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new ProfileFragment()).commit();
+                        new SearchFragment()).commit();
                 break;
             case R.id.nav_favorite:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
@@ -82,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         new WatchedFragment()).commit();
                 break;
             case R.id.nav_logout:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new LogoutFragment()).commit();
+                AlertDialog builder = open(this);
+                builder.show();
                 break;
         }
 
@@ -98,6 +100,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    public AlertDialog open(final Context context){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Are you sure")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Toast toast = Toast.makeText(context, "a",Toast.LENGTH_SHORT);
+                        toast.show();
+                        SharedPreferences sharedPreferences = getSharedPreferences("pref_key", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("user_id", "");
+                        editor.apply();
+                        Intent intent = new Intent(getApplicationContext(), EnterActivity.class);
+                        finishAffinity();
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                    }
+                });
+        return builder.create();
     }
 
 }
