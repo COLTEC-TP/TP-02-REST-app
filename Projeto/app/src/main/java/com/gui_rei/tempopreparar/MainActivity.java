@@ -8,7 +8,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,41 +35,11 @@ public class MainActivity extends Activity {
         TextView txtCidade = findViewById(R.id.txt_cidade);
         txtCidade.setText(clima.getName().toString());
 
-        //Verificar o clima para saber qual icone colocar
-        String codigoIcone = clima.getData().getIcon().toString();
-        Toast.makeText(MainActivity.this,"Codigo do icone: " + codigoIcone, Toast.LENGTH_SHORT).show();
-
-        /**
-         * MAPEAMENTO DOS ICONES
-         * 1, 9 = sol
-         * 1n, 2n, 2rn, 9n = noite
-         * 2, 2r = sol/nuvem
-         * 3TM = nuvem
-         * restante: chuva
-         */
-
-
-
-        if(codigoIcone.equals("1") || codigoIcone.equals("9")) {
-            ImageView blueBtn  = (ImageView)findViewById(R.id.imageView);
-            blueBtn.setImageResource(R.drawable.sol);
-        }
-        else if (codigoIcone.equals("1n") || codigoIcone.equals("2n") || codigoIcone.equals("2rn") || codigoIcone.equals("9n")){
-            ImageView blueBtn  = (ImageView)findViewById(R.id.imageView);
-            blueBtn.setImageResource(R.drawable.noite);
-        }
-        else if (codigoIcone.equals("2") || codigoIcone.equals("2r")){
-            ImageView blueBtn  = (ImageView)findViewById(R.id.imageView);
-            blueBtn.setImageResource(R.drawable.solnuvem);
-        }
-        else if (codigoIcone.equals("3TM")){
-            ImageView blueBtn  = (ImageView)findViewById(R.id.imageView);
-            blueBtn.setImageResource(R.drawable.nuvem);
-        }
-        else {
-            ImageView blueBtn  = (ImageView)findViewById(R.id.imageView);
-            blueBtn.setImageResource(R.drawable.guardachuva);
-        }
+        //Mostrar velocidade do vento
+//        TextView txtTemp = findViewById(R.id.txt_vento);
+//        txtTemp.setText("Clima em " + clima.getName().toString() + ": \n" +
+//                "Vento: " + clima.getData().getWind_velocity().toString() + " KM/h"
+//        );
 
         //Mostrar a temperatura atual
         TextView temperaturaAtual = findViewById(R.id.txtTemperaturaAtual);
