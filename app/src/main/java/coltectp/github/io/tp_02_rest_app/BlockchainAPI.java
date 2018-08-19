@@ -37,6 +37,9 @@ public interface BlockchainAPI {
     @GET("charts/trade-volume")
     public Call<Chart> getTradeVolume(@QueryMap Map<String, String> options);
 
+    @GET("ticker")
+    public Call<Coin> getCoinPrice();
+
     /**
      * Group of Mining
      */
