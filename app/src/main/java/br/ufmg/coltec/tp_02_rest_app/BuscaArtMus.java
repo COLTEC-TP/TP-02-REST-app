@@ -81,12 +81,11 @@ public class BuscaArtMus extends AppCompatActivity {
             public boolean onQueryTextChange(String s) { //durante a digitação do usuário filtra e seta a ListView com o resultado da busca
 
                 final VagalumeService service = new RetrofitConfig().getVagalumeService(); //setando o retrofit
-
                 String query = s; //o que o usuário digitou
                 String limit = "5";
-                //calling
-                Call<ArtMus> musicaDadosCall = service.searchArtmus(query, limit);
+                String apikey = "757b78a7fb6faecd6b3ba6ad97daac38";
 
+                Call<ArtMus> musicaDadosCall = service.searchArtmus(query, limit, apikey);
                 musicaDadosCall.enqueue(new Callback<ArtMus>() {
                     @Override
                     public void onResponse(Call<ArtMus> call, Response<ArtMus> response) {
@@ -94,10 +93,7 @@ public class BuscaArtMus extends AppCompatActivity {
                             ArtMus  res = response.body();
                             ArtMusResponse resp = res.getResponse();
                             Log.i("I", "onResponse: " + response.raw());
-
-                            //  Log.i("I", "onResponse: " + resp.getDocs().get(2).getBand());
                             mostraBusca(resp.getDocs());
-
 
                         }catch (Exception e){
                             Log.i("I", "onResponse: " + e.toString());
@@ -131,6 +127,13 @@ public class BuscaArtMus extends AppCompatActivity {
                 if(lista_aux.get(position).getTitle()!=null){//se for uma música
                     Toast toast = Toast.makeText(getApplicationContext(), lista_aux.get(position).getTitle(), Toast.LENGTH_SHORT);
                     toast.show();
+                    Intent intent = new Intent(BuscaArtMus.this, ExibeLetra.class);
+
+                    intent.putExtra("mus", lista_aux.get(position).getTitle());
+                    intent.putExtra("art", lista_aux.get(position).getBand());
+
+                    startActivity(intent);
+
                     
                  }else{
                     Toast toast = Toast.makeText(getApplicationContext(), "Esse é um artista.", Toast.LENGTH_SHORT);

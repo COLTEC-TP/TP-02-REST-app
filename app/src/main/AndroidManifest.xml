@@ -17,6 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".BuscaArtMus"  android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".ExibeLetra"  android:parentActivityName=".MainActivity"></activity>
+
 
 
     </application>

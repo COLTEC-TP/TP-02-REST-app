@@ -1,11 +1,14 @@
 package restapi.musicadadosAttr;
 
+import java.util.ArrayList;
+
 public class Musica {
     private String id;
     private Integer lang;
     private String name;
     private String text;
-    //translate
+    private ArrayList <Traducao> translate;
+
     private String url;
 
     public String getId() {
@@ -46,5 +49,13 @@ public class Musica {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public ArrayList<Traducao> getTranslate() {
+        return translate;
+    }
+
+    public void setTranslate(ArrayList<Traducao> translate) {
+        this.translate = translate;
     }
 }
