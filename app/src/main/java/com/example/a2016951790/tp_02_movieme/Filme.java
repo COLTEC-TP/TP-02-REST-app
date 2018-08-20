@@ -8,9 +8,46 @@ public class Filme {
 
     private String Titulo;
     private String Rating;
+    private int id;
     private int[] Gender;
     private String Ano;
     private String foto;
+    private String cartaz;
+    private String description;
+
+    public String getCartaz() {
+        return cartaz;
+    }
+
+    public void setCartaz(String cartaz) {
+        this.cartaz = cartaz;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    private String subtitle;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitulo() {
         return Titulo;

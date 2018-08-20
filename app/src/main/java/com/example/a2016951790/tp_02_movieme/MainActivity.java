@@ -1,17 +1,18 @@
 package com.example.a2016951790.tp_02_movieme;
 
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,26 +63,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        FragmentManager fm = getFragmentManager();
         switch (item.getItemId()) {
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new HomeFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+                if(fm.getBackStackEntryCount()>0) {
+                    fm.popBackStack();
+                }
                 break;
             case R.id.nav_search:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new SearchFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
+                if(fm.getBackStackEntryCount()>0) {
+                    fm.popBackStack();
+                }
                 break;
             case R.id.nav_favorite:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new FavoriteFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FavoriteFragment()).commit();
+                if(fm.getBackStackEntryCount()>0) {
+                    fm.popBackStack();
+                }
                 break;
             case R.id.nav_next:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new NextFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new NextFragment()).commit();
+                if(fm.getBackStackEntryCount()>0) {
+                    fm.popBackStack();
+                }
                 break;
             case R.id.nav_watched:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new WatchedFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WatchedFragment()).commit();
+                if(fm.getBackStackEntryCount()>0) {
+                    fm.popBackStack();
+                }
                 break;
             case R.id.nav_logout:
                 AlertDialog builder = open(this);

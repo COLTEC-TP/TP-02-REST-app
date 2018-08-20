@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("user_id", conf.toString());
                     editor.apply();
+                    finish();
                 }
 
 

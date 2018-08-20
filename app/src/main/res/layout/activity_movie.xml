@@ -1,9 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.a2016951790.tp_02_movieme.MovieActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <com.loopj.android.image.SmartImageView
+        android:id="@+id/mv_image"
+        android:layout_width="match_parent"
+        android:layout_height="216dp"
+        app:srcCompat="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/mv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="232dp"
+        android:layout_x="13dp"
+        android:layout_y="223dp"
+        android:text="TextView"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/mv_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="17dp"
+        android:layout_y="266dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="265dp" />
+
+    <TextView
+        android:id="@+id/mv_description"
+        android:layout_width="368dp"
+        android:layout_height="167dp"
+        android:layout_x="8dp"
+        android:layout_y="332dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="301dp" />
+</AbsoluteLayout>

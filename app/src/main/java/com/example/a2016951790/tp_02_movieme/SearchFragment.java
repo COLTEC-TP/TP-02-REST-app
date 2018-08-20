@@ -3,8 +3,6 @@ package com.example.a2016951790.tp_02_movieme;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +39,7 @@ public class SearchFragment extends Fragment {
         fragment2.setArguments(args);
         android.app.FragmentManager fragmentManager = getActivity().getFragmentManager();
         android.app.FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container,fragment2,"tag");
+        fragmentTransaction.replace(R.id.fragment_container,fragment2);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

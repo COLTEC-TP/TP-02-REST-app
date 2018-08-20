@@ -29,6 +29,7 @@ public class EnterActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(EnterActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
 
@@ -37,12 +38,14 @@ public class EnterActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(EnterActivity.this, RegisterActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
 
         } else {
             Intent intent = new Intent(EnterActivity.this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 }
