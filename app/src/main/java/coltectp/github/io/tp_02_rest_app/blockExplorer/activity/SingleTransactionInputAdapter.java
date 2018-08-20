@@ -7,30 +7,30 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import coltectp.github.io.tp_02_rest_app.R;
-import coltectp.github.io.tp_02_rest_app.blockExplorer.Output;
+import coltectp.github.io.tp_02_rest_app.blockExplorer.Input;
 
-public class SingleTransactionAdapter extends BaseAdapter {
-
+public class SingleTransactionInputAdapter extends BaseAdapter {
     private Context context;
-    private List<Output> outputs;
+    private List<Input> inputs;
 
-    public SingleTransactionAdapter(Context context, List<Output> outputs) {
+    public SingleTransactionInputAdapter(Context context, List<Input> inputs) {
         this.context = context;
 
-        this.outputs = outputs;
+        this.inputs =  inputs;
     }
 
     @Override
     public int getCount() {
-        return outputs.size();
+        return inputs.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return outputs.get(i);
+        return inputs.get(i);
     }
 
     @Override
@@ -40,17 +40,16 @@ public class SingleTransactionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        Output output = (Output) this.getItem(i);
+        Input input = (Input) this.getItem(i);
 
         // recupera a view do adapter que será customizada
-        View newView = LayoutInflater.from(this.context).inflate(R.layout.transaction_dialog_item,
+        View newView = LayoutInflater.from(this.context).inflate(R.layout.transaction_dialog_input_item,
                 viewGroup, false);
 
         TextView lblAddress = newView.findViewById(R.id.address);
         TextView lblValue = newView.findViewById(R.id.value);
-
-        lblAddress.setText(output.getAddress());
-        lblValue.setText(String.valueOf(output.getValue()) + " BTC");
+        lblAddress.setText(input.getPreviousOutput().getAddress());
+        lblValue.setText(String.valueOf(new BigDecimal(input.getPreviousOutput().getValue()).divide(BigDecimal.valueOf(100000000))) + " BTC");
 
         return newView;
     }

@@ -29,7 +29,6 @@
         <activity android:name=".charts.pieChart.PoolChartActivity" android:parentActivityName=".MainActivity"/>
         <activity android:name=".blockExplorer.activity.SimpleBlockActivity" android:parentActivityName=".MainActivity"/>
         <activity android:name=".blockExplorer.activity.SingleBlockActivity" android:parentActivityName=".blockExplorer.activity.SimpleBlockActivity"/>
-        <activity android:name=".blockExplorer.activity.TransactionActivity" android:parentActivityName=".blockExplorer.activity.SingleBlockActivity"></activity>
     </application>
 
 </manifest>

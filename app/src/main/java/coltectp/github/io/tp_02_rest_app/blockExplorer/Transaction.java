@@ -75,6 +75,10 @@ public class Transaction {
         return inputs;
     }
 
+    public Input getInput(int i) {
+        return inputs.get(i);
+    }
+
     public List<Output> getOutputs() {
         return outputs;
     }

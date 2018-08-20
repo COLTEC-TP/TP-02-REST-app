@@ -12,7 +12,7 @@ public class Output {
     @Expose
     private long value;
 
-    @SerializedName("address")
+    @SerializedName("addr")
     @Expose
     private String address;
 

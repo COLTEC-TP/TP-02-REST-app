@@ -3,6 +3,8 @@ package coltectp.github.io.tp_02_rest_app.charts.pieChart;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -26,12 +28,27 @@ import retrofit2.Response;
 public class PoolChartActivity extends AppCompatActivity {
 
     private PieChart pieChart;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pool_chart_acitivity);
 
+        mProgressBar = findViewById(R.id.progressBar);
+
+        makeCall();
+    }
+
+    private void showProgress(boolean show) {
+        mProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    private void showChart(boolean show) {
+        pieChart.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    private void makeCall() {
         BlockchainAPI service = new RetrofitConfig(getApplicationContext()).getInfoBlockchain(getApplicationContext()
         );
 
@@ -65,10 +82,14 @@ public class PoolChartActivity extends AppCompatActivity {
                 dataset.put("58COIN", poolChart.get58COIN());
 
                 setChart(dataset);
+                showProgress(false);
+                showChart(true);
             }
 
             @Override
             public void onFailure(Call<PoolChart> call, Throwable t) {
+                showProgress(false);
+                showChart(false);
                 // Tratamento de eventual erro de requisição
             }
         });

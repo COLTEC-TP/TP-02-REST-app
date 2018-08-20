@@ -3,7 +3,6 @@ package coltectp.github.io.tp_02_rest_app.blockExplorer.activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -13,10 +12,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +23,6 @@ import coltectp.github.io.tp_02_rest_app.BlockchainAPI;
 import coltectp.github.io.tp_02_rest_app.R;
 import coltectp.github.io.tp_02_rest_app.RetrofitConfig;
 import coltectp.github.io.tp_02_rest_app.blockExplorer.Block;
-import coltectp.github.io.tp_02_rest_app.blockExplorer.Output;
 import coltectp.github.io.tp_02_rest_app.blockExplorer.SimpleBlockList;
 import coltectp.github.io.tp_02_rest_app.blockExplorer.Transaction;
 import retrofit2.Call;
@@ -38,10 +35,12 @@ public class SingleBlockActivity extends AppCompatActivity {
     private BlockchainAPI mService;
     private SingleBlockRecyclerViewAdapter mAdapter;
     private Block mBlock;
-    private LinearLayout mLayout;
     private AlertDialog.Builder alertBuilder;
-    private ListView mListView;
+    private ListView mListOuputViewDialog;
+    private ListView mListInputViewDialog;
     private AlertDialog mDialog;
+    private RelativeLayout mLayout;
+    private ProgressBar mProgressBar;
 
 
     @Override
@@ -53,7 +52,8 @@ public class SingleBlockActivity extends AppCompatActivity {
         assert activityBundle != null;
         String hash = activityBundle.getString("hash");
         mContext = getApplicationContext();
-        mLayout = findViewById(R.id.singleBlockLayoutActivity);
+        mProgressBar = findViewById(R.id.progressBar);
+        mLayout = (RelativeLayout) findViewById(R.id.singleBlockLayoutActivity);
         mRecyclerView = (RecyclerView) findViewById(R.id.single_block_list);
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(1, 4, true));
@@ -61,38 +61,37 @@ public class SingleBlockActivity extends AppCompatActivity {
         alertBuilder = new AlertDialog.Builder(SingleBlockActivity.this);
 
         // Alert Dialog
-        alertBuilder.setTitle("Transation");
+        alertBuilder.setTitle("Transaction");
 
 
         LayoutInflater inflater = getLayoutInflater();
         View convertView = (View) inflater.inflate(R.layout.transaction_dialog_list, null);
         alertBuilder.setView(convertView);
-        mListView = (ListView) convertView.findViewById(R.id.list_dialog);
 
+        mListInputViewDialog = (ListView) convertView.findViewById(R.id.list_input_dialog);
+        mListOuputViewDialog = (ListView) convertView.findViewById(R.id.list_output_dialog);
 
-        alertBuilder.setPositiveButton("Estou ciente!", new DialogInterface.OnClickListener() {
+        alertBuilder.setNegativeButton("Sair", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getBaseContext(), "Fique por sua conta e risco", Toast.LENGTH_LONG).show();
                 dialogInterface.dismiss();
             }
         });
 
-
-        alertBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getBaseContext(), "Muito bem!!", Toast.LENGTH_LONG).show();
-                dialogInterface.dismiss();
-
-            }
-        });
-
-       mDialog = alertBuilder.create();
+        mDialog = alertBuilder.create();
 
         mService = new RetrofitConfig(mContext).getInfoBlockchain(mContext);
 
         makeCall(hash);
+        showProgress(true);
+    }
+
+    private void showProgress(boolean show) {
+        mProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    private void showRecyclerView(boolean show) {
+        mRecyclerView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     private void makeCall (String hash) {
@@ -119,19 +118,27 @@ public class SingleBlockActivity extends AppCompatActivity {
                         public void onItemClick(int position, View v) {
                             int itemPosition = mRecyclerView.getChildLayoutPosition(v);
                             Transaction item = mBlock.getTransaction(itemPosition);
-                            String hash = item.getHash();
 
-                            SingleTransactionAdapter adapter = new SingleTransactionAdapter(SingleBlockActivity.this, item.getOutputs());
-                            mListView.setAdapter(adapter);
+                            SingleTransactionOutputAdapter outputAdapter =
+                                    new SingleTransactionOutputAdapter(SingleBlockActivity.this,
+                                                                                item.getOutputs());
+                            mListOuputViewDialog.setAdapter(outputAdapter);
 
+                            SingleTransactionInputAdapter inputAdapter =
+                                    new SingleTransactionInputAdapter(SingleBlockActivity.this,
+                                                                                item.getInputs());
+
+                            mListInputViewDialog.setAdapter(inputAdapter);
                             mDialog.show();
 
                         }
                     });
                     mRecyclerView.setAdapter(mAdapter);
-
+                    showProgress(false);
+                    showRecyclerView(true);
                 } else {
-
+                    showProgress(false);
+                    showRecyclerView(false);
                     // Erro: Esse app parou de funcionar
                     Snackbar.make(mLayout, "Nada encontrado", Snackbar.LENGTH_SHORT).show();
                 }

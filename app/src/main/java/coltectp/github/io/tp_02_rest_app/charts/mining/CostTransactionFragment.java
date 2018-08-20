@@ -1,10 +1,12 @@
 package coltectp.github.io.tp_02_rest_app.charts.mining;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -32,6 +34,9 @@ public class CostTransactionFragment extends Fragment {
     public static final String ARG_PAGE = "COST_PER_TRANSACTION";
 
     private int mPage;
+    private ProgressBar mProgressBar;
+    private LineChart mChart;
+    private Context mContext;
 
     public static CostTransactionFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -39,6 +44,11 @@ public class CostTransactionFragment extends Fragment {
         CostTransactionFragment fragment = new CostTransactionFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void showProgress(boolean show) {
+        mProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        mChart.setVisibility(show ? View.GONE    : View.VISIBLE);
     }
 
     @Override
@@ -51,6 +61,17 @@ public class CostTransactionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_line_chart, container, false);
+
+        mProgressBar = view.findViewById(R.id.progressBar);
+        mChart = view.findViewById(R.id.chart);
+        mContext = view.getContext();
+
+        makeCall(view);
+
+        return view;
+    }
+
+    private void makeCall (final View view) {
 
         BlockchainAPI service = new RetrofitConfig(view.getContext()).getInfoBlockchain(view.getContext());
         Map<String, String> data = new HashMap<>();
@@ -75,6 +96,7 @@ public class CostTransactionFragment extends Fragment {
                     entries.add(new Entry(data.getX(), data.getY()));
                 }
                 setChart(view, chart, entries, points.get(0).getX());
+                showProgress(false);
             }
 
             @Override
@@ -83,8 +105,9 @@ public class CostTransactionFragment extends Fragment {
             }
         });
 
-        return view;
     }
+
+
 
     private List<Point> convertingTimeSmallNum(List<Point> points, float referencedTimestamps) {
         List<Point> result = new ArrayList<>();
@@ -96,20 +119,19 @@ public class CostTransactionFragment extends Fragment {
     }
 
     private void setChart(View view, Chart transactionPerBlock, List<Entry> entries, float referencedTime) {
-        LineChart chart = (LineChart) view;
         LineDataSet dataSet = new LineDataSet(entries, transactionPerBlock.getName()); // add entries to dataset
         LineData lineData = new LineData(dataSet);
 
-        XAxis xAxis = chart.getXAxis();
+        XAxis xAxis = mChart.getXAxis();
         xAxis.setValueFormatter(new HourAxisValueFormatter((long)referencedTime));
 
         DateMarkerView myMarkerView = new DateMarkerView(
                 getActivity(),
                 R.layout.custom_marker_view,
                 (long) referencedTime);
-        chart.setMarker(myMarkerView);
+        mChart.setMarker(myMarkerView);
 
-        chart.setData(lineData);
-        chart.invalidate(); // refresh
+        mChart.setData(lineData);
+        mChart.invalidate(); // refresh
     }
 }

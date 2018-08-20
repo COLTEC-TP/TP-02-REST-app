@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -18,12 +19,12 @@ import java.util.List;
 import java.util.Map;
 
 import coltectp.github.io.tp_02_rest_app.BlockchainAPI;
+import coltectp.github.io.tp_02_rest_app.R;
+import coltectp.github.io.tp_02_rest_app.RetrofitConfig;
 import coltectp.github.io.tp_02_rest_app.charts.Chart;
 import coltectp.github.io.tp_02_rest_app.charts.DateMarkerView;
 import coltectp.github.io.tp_02_rest_app.charts.HourAxisValueFormatter;
 import coltectp.github.io.tp_02_rest_app.charts.Point;
-import coltectp.github.io.tp_02_rest_app.R;
-import coltectp.github.io.tp_02_rest_app.RetrofitConfig;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +33,8 @@ public class MarketPriceFragment extends Fragment {
     public static final String ARG_PAGE = "MARKET_PRICE";
 
     private int mPage;
+    private ProgressBar mProgressBar;
+    private LineChart mChart;
 
     public static MarketPriceFragment newInstance(int page) {
         Bundle args = new Bundle();
@@ -39,6 +42,11 @@ public class MarketPriceFragment extends Fragment {
         MarketPriceFragment fragment = new MarketPriceFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void showProgress(boolean show) {
+        mProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        mChart.setVisibility(show ? View.GONE    : View.VISIBLE);
     }
 
     @Override
@@ -52,6 +60,15 @@ public class MarketPriceFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_line_chart, container, false);
 
+        mProgressBar = view.findViewById(R.id.progressBar);
+        mChart = view.findViewById(R.id.chart);
+
+        makeCall(view);
+
+        return view;
+    }
+
+    private void makeCall(final View view) {
         BlockchainAPI service = new RetrofitConfig(view.getContext()).getInfoBlockchain(view.getContext());
         Map<String, String> data = new HashMap<>();
         data.put("timespan", "30days");
@@ -75,6 +92,7 @@ public class MarketPriceFragment extends Fragment {
                     entries.add(new Entry(data.getX(), data.getY()));
                 }
                 setChart(view, chart, entries, points.get(0).getX());
+                showProgress(false);
             }
 
             @Override
@@ -82,8 +100,6 @@ public class MarketPriceFragment extends Fragment {
                 // Tratamento de eventual erro de requisição
             }
         });
-
-        return view;
     }
 
     private List<Point> convertingTimeSmallNum(List<Point> points, float referencedTimestamps) {
@@ -96,20 +112,19 @@ public class MarketPriceFragment extends Fragment {
     }
 
     private void setChart(View view, Chart transactionPerBlock, List<Entry> entries, float referencedTime) {
-        LineChart chart = (LineChart) view;
         LineDataSet dataSet = new LineDataSet(entries, transactionPerBlock.getName()); // add entries to dataset
         LineData lineData = new LineData(dataSet);
 
-        XAxis xAxis = chart.getXAxis();
+        XAxis xAxis = mChart.getXAxis();
         xAxis.setValueFormatter(new HourAxisValueFormatter((long)referencedTime));
 
         DateMarkerView myMarkerView = new DateMarkerView(
                 getActivity(),
                 R.layout.custom_marker_view,
                 (long) referencedTime);
-        chart.setMarker(myMarkerView);
+        mChart.setMarker(myMarkerView);
 
-        chart.setData(lineData);
-        chart.invalidate(); // refresh
+        mChart.setData(lineData);
+        mChart.invalidate(); // refresh
     }
 }

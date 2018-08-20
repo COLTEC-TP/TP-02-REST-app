@@ -2,9 +2,7 @@ package coltectp.github.io.tp_02_rest_app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,19 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.data.Entry;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Currency;
+import java.util.Locale;
 
 import coltectp.github.io.tp_02_rest_app.blockExplorer.activity.SimpleBlockActivity;
-import coltectp.github.io.tp_02_rest_app.charts.Chart;
-import coltectp.github.io.tp_02_rest_app.charts.Point;
 import coltectp.github.io.tp_02_rest_app.charts.block.BlockChart;
 import coltectp.github.io.tp_02_rest_app.charts.coin.StatsCoinActivity;
 import coltectp.github.io.tp_02_rest_app.charts.mining.MiningInfoActivity;
@@ -36,10 +27,10 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private TextView mPriceTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        final String currency = "BRL";
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -55,45 +46,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        final TextView lbl_price_usd = findViewById(R.id.lbl_price_usd);
-        final TextView lbl_price_brl = findViewById(R.id.lbl_price_brl);
-        final TextView lbl_price_eur = findViewById(R.id.lbl_price_eur);
-
-
-        // Get market price of coins
-        BlockchainAPI service = new RetrofitConfig(MainActivity.this).getInfoBlockchain(MainActivity.this);
-
-
-        Call<Coin> priceCall = service.getCoinPrice();
-
-        priceCall.enqueue(new Callback<Coin>() {
-            @Override
-            public void onResponse(Call<Coin> call, Response<Coin> response) {
-                Coin coin = response.body();
-
-                Float priceUSD = coin.getPriceUSD().getLast();
-                String symbolUSD= coin.getPriceUSD().getSymbol();
-
-                Float priceBRL = coin.getPriceBRL().getLast();
-                String symbolBRL = coin.getPriceBRL().getSymbol();
-
-                Float priceEUR = coin.getPriceEUR().getLast();
-                String symbolEUR = coin.getPriceEUR().getSymbol();
-
-
-                lbl_price_usd.setText(priceUSD.toString() + " " + symbolUSD);
-                lbl_price_brl.setText(priceBRL.toString() + " " + symbolBRL);
-                lbl_price_eur.setText(priceEUR.toString() + " " + symbolEUR);
-
-
-            }
-
-            @Override
-            public void onFailure(Call<Coin> call, Throwable t) {
-
-            }
-        });
-
+        String currencyCode = displayCurrencyInfoForLocale(getResources().getConfiguration().locale);
+        mPriceTextView = findViewById(R.id.price_tv);
+        makeCall(mPriceTextView, currencyCode);
     }
 
     @Override
@@ -151,5 +106,52 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void makeCall(final TextView mPriceTextView, final String currencyCode) {
+        BlockchainAPI service = new RetrofitConfig(MainActivity.this).
+                getInfoBlockchain(MainActivity.this);
+
+        Call<Coin> priceCall = service.getCoinPrice();
+
+        priceCall.enqueue(new Callback<Coin>() {
+            @Override
+            public void onResponse(Call<Coin> call, Response<Coin> response) {
+                Coin coin = response.body();
+
+                switch (currencyCode) {
+                    case "EUR":
+                        StringBuilder priceEUR = new StringBuilder();
+                        priceEUR.append(String.valueOf(coin.getPriceEUR().getSymbol()))
+                                .append(String.valueOf(coin.getPriceEUR().getLast()));
+                        mPriceTextView.setText(priceEUR.toString());
+                            break;
+                    case "BRL":
+                        StringBuilder priceBRL = new StringBuilder();
+                        priceBRL.append(String.valueOf(coin.getPriceBRL().getSymbol()))
+                                .append(String.valueOf(coin.getPriceBRL().getLast()));
+                        mPriceTextView.setText(priceBRL.toString());
+                            break;
+                    default:
+                        StringBuilder priceUSD = new StringBuilder();
+                        priceUSD.append(String.valueOf(coin.getPriceUSD().getSymbol()))
+                                .append(String.valueOf(coin.getPriceUSD().getLast()));
+
+                        mPriceTextView.setText(priceUSD.toString());
+                            break;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Coin> call, Throwable t) {
+
+            }
+        });
+    }
+
+
+    private String displayCurrencyInfoForLocale(Locale locale) {
+        Currency currency = Currency.getInstance(locale);
+        return currency.getCurrencyCode();
     }
 }

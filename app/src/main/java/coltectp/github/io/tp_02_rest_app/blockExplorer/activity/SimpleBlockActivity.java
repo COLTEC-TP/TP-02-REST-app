@@ -12,7 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 
 import java.util.HashMap;
@@ -33,12 +34,15 @@ public class SimpleBlockActivity extends AppCompatActivity {
     private BlockchainAPI mService;
     private SimpleBlockRecyclerViewAdapter mAdapter;
     private SimpleBlockList mSimpleBlocks;
-    private LinearLayout mLayout;
+    private RelativeLayout mLayout;
+    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple_block);
+
+        mProgressBar = findViewById(R.id.progressBar);
 
         mContext = getApplicationContext();
         mLayout = findViewById(R.id.simpleBlockActivityLayout);
@@ -47,8 +51,14 @@ public class SimpleBlockActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(1, 4, true));
 
         mService = new RetrofitConfig(mContext).getInfoBlockchain(mContext);
+    }
 
+    private void showProgress(boolean show) {
+        mProgressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
 
+    private void showRecyclerView(boolean show) {
+        mRecyclerView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -61,6 +71,7 @@ public class SimpleBlockActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 makeCall(s);
+                showProgress(true);
                 return false;
             }
 
@@ -108,8 +119,12 @@ public class SimpleBlockActivity extends AppCompatActivity {
                     });
                     mRecyclerView.setAdapter(mAdapter);
 
-                } else {
+                    showProgress(false);
+                    showRecyclerView(true);
 
+                } else {
+                    showProgress(false);
+                    showRecyclerView(false);
                     // Erro: Esse app parou de funcionar
                     Snackbar.make(mLayout, "Nada encontrado", Snackbar.LENGTH_SHORT).show();
                 }
