@@ -3,6 +3,7 @@ package com.gui_rei.tempopreparar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,8 +31,33 @@ public class MainActivity extends Activity {
     // atual: http://apiadvisor.climatempo.com.br/api/v1/weather/locale/6879/current?token=
     // 15 dias (ou 7, n entendi): apiadvisor.climatempo.com.br/api/v1/forecast/locale/6879/days/15?token=
 
-    private void preencheTela(ClimaAtual clima){ //Função responsável for preencher o frontend
-
+    private int defIcon(String cod){
+        switch (cod) {
+            case "1":
+                return R.drawable.sol;
+            case "9":
+                return R.drawable.sol;
+            case "1n":
+                return R.drawable.noite;
+            case "2n":
+                return R.drawable.noite;
+            case "2rn":
+                return R.drawable.noite;
+            case "9n":
+                return R.drawable.noite;
+            case "2":
+                return R.drawable.solnuvem;
+            case "2r":
+                return R.drawable.solnuvem;
+            case "3TM":
+                return R.drawable.nuvem;
+            default:
+                return R.drawable.guardachuva;
+        }
+        //return android.R.drawable.ic_menu_help;
+    }
+    private void preencheTela(ClimaAtual clima) //Função responsável for preencher o frontend
+    {
         //Mostrar a cidade
         TextView txtCidade = findViewById(R.id.txt_cidade);
         txtCidade.setText(clima.getName().toString());
@@ -49,42 +75,38 @@ public class MainActivity extends Activity {
          * restante: chuva
          */
 
-
-
-        if(codigoIcone.equals("1") || codigoIcone.equals("9")) {
-            ImageView blueBtn  = (ImageView)findViewById(R.id.imageView);
-            blueBtn.setImageResource(R.drawable.sol);
-        }
-        else if (codigoIcone.equals("1n") || codigoIcone.equals("2n") || codigoIcone.equals("2rn") || codigoIcone.equals("9n")){
-            ImageView blueBtn  = (ImageView)findViewById(R.id.imageView);
-            blueBtn.setImageResource(R.drawable.noite);
-        }
-        else if (codigoIcone.equals("2") || codigoIcone.equals("2r")){
-            ImageView blueBtn  = (ImageView)findViewById(R.id.imageView);
-            blueBtn.setImageResource(R.drawable.solnuvem);
-        }
-        else if (codigoIcone.equals("3TM")){
-            ImageView blueBtn  = (ImageView)findViewById(R.id.imageView);
-            blueBtn.setImageResource(R.drawable.nuvem);
-        }
-        else {
-            ImageView blueBtn  = (ImageView)findViewById(R.id.imageView);
-            blueBtn.setImageResource(R.drawable.guardachuva);
-        }
+        ImageView blueBtn = findViewById(R.id.imageView);
+        blueBtn.setImageResource(defIcon(codigoIcone));
 
         //Mostrar a temperatura atual
         TextView temperaturaAtual = findViewById(R.id.txtTemperaturaAtual);
         temperaturaAtual.setText(clima.getData().getTemperature().toString() + "°");
     }
-    private void preencheTela(Dias clima){ //Função responsável for colocar dados de outros dias
+    private void preencheTela(Dias clima) //Função responsável for colocar dados de outros dias
+    {
         ((TextView) findViewById(R.id.txt_tempAmanha)).setText("Temp max amanhã: " + clima.getData().get(1).getTemperature().getMax() + "°"); // get(1) seria amanha
         Toast.makeText(MainActivity.this,"Amanha é: " + clima.getData().get(1).getDate_br(), Toast.LENGTH_SHORT).show();
+    }
+    private void preencherTela()//Funcao que pega os dados do banco e chama as preenchedoras
+    {
+        int city = Prefs.getInstance().getCity();
+        ClimaAtual climaA = Dados.getInstance().getClimaAtual(city);
+        Dias climaD = Dados.getInstance().getClimaDias(city);
+        if(climaA == null) //Se não tem a informação no banco
+        {
+            Log.d("main", "Banco vazio!!!!!!!!!!");
+            Toast.makeText(MainActivity.this,"Aguarde atualizar",Toast.LENGTH_SHORT).show();
+            return ;
+        }
+
+        preencheTela(climaA);
+        preencheTela(climaD);
     }
 
     private void atualizaTemp(){
         Prefs prefs = Prefs.getInstance();
         Integer city = prefs.getCity();
-
+        final int[] pronto = {0}; //ponteiro de int
 
         RetrofitConfig retrofitConfig = new RetrofitConfig();
 
@@ -95,7 +117,12 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(Call<ClimaAtual> call, Response<ClimaAtual> response) {// executado quando resposta for recebida
                 ClimaAtual clima = response.body();
-                preencheTela(clima);
+                //preencheTela(clima);
+                Dados.getInstance().setClimaAtual(clima);
+
+                //Preencher: //precisa disso ou pode so preencher duas vez?
+                if(pronto[0] == 0) pronto[0]++; //Se for o primeiro dos dois calls a responder avisa
+                if(pronto[0] == 1) preencherTela(); //Se o outro call ja recebeu pode preencher
             }
             @Override
             public void onFailure(Call<ClimaAtual> call, Throwable t) {//executado quando houver erros
@@ -111,7 +138,12 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(Call<Dias> call, Response<Dias> response) {// executado quando resposta for recebida
                 Dias clima = response.body();
-                preencheTela(clima);
+                //preencheTela(clima);
+                Dados.getInstance().setClimaDias(clima);
+
+                //Preencher: //precisa disso ou pode so preencher duas vez?
+                if(pronto[0] == 0) pronto[0]++; //Se for o primeiro dos dois calls a responder avisa
+                if(pronto[0] == 1) preencherTela(); //Se o outro call ja recebeu pode preencher
             }
             @Override
             public void onFailure(Call<Dias> call, Throwable t) {//executado quando houver erros
@@ -147,21 +179,20 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Button btnAlteraCidade = findViewById(R.id.btnCity);
-
         btnAlteraCidade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this,CityActivity.class));
             }
         });
+
+        preencherTela();
 
     }
 
