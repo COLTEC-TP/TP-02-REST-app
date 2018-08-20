@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
         int city = Prefs.getInstance().getCity();
         ClimaAtual climaA = Dados.getInstance().getClimaAtual(city);
         Dias climaD = Dados.getInstance().getClimaDias(city);
-        if(climaA == null) //Se não tem a informação no banco
+        if(climaA == null || climaD == null) //Se não tem a informação no banco
         {
             Log.d("main", "Banco vazio!!!!!!!!!!");
             Toast.makeText(MainActivity.this,"Aguarde atualizar",Toast.LENGTH_SHORT).show();
