@@ -1,5 +1,8 @@
 package com.example.a2016951790.tp_02_movieme;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by a2016951790 on 14/08/18.
  */

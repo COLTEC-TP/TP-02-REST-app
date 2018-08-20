@@ -38,8 +38,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, MovieActivity.class);
-                        //.putExtra("id", filmes.get(position).getId());
+                Intent intent = new Intent(context, MovieActivity.class).putExtra("id", filmes.get(position).getId());
                 context.startActivity(intent);
             }
         });

@@ -4,6 +4,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -17,8 +18,8 @@ public interface FilmeService {
     @GET("3/search/movie?api_key=7bd6324cd7f2a1ec966c76a434e3c24e")
     Call<List<Filme>> getFilmeByName(@Query("query") String teste);
 
-    @GET("3/movie/299536?api_key=7bd6324cd7f2a1ec966c76a434e3c24e&language=en-US")
-    Call<Filme> getFilmeDetails();
+    @GET("3/movie/{id}?api_key=7bd6324cd7f2a1ec966c76a434e3c24e&language=en-US")
+    Call<Filme> getFilmeDetails(@Path("id") int id);
 
 }
 

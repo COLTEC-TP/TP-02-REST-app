@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.Toast;
 
 /**
  * Created by a2016951790 on 07/08/18.
@@ -32,6 +33,33 @@ public class DbController {
         db.close();
 
         return resultado;
+
+    }
+
+    public void salvarFilme(int id_api, int id_user, Context context){
+        db = banco.getWritableDatabase();
+        ContentValues valor;
+
+        valor = new ContentValues();
+        valor.put(DbOpener.ID_API, id_api);
+
+        long id = db.insert(DbOpener.TABELA_FILMES, null, valor);
+
+        Integer i = (int) (long) id;
+
+        Toast.makeText(context, i.toString(), Toast.LENGTH_LONG).show();
+
+        salvarFavorito(i, id_user);
+    }
+
+    public void salvarFavorito(int id_movie, int id_user){
+        db = banco.getWritableDatabase();
+        ContentValues valores;
+
+        valores = new ContentValues();
+        valores.put(DbOpener.ID_MOVIE, id_movie);
+        valores.put(DbOpener.ID_USER, id_user);
+        db.insert(DbOpener.TABELA_FAVORITOS, null, valores);
 
     }
 

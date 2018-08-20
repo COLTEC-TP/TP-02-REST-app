@@ -18,7 +18,7 @@ public class RetrofitConfigUnity {
     public RetrofitConfigUnity() {
 
         final GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(List.class, new FilmeDeserializerUnity());
+        gsonBuilder.registerTypeAdapter(Filme.class, new FilmeDeserializerUnity());
         final Gson gson = gsonBuilder.create();
 
         // configura o retrofit para um determinado serviço

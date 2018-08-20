@@ -1,5 +1,6 @@
 package com.example.a2016951790.tp_02_movieme;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,10 +12,13 @@ import android.widget.Button;
 
 public class EnterActivity extends AppCompatActivity {
 
+    public static Activity fa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
+
+        fa = this;
 
         Button login = findViewById(R.id.ent_login);
         Button register = findViewById(R.id.ent_register);
@@ -29,7 +33,6 @@ public class EnterActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(EnterActivity.this, LoginActivity.class);
                     startActivity(intent);
-                    finish();
                 }
             });
 
@@ -38,7 +41,6 @@ public class EnterActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(EnterActivity.this, RegisterActivity.class);
                     startActivity(intent);
-                    finish();
                 }
             });
 

@@ -1,5 +1,7 @@
 package com.example.a2016951790.tp_02_movieme;
 
+import android.util.Log;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -30,15 +32,6 @@ public class FilmeDeserializerUnity implements JsonDeserializer<Filme>{
             filme.setDescription(obj.get("overview").getAsString());
             filme.setFoto(obj.get("poster_path").getAsString());
             filme.setId(obj.get("id").getAsInt());
-
-            genresid = obj.get("genre_ids").getAsJsonArray();
-            numbers = new int[genresid.size()];
-
-            for (int j = 0; j < genresid.size(); ++j) {
-                numbers[j] = genresid.get(j).getAsInt();
-            }
-
-            filme.setGender(numbers);
 
         return (filme);
     }
