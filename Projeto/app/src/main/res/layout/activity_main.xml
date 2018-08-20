@@ -60,16 +60,45 @@
         android:layout_marginTop="119dp"
         android:src="@drawable/solnuvem" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+    <TableLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="35dp"
-        android:text="Pegue o guarda chuva\n\nVista o seu casaco"
-        android:textAlignment="center"
-        android:textColor="#FFB700"
-        android:textSize="20dp" />
+        android:layout_below="@id/txt_tempAmanha"
+        android:stretchColumns="2"
+        android:layout_margin="10dp">
+        <TableRow
+            android:gravity="center_vertical">
+            <TextView
+                android:text="Hoje"/>
+            <ImageView
+                android:src="@android:drawable/ic_menu_help"/>
+            <TextView
+                android:text="Mensagem"/>
+            <TextView
+                android:text="Temperature"/>
+        </TableRow>
+        <TableRow
+            android:gravity="center_vertical">
+            <TextView
+                android:text="Amanhã"/>
+            <ImageView
+                android:src="@android:drawable/ic_menu_help"/>
+            <TextView
+                android:text="Mensagem"/>
+            <TextView
+                android:text="Temperature"/>
+        </TableRow>
+        <TableRow
+            android:gravity="center_vertical">
+            <TextView
+                android:text="Depois"/>
+            <ImageView
+                android:src="@android:drawable/ic_menu_help"/>
+            <TextView
+                android:text="Mensagem"/>
+            <TextView
+                android:text="Temperature"/>
+        </TableRow>
+    </TableLayout>
 
 </RelativeLayout>
