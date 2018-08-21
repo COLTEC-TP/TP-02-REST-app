@@ -4,83 +4,108 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgroundescuro"
     tools:context=".ClimaDetalhesActivity">
 
     <TextView
         android:id="@+id/cidade"
-        android:layout_width="122dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Cidade" />
+        android:layout_marginTop="13dp"
+        android:text="Cidade"
+        android:textAlignment="center"
+        android:textColor="#FFB700"
+        android:textSize="23dp" />
 
     <TextView
         android:id="@+id/data"
-        android:layout_width="121dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
+        android:textAlignment="center"
+        android:textColor="#FFB700"
+        android:textSize="18dp"
         android:text="Data" />
 
     <TextView
         android:id="@+id/temp"
-        android:layout_width="121dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="86dp"
-        android:text="Temperatura" />
+        android:layout_marginTop="100dp"
+        android:text="Temperatura"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/umidade"
-        android:layout_width="121dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="175dp"
-        android:text="Umidade" />
+        android:layout_marginTop="160dp"
+        android:text="Umidade"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/sensacao"
-        android:layout_width="121dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="210dp"
-        android:text="Sensacao" />
+        android:layout_marginTop="220dp"
+        android:text="Sensacao"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/uv"
-        android:layout_width="121dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="UV" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="280dp"
+        android:text="UV"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/propabilidadeChuva"
-        android:layout_width="121dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="204dp"
-        android:text="Propabilidade de Chuva" />
+        android:layout_marginTop="340dp"
+        android:text="Propabilidade de Chuva"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/precipitacaoChuva"
-        android:layout_width="121dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/propabilidadeChuva"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="-204dp"
-        android:text="Precipitacao de Chuva" />
+        android:layout_marginTop="400dp"
+        android:text="Precipitacao de Chuva"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
 
     <TextView
         android:id="@+id/vento"
-        android:layout_width="121dp"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/precipitacaoChuva"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="Velocidade do vento" />
+        android:layout_marginTop="460dp"
+        android:text="Velocidade do vento"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
 
 </RelativeLayout>

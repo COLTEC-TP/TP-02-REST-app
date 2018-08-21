@@ -31,7 +31,7 @@ public class ClimaDetalhesActivity extends Activity {
 
         //Setar a data
         TextView data = findViewById(R.id.data);
-        data.setText("Data: " + dados.getDate_br());
+        data.setText(dados.getDate_br());
 
         //Setar a temperatura
         TextView temp = findViewById(R.id.temp);
