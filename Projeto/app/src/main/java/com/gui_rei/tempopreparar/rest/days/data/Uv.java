@@ -8,13 +8,13 @@ public class Uv {
 
     @SerializedName("max")
     @Expose
-    private Integer max;
+    private Float max;
 
-    public Integer getMax() {
+    public Float getMax() {
         return max;
     }
 
-    public void setMax(Integer max) {
+    public void setMax(Float max) {
         this.max = max;
     }
 

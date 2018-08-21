@@ -8,44 +8,44 @@ public class Wind {
 
     @SerializedName("velocity_min")
     @Expose
-    private Integer velocity_min;
+    private Float velocity_min;
     @SerializedName("velocity_max")
     @Expose
-    private Integer velocity_max;
+    private Float velocity_max;
     @SerializedName("velocity_avg")
     @Expose
-    private Integer velocity_avg;
+    private Float velocity_avg;
     @SerializedName("gust_max")
     @Expose
     private Double gust_max;
     @SerializedName("direction_degrees")
     @Expose
-    private Integer direction_degrees;
+    private Float direction_degrees;
     @SerializedName("direction")
     @Expose
     private String direction;
 
-    public Integer getVelocity_min() {
+    public Float getVelocity_min() {
         return velocity_min;
     }
 
-    public void setVelocity_min(Integer velocity_min) {
+    public void setVelocity_min(Float velocity_min) {
         this.velocity_min = velocity_min;
     }
 
-    public Integer getVelocity_max() {
+    public Float getVelocity_max() {
         return velocity_max;
     }
 
-    public void setVelocity_max(Integer velocity_max) {
+    public void setVelocity_max(Float velocity_max) {
         this.velocity_max = velocity_max;
     }
 
-    public Integer getVelocity_avg() {
+    public Float getVelocity_avg() {
         return velocity_avg;
     }
 
-    public void setVelocity_avg(Integer velocity_avg) {
+    public void setVelocity_avg(Float velocity_avg) {
         this.velocity_avg = velocity_avg;
     }
 
@@ -57,11 +57,11 @@ public class Wind {
         this.gust_max = gust_max;
     }
 
-    public Integer getDirection_degrees() {
+    public Float getDirection_degrees() {
         return direction_degrees;
     }
 
-    public void setDirection_degrees(Integer direction_degrees) {
+    public void setDirection_degrees(Float direction_degrees) {
         this.direction_degrees = direction_degrees;
     }
 

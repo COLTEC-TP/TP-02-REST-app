@@ -8,24 +8,24 @@ public class Rain {
 
     @SerializedName("probability")
     @Expose
-    private Integer probability;
+    private Float probability;
     @SerializedName("precipitation")
     @Expose
-    private Integer precipitation;
+    private Float precipitation;
 
-    public Integer getProbability() {
+    public Float getProbability() {
         return probability;
     }
 
-    public void setProbability(Integer probability) {
+    public void setProbability(Float probability) {
         this.probability = probability;
     }
 
-    public Integer getPrecipitation() {
+    public Float getPrecipitation() {
         return precipitation;
     }
 
-    public void setPrecipitation(Integer precipitation) {
+    public void setPrecipitation(Float precipitation) {
         this.precipitation = precipitation;
     }
 

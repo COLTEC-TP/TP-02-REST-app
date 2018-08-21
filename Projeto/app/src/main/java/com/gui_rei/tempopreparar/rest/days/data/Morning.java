@@ -8,24 +8,24 @@ public class Morning {
 
     @SerializedName("min")
     @Expose
-    private Integer min;
+    private Float min;
     @SerializedName("max")
     @Expose
-    private Integer max;
+    private Float max;
 
-    public Integer getMin() {
+    public Float getMin() {
         return min;
     }
 
-    public void setMin(Integer min) {
+    public void setMin(Float min) {
         this.min = min;
     }
 
-    public Integer getMax() {
+    public Float getMax() {
         return max;
     }
 
-    public void setMax(Integer max) {
+    public void setMax(Float max) {
         this.max = max;
     }
 
