@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Tempo de se preparar</string>
+    <string name="hoje"> <u>Hoje</u></string>
+    <string name="amanha"> <u>Amanhã</u></string>
+    <string name="depois"> <u>Depois</u></string>
 </resources>

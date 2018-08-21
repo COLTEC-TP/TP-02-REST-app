@@ -46,55 +46,77 @@
             android:id="@+id/row0"
             android:onClick="rowClick"
             android:gravity="center_vertical">
+
             <TextView
-                android:text="Hoje"/>
+                android:layout_width="84dp"
+                android:text="@string/hoje"
+                android:textColor="#FFB700"
+                android:textSize="18dp" />
+
             <ImageView
-                android:src="@android:drawable/ic_menu_help"
                 android:id="@+id/dias_0_icon"
+                android:layout_width="192dp"
                 android:layout_height="30dp"
-                android:layout_width="30dp"/>
+                android:src="@android:drawable/ic_menu_help" />
             <TextView
-                android:text="Mensagem"
-                android:id="@+id/dias_0_msg"/>
+                android:id="@+id/dias_0_tempMin"
+                android:text="Min: xx"
+                android:textSize="18dp"
+                android:textColor="#FFB700" />
             <TextView
+                android:id="@+id/dias_0_tempMax"
+                android:layout_width="158dp"
                 android:text="Max: xx"
-                android:id="@+id/dias_0_temp"/>
+                android:textSize="18dp"
+                android:textColor="#FFB700" />
         </TableRow>
         <TableRow
             android:id="@+id/row1"
             android:onClick="rowClick"
             android:gravity="center_vertical">
             <TextView
-                android:text="Amanhã"/>
+                android:text="@string/amanha"
+                android:textSize="18dp"
+                android:textColor="#FFB700" />
             <ImageView
                 android:src="@android:drawable/ic_menu_help"
                 android:id="@+id/dias_1_icon"
                 android:layout_height="30dp"
                 android:layout_width="30dp"/>
             <TextView
-                android:text="Mensagem"
-                android:id="@+id/dias_1_msg"/>
+                android:text="Min: xx"
+                android:textColor="#FFB700"
+                android:textSize="18dp"
+                android:id="@+id/dias_1_tempMin"/>
             <TextView
                 android:text="Max: xx"
-                android:id="@+id/dias_1_temp"/>
+                android:textColor="#FFB700"
+                android:textSize="18dp"
+                android:id="@+id/dias_1_tempMax"/>
         </TableRow>
         <TableRow
             android:id="@+id/row2"
             android:onClick="rowClick"
             android:gravity="center_vertical">
             <TextView
-                android:text="Depois"/>
+                android:text="@string/depois"
+                android:textSize="18dp"
+                android:textColor="#FFB700" />
             <ImageView
                 android:src="@android:drawable/ic_menu_help"
                 android:id="@+id/dias_2_icon"
                 android:layout_height="30dp"
                 android:layout_width="30dp"/>
             <TextView
-                android:text="Mensagem"
-                android:id="@+id/dias_2_msg"/>
+                android:text="Min: xx"
+                android:textColor="#FFB700"
+                android:textSize="18dp"
+                android:id="@+id/dias_2_tempMin"/>
             <TextView
                 android:text="Max: xx"
-                android:id="@+id/dias_2_temp"/>
+                android:textColor="#FFB700"
+                android:textSize="18dp"
+                android:id="@+id/dias_2_tempMax"/>
         </TableRow>
     </TableLayout>
 

@@ -103,12 +103,12 @@ public class MainActivity extends Activity {
         int linhasTabela = 3; //Quantas linhas tem a tabela
         for(int x = 0;x<linhasTabela;x++){
             ImageView icon = findViewById( getIdDeUmItemNaTabela("dias",x,"icon") );
-            TextView msg = findViewById( getIdDeUmItemNaTabela("dias",x,"msg") );
-            TextView temp = findViewById( getIdDeUmItemNaTabela("dias",x,"temp") );
+            TextView tempMin = findViewById( getIdDeUmItemNaTabela("dias",x,"tempMin") );
+            TextView tempMax = findViewById( getIdDeUmItemNaTabela("dias",x,"tempMax") );
 
             icon.setImageResource(defIcon(clima.getData().get(x).getText_icon().getIcon().getDay())); //getDay retorna a media dos icones de todas as horas teoricamente
-            msg.setText(clima.getData().get(x).getText_icon().getText().getPt());
-            temp.setText(clima.getData().get(x).getTemperature().getMax() + "°");
+            tempMin.setText(clima.getData().get(x).getTemperature().getMin() + "° / ");
+            tempMax.setText(clima.getData().get(x).getTemperature().getMax() + "°");
         }
 
         //((TextView) findViewById(R.id.dias_1_temp)).setText("max: " + clima.getData().get(1).getTemperature().getMax() + "°");
