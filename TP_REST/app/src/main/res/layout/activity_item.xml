@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/Item_Lista"
+    android:background="#C29A58">
+
+    <TextView
+        android:id="@+id/Pokemon_Nome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="14dp"
+        android:fontFamily="monospace"
+        android:text="Psyduck"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="#525453"/>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/circle"
+        android:id="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/Pokemon_Img"
+        android:layout_width="110dp"
+        android:layout_height="140dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/imageView2"
+        android:layout_marginStart="18dp"
+        android:scaleX="1.7"
+        android:scaleY="1.7"
+        android:src="@drawable/psyduck" />
+
+    <!-- HP -->
+    <ProgressBar
+        android:id="@+id/Bar_HP"
+        style="@style/CustomProgressBar"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:max="120"
+        android:progress="70"
+        android:layout_marginBottom="10dp"/>
+
+    <TextView
+        android:id="@+id/HP_Num"
+        android:background="#00000000"
+        android:layout_alignTop="@id/Bar_HP"
+        android:layout_alignBottom="@id/Bar_HP"
+        android:textSize="20dp"
+        android:textColor="#FFF"
+        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_centerHorizontal="true"
+        android:text="70"/>
+
+    <!-- Agilidade -->
+    <ProgressBar
+        android:id="@+id/Bar_Agilidade"
+        style="@style/CustomProgressBar"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/Bar_HP"
+        android:layout_marginBottom="10dp"
+        android:max="120"
+        android:progress="70" />
+
+    <TextView
+        android:id="@+id/Agilidade_Num"
+        android:background="#00000000"
+        android:layout_alignTop="@id/Bar_Agilidade"
+        android:layout_alignBottom="@id/Bar_Agilidade"
+        android:textSize="20dp"
+        android:textColor="#FFF"
+        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_centerHorizontal="true"
+        android:text="70"/>
+
+    <!-- Defesa Especial -->
+    <ProgressBar
+        android:id="@+id/Bar_Defesa_Especial"
+        style="@style/CustomProgressBar"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/Bar_Agilidade"
+        android:layout_marginBottom="10dp"
+        android:max="120"
+        android:progress="70" />
+
+    <TextView
+        android:id="@+id/Defesa_Especial_Num"
+        android:background="#00000000"
+        android:layout_alignTop="@id/Bar_Defesa_Especial"
+        android:layout_alignBottom="@id/Bar_Defesa_Especial"
+        android:textSize="20dp"
+        android:textColor="#FFF"
+        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_centerHorizontal="true"
+        android:text="70"/>
+
+    <!-- Defesa -->
+    <ProgressBar
+        android:id="@+id/Bar_Defesa"
+        style="@style/CustomProgressBar"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/Bar_Defesa_Especial"
+        android:layout_marginBottom="10dp"
+        android:max="120"
+        android:progress="70" />
+
+    <TextView
+        android:id="@+id/Defesa_Num"
+        android:background="#00000000"
+        android:layout_alignTop="@id/Bar_Defesa"
+        android:layout_alignBottom="@id/Bar_Defesa"
+        android:textSize="20dp"
+        android:textColor="#FFF"
+        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_centerHorizontal="true"
+        android:text="70"/>
+
+    <!-- Ataque Especial -->
+    <ProgressBar
+        android:id="@+id/Bar_Ataque_Especial"
+        style="@style/CustomProgressBar"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/Bar_Defesa"
+        android:layout_marginBottom="10dp"
+        android:max="120"
+        android:progress="70" />
+
+    <TextView
+        android:id="@+id/Ataque_Especial_Num"
+        android:background="#00000000"
+        android:layout_alignTop="@id/Bar_Ataque_Especial"
+        android:layout_alignBottom="@id/Bar_Ataque_Especial"
+        android:textSize="20dp"
+        android:textColor="#FFF"
+        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_centerHorizontal="true"
+        android:text="70"/>
+
+    <!-- Ataque-->
+    <ProgressBar
+        android:id="@+id/Bar_Ataque"
+        style="@style/CustomProgressBar"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/Bar_Ataque_Especial"
+        android:layout_marginBottom="10dp"
+        android:max="120"
+        android:progress="70" />
+
+    <TextView
+        android:id="@+id/Ataque_Num"
+        android:background="#00000000"
+        android:layout_alignTop="@id/Bar_Ataque"
+        android:layout_alignBottom="@id/Bar_Ataque"
+        android:textSize="20dp"
+        android:textColor="#FFF"
+        android:layout_height="0dp"
+        android:layout_width="35dp"
+        android:layout_centerHorizontal="true"
+        android:text="70"/>
+
+
+
+</RelativeLayout>

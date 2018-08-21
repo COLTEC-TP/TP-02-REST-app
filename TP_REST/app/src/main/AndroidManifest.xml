@@ -19,9 +19,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoadingActivity"
-                  android:parentActivityName="br.tp.tp_rest.MainActivity" >
-        </activity>
+        <activity
+            android:name=".LoadingActivity"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".ItemActivity"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
     </application>
 
 </manifest>

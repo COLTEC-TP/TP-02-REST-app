@@ -2,6 +2,7 @@ package br.tp.tp_rest;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.sip.SipSession;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ public class PokemonAdapter extends RecyclerView.Adapter {
 
     private Context context;
     private ArrayList<Pokemon> pokemons;
+    private ItemClickListener clickListener;
 
     public PokemonAdapter(ArrayList<Pokemon> pokemons, Context context) {
         this.pokemons = pokemons;
@@ -54,7 +56,11 @@ public class PokemonAdapter extends RecyclerView.Adapter {
         return pokemons.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public void setClickListener(ItemClickListener itemClickListener){
+        this.clickListener = itemClickListener;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         final TextView nome;
         final TextView ataque;
@@ -75,6 +81,12 @@ public class PokemonAdapter extends RecyclerView.Adapter {
             super_ataque = (TextView) itemView.findViewById(R.id.Ataque_Especial_Num);
             super_defesa = (TextView) itemView.findViewById(R.id.Defesa_Especial_Num);
             imagem = (ImageView) itemView.findViewById(R.id.Pokemon_Img);
+            itemView.setOnClickListener(this); //liga ao listener
+        }
+
+        @Override
+        public void onClick(View view) {
+            clickListener.onClick(view, getAdapterPosition());
         }
     }
 

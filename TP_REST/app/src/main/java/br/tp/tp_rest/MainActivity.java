@@ -29,7 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements ItemClickListener {
 
     PokemonDAO dao = PokemonDAO.getInstance(this);
     PokemonAdapter adapter = null;
@@ -79,6 +79,7 @@ public class MainActivity extends Activity {
             layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
 
+            adapter.setClickListener(this); //liga ao listener
         }
 
 
@@ -86,7 +87,6 @@ public class MainActivity extends Activity {
         // Prepara Action Bar //
         ActionBar actionBar = getActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0000ff")));
-
 
     }
 
@@ -130,4 +130,9 @@ public class MainActivity extends Activity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public void onClick(View view, int position) {
+        Intent intent = new Intent(MainActivity.this, ItemActivity.class);
+        startActivity(intent);
+    }
 }
