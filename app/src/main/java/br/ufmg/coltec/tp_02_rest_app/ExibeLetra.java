@@ -35,7 +35,7 @@ public class ExibeLetra extends AppCompatActivity {
         String apikey = "757b78a7fb6faecd6b3ba6ad97daac38";
 
         VagalumeService service = new RetrofitConfig().getVagalumeService(); //setando o retrofit
-        Call<MusicaDados> musicaDadosCall = service.searchLetra(art_name,mus_name, apikey);
+        Call<MusicaDados> musicaDadosCall = service.getMusica(art_name,mus_name, apikey);
 
         //quando houver resposta...
         musicaDadosCall.enqueue(new Callback<MusicaDados>() {

@@ -5,26 +5,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import restapi.artmusAttr.ArtMusDocs;
-import searchAdapter.SearchDAO;
+import restapi.artmusBusca.ArtMusDocs;
+import searchAdapter.BuscaDAO;
 
-public class BuscaArtMusAdapter extends BaseAdapter{
+public class TelaBuscaAdapter extends BaseAdapter{
     private ArrayList<ArtMusDocs> busca;
     private Context context;
 
-    public BuscaArtMusAdapter(Context context){
+    public TelaBuscaAdapter(Context context){
         this.context = context;
-        SearchDAO DAO = SearchDAO.getInstance(context);
-        busca = DAO.getSearch();
+        BuscaDAO DAO = BuscaDAO.getInstance(context);
+        busca = DAO.getBusca();
     }
 
 
-    public BuscaArtMusAdapter(Context context, ArrayList<ArtMusDocs> bus){
+    public TelaBuscaAdapter(Context context, ArrayList<ArtMusDocs> bus){
         this.context = context;
         busca = bus;
         //... seta o ListView com um Array de itens arbitrário
@@ -48,7 +47,7 @@ public class BuscaArtMusAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View view, ViewGroup viewGroup){
         ArtMusDocs item = this.busca.get(i);
-        View newView  = LayoutInflater.from(this.context).inflate(R.layout.activity_busca_artmus_adapter, viewGroup, false);
+        View newView  = LayoutInflater.from(this.context).inflate(R.layout.tela_busca_adapter, viewGroup, false);
 
         TextView info1 = newView.findViewById(R.id.informacao_1);
         TextView info2 = newView.findViewById(R.id.informacao_2);

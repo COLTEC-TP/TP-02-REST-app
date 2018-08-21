@@ -1,6 +1,5 @@
 package br.ufmg.coltec.tp_02_rest_app;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,44 +16,27 @@ import java.util.ArrayList;
 
 import restapi.RetrofitConfig;
 import restapi.VagalumeService;
-import restapi.artmusAttr.ArtMus;
-import restapi.artmusAttr.ArtMusDocs;
-import restapi.artmusAttr.ArtMusResponse;
+import restapi.artmusBusca.ArtMusResponse;
+import restapi.artmusBusca.ArtMusDocs;
+import restapi.artmusBusca.ArtMus;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BuscaArtMus extends AppCompatActivity {
-    BuscaArtMusAdapter adapter;
+public class TelaBusca extends AppCompatActivity {
+    TelaBuscaAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_busca_artmus);
+        setContentView(R.layout.activity_tela_busca);
 
         ListView ProdutosListView = findViewById(R.id.lista_busca);
-        adapter = new BuscaArtMusAdapter(this);
+        adapter = new TelaBuscaAdapter(this);
         ProdutosListView.setAdapter(adapter);
 
     }
 
-
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.button_search:
-                // inicia a activity Cadastro_Produto quando o usuário clica no botão correspondente
-                //Intent intent = new Intent(MainActivity.this, Cadastro_Produto.class);
-                //startActivity(intent);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-    }
-*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -71,6 +53,10 @@ public class BuscaArtMus extends AppCompatActivity {
         SearchView searchView = (SearchView) item.getActionView();
         searchView.onActionViewExpanded();
 
+        final VagalumeService service = new RetrofitConfig().getVagalumeService(); //setando o retrofit
+        final String limit = "5";
+        final String apikey = "757b78a7fb6faecd6b3ba6ad97daac38";
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -78,30 +64,22 @@ public class BuscaArtMus extends AppCompatActivity {
             }
 
             @Override
-            public boolean onQueryTextChange(String s) { //durante a digitação do usuário filtra e seta a ListView com o resultado da busca
+            public boolean onQueryTextChange(String query) { //durante a digitação do usuário filtra e seta a ListView com o resultado da busca
 
-                final VagalumeService service = new RetrofitConfig().getVagalumeService(); //setando o retrofit
-                String query = s; //o que o usuário digitou
-                String limit = "5";
-                String apikey = "757b78a7fb6faecd6b3ba6ad97daac38";
-
-                Call<ArtMus> musicaDadosCall = service.searchArtmus(query, limit, apikey);
-                musicaDadosCall.enqueue(new Callback<ArtMus>() {
+                Call<ArtMusResponse> musicaDadosCall = service.buscaArtmus(query, limit, apikey);
+                musicaDadosCall.enqueue(new Callback<ArtMusResponse>() {
                     @Override
-                    public void onResponse(Call<ArtMus> call, Response<ArtMus> response) {
+                    public void onResponse(Call<ArtMusResponse> call, Response<ArtMusResponse> response) {
                         try {
-                            ArtMus  res = response.body();
-                            ArtMusResponse resp = res.getResponse();
-                            Log.i("I", "onResponse: " + response.raw());
+                            ArtMus resp = response.body().getResponse();
                             mostraBusca(resp.getDocs());
-
                         }catch (Exception e){
                             Log.i("I", "onResponse: " + e.toString());
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<ArtMus> call, Throwable t) {
+                    public void onFailure(Call<ArtMusResponse> call, Throwable t) {
                         Log.i("I", "onFailure: "+ t.toString());
 
                     }
@@ -116,7 +94,7 @@ public class BuscaArtMus extends AppCompatActivity {
         final ArrayList<ArtMusDocs> lista_aux = lista;
 
         final ListView buscaListView = findViewById(R.id.lista_busca);
-        buscaListView.setAdapter(new BuscaArtMusAdapter(this, lista));
+        buscaListView.setAdapter(new TelaBuscaAdapter(this, lista));
 
 
         buscaListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -127,7 +105,7 @@ public class BuscaArtMus extends AppCompatActivity {
                 if(lista_aux.get(position).getTitle()!=null){//se for uma música
                     Toast toast = Toast.makeText(getApplicationContext(), lista_aux.get(position).getTitle(), Toast.LENGTH_SHORT);
                     toast.show();
-                    Intent intent = new Intent(BuscaArtMus.this, ExibeLetra.class);
+                    Intent intent = new Intent(TelaBusca.this, ExibeLetra.class);
 
                     intent.putExtra("mus", lista_aux.get(position).getTitle());
                     intent.putExtra("art", lista_aux.get(position).getBand());

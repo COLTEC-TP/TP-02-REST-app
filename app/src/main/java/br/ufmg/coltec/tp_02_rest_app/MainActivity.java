@@ -3,19 +3,8 @@ package br.ufmg.coltec.tp_02_rest_app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import restapi.RetrofitConfig;
-import restapi.VagalumeService;
-import restapi.artmusAttr.ArtMus;
-import restapi.artmusAttr.ArtMusResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.button_search:
-                // inicia a activity BuscaArtMus quando o usuário clica no botão correspondente
-                Intent intent = new Intent(MainActivity.this, BuscaArtMus.class);
+                // inicia a activity TelaBusca quando o usuário clica no botão correspondente
+                Intent intent = new Intent(MainActivity.this, TelaBusca.class);
                 startActivity(intent);
                 overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
 

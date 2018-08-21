@@ -1,7 +1,7 @@
-package restapi.artmusAttr;
+package restapi.artmusBusca;
 
 import java.util.ArrayList;
-public class ArtMusResponse {
+public class ArtMus {
     private Integer numFound;
     private Integer start;
     private ArrayList <ArtMusDocs> docs;

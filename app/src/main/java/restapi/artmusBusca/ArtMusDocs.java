@@ -1,4 +1,4 @@
-package restapi.artmusAttr;
+package restapi.artmusBusca;
 
 public class ArtMusDocs {
     private String id;
