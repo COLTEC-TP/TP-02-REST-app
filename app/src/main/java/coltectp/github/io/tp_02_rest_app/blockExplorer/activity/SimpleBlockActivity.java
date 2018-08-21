@@ -12,9 +12,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +26,7 @@ import coltectp.github.io.tp_02_rest_app.R;
 import coltectp.github.io.tp_02_rest_app.RetrofitConfig;
 import coltectp.github.io.tp_02_rest_app.blockExplorer.SimpleBlock;
 import coltectp.github.io.tp_02_rest_app.blockExplorer.SimpleBlockList;
+import coltectp.github.io.tp_02_rest_app.charts.pieChart.PoolChartActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +39,9 @@ public class SimpleBlockActivity extends AppCompatActivity {
     private SimpleBlockList mSimpleBlocks;
     private RelativeLayout mLayout;
     private ProgressBar mProgressBar;
+
+    private TextView mInfoTextView;
+    private Button mButtonPoolButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,18 @@ public class SimpleBlockActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(1, 4, true));
 
+        mInfoTextView = findViewById(R.id.info_tv);
+        mButtonPoolButton = findViewById(R.id.info_btn);
+
+        mButtonPoolButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SimpleBlockActivity.this, PoolChartActivity.class);
+                startActivity(intent);
+            }
+        });
+
         mService = new RetrofitConfig(mContext).getInfoBlockchain(mContext);
     }
 
@@ -59,6 +77,11 @@ public class SimpleBlockActivity extends AppCompatActivity {
 
     private void showRecyclerView(boolean show) {
         mRecyclerView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    private void showMoreInfo(boolean show) {
+        mButtonPoolButton.setVisibility(show ? View.VISIBLE : View.GONE);
+        mInfoTextView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -71,6 +94,7 @@ public class SimpleBlockActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 makeCall(s);
+                showMoreInfo(false);
                 showProgress(true);
                 return false;
             }
@@ -120,11 +144,13 @@ public class SimpleBlockActivity extends AppCompatActivity {
                     mRecyclerView.setAdapter(mAdapter);
 
                     showProgress(false);
+                    showMoreInfo(false);
                     showRecyclerView(true);
 
                 } else {
                     showProgress(false);
                     showRecyclerView(false);
+                    showMoreInfo(true);
                     // Erro: Esse app parou de funcionar
                     Snackbar.make(mLayout, "Nada encontrado", Snackbar.LENGTH_SHORT).show();
                 }
