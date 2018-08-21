@@ -23,6 +23,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import okhttp3.Cache;
@@ -42,35 +43,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fragmentManager = getSupportFragmentManager();
-        File file = new File(getCacheDir().getAbsolutePath() + "/cacheRetrofit");
-        retrofitConfig = new RetrofitConfig(getBaseContext(), file);
-        listView = findViewById(R.id.listAddress);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                getMap("URL", );
-            }
-        });
-
-        try {
-            Iterator<String> iterator = retrofitConfig.getOkHttpClient().cache().urls();
-            while(iterator.hasNext()) {
-                String address = iterator.next().split("\\?")[1].split("&")[0];
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED ||
+                        != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
-                != PackageManager.PERMISSION_GRANTED ||
+                        != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
-                != PackageManager.PERMISSION_GRANTED) {
+                        != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_CONTACTS)) {
@@ -86,21 +67,34 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        fragmentManager = getSupportFragmentManager();
+        File file = new File(getCacheDir().getAbsolutePath() + "/cacheRetrofit");
+        retrofitConfig = new RetrofitConfig(getBaseContext(), file);
+        listView = findViewById(R.id.listAddress);
+        ArrayList<String> placesListView = new ArrayList();
+        try {
+            Iterator<String> iterator = retrofitConfig.getOkHttpClient().cache().urls();
+            while(iterator.hasNext()) {
+                placesListView.add(iterator.next().split("\\?")[1].split("&")[0]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        listView.setOnItemClickListener((parent, view, position, id) -> getMap("URL", placesListView.get(position)));
+
         getMap("add", "");
 
         final EditText editTextAddress = findViewById(R.id.editTextAddress);
-        editTextAddress.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(keyCode == KeyEvent.KEYCODE_ENTER) {
-                    getMap("replace", editTextAddress.getText().toString());
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(editTextAddress.getWindowToken(),
-                            InputMethodManager.RESULT_UNCHANGED_SHOWN);
-                    return true;
-                }
-                return false;
+        editTextAddress.setOnKeyListener((v, keyCode, event) -> {
+            if(keyCode == KeyEvent.KEYCODE_ENTER) {
+                getMap("replace", editTextAddress.getText().toString());
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editTextAddress.getWindowToken(),
+                        InputMethodManager.RESULT_UNCHANGED_SHOWN);
+                return true;
             }
+            return false;
         });
     }
 

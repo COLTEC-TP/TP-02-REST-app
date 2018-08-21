@@ -18,6 +18,6 @@ public interface AddressService {
     @GET("maps/api/geocode/json")
     public Call<Address> getAddress(@Query("address") String address, @Query("key") String key);
 
-    @GET("maps/api/geocode/json?{address}")
+    @GET("maps/api/geocode/json?address={address}")
     public Call<Address> getAddressURL(@Path("address") String address, @Query("key") String key);
 }
