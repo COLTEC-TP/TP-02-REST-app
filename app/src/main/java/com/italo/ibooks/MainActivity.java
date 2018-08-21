@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager.Lo
         searchBox.setText("");
 
         //Returning a new Loader Object retornando o objeto
+
         return new livroLoader(this, uriBuilder.toString());
     }
 
@@ -115,12 +116,17 @@ public class MainActivity extends AppCompatActivity  implements LoaderManager.Lo
         empty_state = (TextView) findViewById(R.id.empty_state);
 
         //Checando se tem internet
+
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if(networkInfo == null){
             empty_state.setText("Sem Internet");
             empty_state.setVisibility(View.VISIBLE);
+
             ((Button) findViewById(R.id.searchButton)).setEnabled(false);
+            Toast InternetToast;
+            InternetToast = Toast.makeText(MainActivity.this,"Internet ",Toast.LENGTH_SHORT);
+            InternetToast.show();
         }
 
         initCollapsingToolbar();

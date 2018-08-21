@@ -36,12 +36,15 @@ public class QueryUtils {
         catch (IOException e){
             e.printStackTrace();
         }
+
         catch(JSONException e){
             e.printStackTrace();
         }
+
         catch(InterruptedException e){
             e.printStackTrace();
         }
+
         return arrayList;
     }
 
@@ -106,22 +109,26 @@ public class QueryUtils {
             if(volumeInfo.has("publisher")){    //editora
                 publisher = volumeInfo.getString("publisher");
             }
+
             Log.i(TAG, "extractJson: ");
             Log.i(TAG, "extractJson: "+volumeInfo.has("authors"));
+
             if(volumeInfo.has("authors")){
                 Log.i(TAG, "extractJson: ");
                 JSONArray authors = volumeInfo.getJSONArray("authors");
                 author = authors.getString(0);
             }
+
             infoUrl = volumeInfo.getString("infoLink");
-            if(volumeInfo.has("imageLinks")){
-                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-                imageUrl = imageLinks.getString("smallThumbnail");
+                if(volumeInfo.has("imageLinks")){
+                    JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+                    imageUrl = imageLinks.getString("smallThumbnail");
             }
+
             Livro livroItem = new Livro(title, author, infoUrl, imageUrl, publisher); //autor
             livroList.add(livroItem);
 
-        }
+         }
         return livroList;
     }
 

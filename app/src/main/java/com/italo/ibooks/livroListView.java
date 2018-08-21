@@ -25,9 +25,6 @@ public class livroListView extends AppCompatActivity {
         settings.setJavaScriptEnabled(true);
 
         webVw.loadUrl(infoUrl);
-
-
-
     }
 
     public class webViewCLient extends WebViewClient{

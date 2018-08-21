@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">iBooks</string>
     <string name="action_settings">Configurações</string>
-    <string name="backdrop_title">iBooks</string>
-    <string name="backdrop_subtitle">Nós temos o que você procura</string>
     <string name="title_activity_book_list_view">bookListView</string>
 </resources>
