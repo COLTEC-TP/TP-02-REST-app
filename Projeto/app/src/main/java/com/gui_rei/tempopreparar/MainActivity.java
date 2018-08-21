@@ -92,21 +92,21 @@ public class MainActivity extends Activity {
         int city = Prefs.getInstance().getCity();
         ClimaAtual climaA = Dados.getInstance().getClimaAtual(city);
         Dias climaD = Dados.getInstance().getClimaDias(city);
-        if(climaA == null || climaD == null) //Se não tem a informação no banco
+        if(climaA == null || climaD == null) //Se não tem a informação no banco ///!!! Redundante neh, de acordo com atualizaTemp se um eh null o outro tmb eh!!
         {
             Log.d("main", "Banco vazio!!!!!!!!!!");
             Toast.makeText(MainActivity.this,"Aguarde atualizar",Toast.LENGTH_SHORT).show();
-            return ;
         }
-
-        preencheTela(climaA);
-        preencheTela(climaD);
+        else {
+            preencheTela(climaA);
+            preencheTela(climaD);
+        }
     }
 
     private void atualizaTemp(){
         Prefs prefs = Prefs.getInstance();
         Integer city = prefs.getCity();
-        final int[] pronto = {0}; //ponteiro de int
+        final int[] pronto = {0,0}; //ponteiro de int
 
         RetrofitConfig retrofitConfig = new RetrofitConfig();
 
@@ -121,8 +121,9 @@ public class MainActivity extends Activity {
                 Dados.getInstance().setClimaAtual(clima);
 
                 //Preencher: //precisa disso ou pode so preencher duas vez?
-                if(pronto[0] == 0) pronto[0]++; //Se for o primeiro dos dois calls a responder avisa
-                if(pronto[0] == 1) preencherTela(); //Se o outro call ja recebeu pode preencher
+                pronto[0] = 1; //avisar q ta pronto
+                if(pronto[0] == 1 && pronto[1] == 1) preencherTela(); //Se o outro call ja recebeu pode preencher
+                else Log.i("Call", "ClimaAtual chegou primeiro");
             }
             @Override
             public void onFailure(Call<ClimaAtual> call, Throwable t) {//executado quando houver erros
@@ -142,8 +143,9 @@ public class MainActivity extends Activity {
                 Dados.getInstance().setClimaDias(clima);
 
                 //Preencher: //precisa disso ou pode so preencher duas vez?
-                if(pronto[0] == 0) pronto[0]++; //Se for o primeiro dos dois calls a responder avisa
-                if(pronto[0] == 1) preencherTela(); //Se o outro call ja recebeu pode preencher
+                pronto[1] = 1; //avisar q ta pronto
+                if(pronto[0] == 1 && pronto[1] == 1) preencherTela(); //Se o outro call ja recebeu pode preencher
+                else Log.i("Call", "Dias chegou primeiro");
             }
             @Override
             public void onFailure(Call<Dias> call, Throwable t) {//executado quando houver erros
