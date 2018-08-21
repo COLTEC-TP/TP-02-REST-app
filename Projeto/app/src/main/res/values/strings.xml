@@ -2,5 +2,9 @@
     <string name="app_name">Tempo de se preparar</string>
     <string name="hoje"> <u>Hoje</u></string>
     <string name="amanha"> <u>Amanhã</u></string>
-    <string name="depois"> <u>Depois</u></string>
+    <string name="terDia"> <u>3º Dia</u></string>
+    <string name="quaDia"> <u>4º Dia</u></string>
+    <string name="quiDia"> <u>5º Dia</u></string>
+    <string name="sexDia"> <u>6º Dia</u></string>
+    <string name="setDia"> <u>7º Dia</u></string>
 </resources>

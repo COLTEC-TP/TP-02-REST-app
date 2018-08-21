@@ -1,123 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundescuro"
-    tools:context=".MainActivity">
+    android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/txt_cidade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="11dp"
-        android:text="Belo Horizonte"
-        android:textColor="#FFB700"
-        android:textSize="35dp" />
-
-    <TextView
-        android:id="@+id/txt_TemperaturaAtual"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/imageView"
-        android:text="XX.0 ºC"
-        android:textColor="#FFB700"
-        android:textSize="70dp" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="147dp"
-        android:layout_height="146dp"
-        android:layout_below="@+id/txt_cidade"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/solnuvem" />
-
-    <TableLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txt_TemperaturaAtual"
-        android:stretchColumns="2"
-        android:layout_margin="10dp">
-        <TableRow
-            android:id="@+id/row0"
-            android:onClick="rowClick"
-            android:gravity="center_vertical">
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
 
-            <TextView
-                android:layout_width="84dp"
-                android:text="@string/hoje"
-                android:textColor="#FFB700"
-                android:textSize="18dp" />
 
             <ImageView
-                android:id="@+id/dias_0_icon"
-                android:layout_width="192dp"
-                android:layout_height="30dp"
-                android:src="@android:drawable/ic_menu_help" />
-            <TextView
-                android:id="@+id/dias_0_tempMin"
-                android:text="Min: xx"
-                android:textSize="18dp"
-                android:textColor="#FFB700" />
-            <TextView
-                android:id="@+id/dias_0_tempMax"
-                android:layout_width="158dp"
-                android:text="Max: xx"
-                android:textSize="18dp"
-                android:textColor="#FFB700" />
-        </TableRow>
-        <TableRow
-            android:id="@+id/row1"
-            android:onClick="rowClick"
-            android:gravity="center_vertical">
-            <TextView
-                android:text="@string/amanha"
-                android:textSize="18dp"
-                android:textColor="#FFB700" />
-            <ImageView
-                android:src="@android:drawable/ic_menu_help"
-                android:id="@+id/dias_1_icon"
-                android:layout_height="30dp"
-                android:layout_width="30dp"/>
-            <TextView
-                android:text="Min: xx"
-                android:textColor="#FFB700"
-                android:textSize="18dp"
-                android:id="@+id/dias_1_tempMin"/>
-            <TextView
-                android:text="Max: xx"
-                android:textColor="#FFB700"
-                android:textSize="18dp"
-                android:id="@+id/dias_1_tempMax"/>
-        </TableRow>
-        <TableRow
-            android:id="@+id/row2"
-            android:onClick="rowClick"
-            android:gravity="center_vertical">
-            <TextView
-                android:text="@string/depois"
-                android:textSize="18dp"
-                android:textColor="#FFB700" />
-            <ImageView
-                android:src="@android:drawable/ic_menu_help"
-                android:id="@+id/dias_2_icon"
-                android:layout_height="30dp"
-                android:layout_width="30dp"/>
-            <TextView
-                android:text="Min: xx"
-                android:textColor="#FFB700"
-                android:textSize="18dp"
-                android:id="@+id/dias_2_tempMin"/>
-            <TextView
-                android:text="Max: xx"
-                android:textColor="#FFB700"
-                android:textSize="18dp"
-                android:id="@+id/dias_2_tempMax"/>
-        </TableRow>
-    </TableLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/backgroundescuroo" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/txt_cidade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="11dp"
+            android:text="Belo Horizonte"
+            android:textColor="#FFB700"
+            android:textSize="35dp" />
+
+        <TextView
+            android:id="@+id/txt_TemperaturaAtual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/imageView"
+            android:text="XX.0 ºC"
+            android:textColor="#FFB700"
+            android:textSize="70dp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="147dp"
+            android:layout_height="146dp"
+            android:layout_below="@+id/txt_cidade"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/solnuvem" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="321dp"
+            android:text="Pegue seu guarda chuva"
+            android:textColor="#FFB700"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="356dp"
+            android:text="Vista seu casaco"
+            android:textColor="#FFB700"
+            android:textSize="20dp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_TemperaturaAtual"
+            android:stretchColumns="2"
+            android:paddingTop="85dp"
+            android:layout_margin="10dp">
+            <TableRow
+                android:id="@+id/row0"
+                android:onClick="rowClick"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="84dp"
+                    android:text="@string/hoje"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp" />
+
+                <ImageView
+                    android:id="@+id/dias_0_icon"
+                    android:layout_width="192dp"
+                    android:layout_height="30dp"
+                    android:src="@android:drawable/ic_menu_help" />
+                <TextView
+                    android:id="@+id/dias_0_tempMin"
+                    android:text="Min: xx"
+                    android:textSize="18dp"
+                    android:textColor="#FFB700" />
+                <TextView
+                    android:id="@+id/dias_0_tempMax"
+                    android:layout_width="158dp"
+                    android:text="Max: xx"
+                    android:textSize="18dp"
+                    android:textColor="#FFB700" />
+            </TableRow>
+            <TableRow
+                android:id="@+id/row1"
+                android:onClick="rowClick"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:text="@string/amanha"
+                    android:textSize="18dp"
+                    android:textColor="#FFB700" />
+                <ImageView
+                    android:src="@android:drawable/ic_menu_help"
+                    android:id="@+id/dias_1_icon"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"/>
+                <TextView
+                    android:text="Min: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_1_tempMin"/>
+                <TextView
+                    android:text="Max: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_1_tempMax"/>
+            </TableRow>
+            <TableRow
+                android:id="@+id/row2"
+                android:onClick="rowClick"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:text="@string/terDia"
+                    android:textSize="18dp"
+                    android:textColor="#FFB700" />
+                <ImageView
+                    android:src="@android:drawable/ic_menu_help"
+                    android:id="@+id/dias_2_icon"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"/>
+                <TextView
+                    android:text="Min: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_2_tempMin"/>
+                <TextView
+                    android:text="Max: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_2_tempMax"/>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/row3"
+                android:onClick="rowClick"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:text="@string/quaDia"
+                    android:textSize="18dp"
+                    android:textColor="#FFB700" />
+                <ImageView
+                    android:src="@android:drawable/ic_menu_help"
+                    android:id="@+id/dias_3_icon"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"/>
+                <TextView
+                    android:text="Min: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_3_tempMin"/>
+                <TextView
+                    android:text="Max: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_3_tempMax"/>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/row4"
+                android:onClick="rowClick"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:text="@string/quiDia"
+                    android:textSize="18dp"
+                    android:textColor="#FFB700" />
+                <ImageView
+                    android:src="@android:drawable/ic_menu_help"
+                    android:id="@+id/dias_4_icon"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"/>
+                <TextView
+                    android:text="Min: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_4_tempMin"/>
+                <TextView
+                    android:text="Max: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_4_tempMax"/>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/row5"
+                android:onClick="rowClick"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:text="@string/sexDia"
+                    android:textSize="18dp"
+                    android:textColor="#FFB700" />
+                <ImageView
+                    android:src="@android:drawable/ic_menu_help"
+                    android:id="@+id/dias_5_icon"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"/>
+                <TextView
+                    android:text="Min: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_5_tempMin"/>
+                <TextView
+                    android:text="Max: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_5_tempMax"/>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/row6"
+                android:onClick="rowClick"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:text="@string/setDia"
+                    android:textSize="18dp"
+                    android:textColor="#FFB700" />
+                <ImageView
+                    android:src="@android:drawable/ic_menu_help"
+                    android:id="@+id/dias_6_icon"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"/>
+                <TextView
+                    android:text="Min: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_6_tempMin"/>
+                <TextView
+                    android:text="Max: xx"
+                    android:textColor="#FFB700"
+                    android:textSize="18dp"
+                    android:id="@+id/dias_6_tempMax"/>
+            </TableRow>
+
+        </TableLayout>
+    </RelativeLayout>
+
+</ScrollView>

@@ -100,7 +100,7 @@ public class MainActivity extends Activity {
     }
     private void preencheTela(Dias clima) //Função responsável for colocar dados de outros dias
     {
-        int linhasTabela = 3; //Quantas linhas tem a tabela
+        int linhasTabela = 7; //Quantas linhas tem a tabela
         for(int x = 0;x<linhasTabela;x++){
             ImageView icon = findViewById( getIdDeUmItemNaTabela("dias",x,"icon") );
             TextView tempMin = findViewById( getIdDeUmItemNaTabela("dias",x,"tempMin") );
@@ -235,6 +235,18 @@ public class MainActivity extends Activity {
                 break;
             case R.id.row2:
                 x=2;
+                break;
+            case R.id.row3:
+                x=3;
+                break;
+            case R.id.row4:
+                x=4;
+                break;
+            case R.id.row5:
+                x=5;
+                break;
+            case R.id.row6:
+                x=6;
                 break;
         }
 
