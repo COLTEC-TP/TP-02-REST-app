@@ -231,4 +231,25 @@ public class MainActivity extends Activity {
         super.onStart();
         atualizaTemp();
     }
+
+    public void rowClick(View view){
+        Integer x = -1;
+        switch (view.getId()){
+            case R.id.row0:
+                x=0;
+                break;
+            case R.id.row1:
+                x=1;
+                break;
+            case R.id.row2:
+                x=2;
+                break;
+        }
+
+        Intent intent = new Intent(MainActivity.this,ClimaDetalesActivity.class);
+        Bundle args = new Bundle();
+        args.putCharSequence("dia", x.toString());
+        intent.putExtras(args);
+        startActivity(intent);
+    }
 }

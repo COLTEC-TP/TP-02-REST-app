@@ -23,7 +23,8 @@
             android:label="Selecione uma cidade" />
         <activity android:name=".RotinaActivity" />
         <activity android:name=".ConfiguracoesActivity" />
-        <activity android:name=".SobreActivity"></activity>
+        <activity android:name=".SobreActivity" />
+        <activity android:name=".ClimaDetalesActivity"></activity>
     </application>
 
 </manifest>
