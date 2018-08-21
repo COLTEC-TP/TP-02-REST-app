@@ -1,7 +1,6 @@
 package zen.tp02teste;
 
 import android.content.Context;
-import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -15,8 +14,8 @@ import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -28,177 +27,95 @@ public class RetrofitConfig {
 
     public static final String TAG = "RetrofitConfig";
     public static final String BASE_URL = "https://maps.googleapis.com/";
-    public static final String HEADER_CACHE_CONTROL = "Cache-Control";
-    public static final String HEADER_PRAGMA = "Pragma";
 
     private Context context;
-    private Retrofit retrofit, cachedRetrofit;
-    private Cache cache;
-    private OkHttpClient okHttpClient, cachedOkHttpClient;
     private Gson gson;
+    private Cache cache;
+    private OkHttpClient okHttpClient;
+    private Retrofit retrofit;
 
-    public RetrofitConfig(Context context) {
+    public RetrofitConfig(Context context, File cacheDir) {
         this.context = context;
+
         final GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Address.class, new AddressDeserializer());
         gsonBuilder.registerTypeAdapter(Results.class, new ResultsDeserializer());
         gsonBuilder.registerTypeAdapter(Geometry.class, new GeometryDeserializer());
         gsonBuilder.registerTypeAdapter(Location.class, new LocationDeserializer());
         this.gson = gsonBuilder.create();
-    }
 
-    public Retrofit getRetrofit() {
-        if (retrofit == null) {
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-                    .addInterceptor(provideOfflineCacheInterceptor())
-                    .addNetworkInterceptor(provideCacheInterceptor())
-                    .cache(provideCache());
-            this.okHttpClient = httpClient.build();
-
-            this.retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(this.gson))
-                    .client(this.okHttpClient)
-                    .build();
+        int cacheSize = 10 * 1024 * 1024; // 10 MB
+        this.setCache(new Cache(cacheDir, cacheSize));
+        try {
+            this.getCache().initialize();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        return this.retrofit;
-    }
-
-    public Retrofit getCachedRetrofit() {
-        if (this.cachedRetrofit == null) {
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder()
-                    .addInterceptor(provideForcedOfflineCacheInterceptor())
-                    .cache(provideCache());
-            cachedOkHttpClient = httpClient.build();
-
-            cachedRetrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create(this.gson))
-                    .client(cachedOkHttpClient)
-                    .build();
-        }
-
-        return cachedRetrofit;
-    }
-
-    private Cache provideCache() {
-        if (cache == null) {
-            try {
-                cache = new Cache(new File(context.getCacheDir(), "http-cache"),
-                        10 * 1024 * 1024); // 10 MB
-            } catch (Exception e) {
-                Log.e(TAG, "Could not create Cache!");
-            }
-        }
-
-        return cache;
-    }
-
-    private Interceptor provideCacheInterceptor() {
-        return chain -> {
+        Interceptor networkInterceptor = chain -> {
             Response response = chain.proceed(chain.request());
 
-            CacheControl cacheControl;
-
-            if (isConnected()) {
-                cacheControl = new CacheControl.Builder()
-                        .maxAge(0, TimeUnit.SECONDS)
-                        .build();
-            } else {
-                cacheControl = new CacheControl.Builder()
-                        .maxStale(7, TimeUnit.DAYS)
-                        .build();
-            }
-
-            return response.newBuilder()
-                    .removeHeader(HEADER_PRAGMA)
-                    .removeHeader(HEADER_CACHE_CONTROL)
-                    .header(HEADER_CACHE_CONTROL, cacheControl.toString())
-                    .build();
-
-        };
-    }
-
-    private Interceptor provideOfflineCacheInterceptor() {
-        return chain -> {
-            Request request = chain.request();
-
-            if (!isConnected()) {
-                CacheControl cacheControl = new CacheControl.Builder()
-                        .maxStale(7, TimeUnit.DAYS)
-                        .build();
-
-                request = request.newBuilder()
-                        .removeHeader(HEADER_PRAGMA)
-                        .removeHeader(HEADER_CACHE_CONTROL)
-                        .cacheControl(cacheControl)
-                        .build();
-            }
-
-            return chain.proceed(request);
-        };
-    }
-
-    private Interceptor provideForcedOfflineCacheInterceptor() {
-        return chain -> {
-            Request request = chain.request();
-
             CacheControl cacheControl = new CacheControl.Builder()
-                    .maxStale(7, TimeUnit.DAYS)
+                    .maxAge(1, TimeUnit.MINUTES)
                     .build();
 
-            request = request.newBuilder()
-                    .removeHeader(HEADER_PRAGMA)
-                    .removeHeader(HEADER_CACHE_CONTROL)
-                    .cacheControl(cacheControl)
+            response.newBuilder()
+                    .header("Cache-Control", cacheControl.toString())
                     .build();
 
-            return chain.proceed(request);
+            return response;
         };
+
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        this.setOkHttpClient(new OkHttpClient.Builder()
+                .cache(getCache())
+                .addNetworkInterceptor(networkInterceptor)
+                .addInterceptor(loggingInterceptor)
+                .build());
+
+        this.retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create(this.gson))
+                .client(this.getOkHttpClient())
+                .build();
     }
 
     public void clean() {
-        if (this.okHttpClient != null) {
-            this.okHttpClient.dispatcher().cancelAll();
-        }
-
-        if (this.cachedOkHttpClient != null) {
-            this.cachedOkHttpClient.dispatcher().cancelAll();
+        if (this.getOkHttpClient() != null) {
+            this.getOkHttpClient().dispatcher().cancelAll();
         }
 
         this.retrofit = null;
-        this.cachedRetrofit = null;
 
-        if (this.cache != null) {
+        if (this.getCache() != null) {
             try {
-                this.cache.evictAll();
+                this.getCache().evictAll();
             } catch (IOException e) {
                 Log.e(TAG, "Error cleaning http cache");
             }
         }
 
-        this.cache = null;
-    }
-
-    private boolean isConnected() {
-        try {
-            android.net.ConnectivityManager e = (android.net.ConnectivityManager) this.context.getSystemService(
-                    Context.CONNECTIVITY_SERVICE);
-            NetworkInfo activeNetwork = e.getActiveNetworkInfo();
-            return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        } catch (Exception e) {
-            Log.w(TAG, e.toString());
-        }
-
-        return false;
-    }
-
-    public AddressService getAddressService() {
-        return this.retrofit.create(AddressService.class);
+        this.setCache(null);
     }
 
     public AddressService getAddressCachedService() {
-        return this.getCachedRetrofit().create(AddressService.class);
+        return this.retrofit.create(AddressService.class);
+    }
+
+    public Cache getCache() {
+        return cache;
+    }
+
+    public void setCache(Cache cache) {
+        this.cache = cache;
+    }
+
+    public OkHttpClient getOkHttpClient() {
+        return okHttpClient;
+    }
+
+    public void setOkHttpClient(OkHttpClient okHttpClient) {
+        this.okHttpClient = okHttpClient;
     }
 }

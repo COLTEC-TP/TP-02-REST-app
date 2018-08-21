@@ -14,9 +14,18 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+
+import okhttp3.Cache;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,19 +35,42 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private FragmentManager fragmentManager;
+    private RetrofitConfig retrofitConfig;
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         fragmentManager = getSupportFragmentManager();
+        File file = new File(getCacheDir().getAbsolutePath() + "/cacheRetrofit");
+        retrofitConfig = new RetrofitConfig(getBaseContext(), file);
+        listView = findViewById(R.id.listAddress);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                getMap("URL", );
+            }
+        });
+
+        try {
+            Iterator<String> iterator = retrofitConfig.getOkHttpClient().cache().urls();
+            while(iterator.hasNext()) {
+                String address = iterator.next().split("\\?")[1].split("&")[0];
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                        != PackageManager.PERMISSION_GRANTED ||
+                != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET)
-                        != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
 
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.READ_CONTACTS)) {
@@ -49,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
                         new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.INTERNET}, 2);
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, 3);
             }
         }
 
@@ -70,38 +104,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void getMap(final String addReplace, String place){
-        RetrofitConfig retrofitConfig = new RetrofitConfig(getBaseContext());
-        retrofitConfig.getRetrofit();
-        AddressService addressService = retrofitConfig.getAddressService();
-
-        RetrofitConfig retrofitConfigCached = new RetrofitConfig(getBaseContext());
-        retrofitConfigCached.getCachedRetrofit();
-        AddressService addressServiceCached = retrofitConfigCached.getAddressCachedService();
+    private void getMap(final String addReplaceURL, String place){
+        AddressService addressService = retrofitConfig.getAddressCachedService();
 
         if(place.equals("")){place = "Brasil";}
-        if(addReplace.equals("add")) {
+        if(addReplaceURL.equals("add")) {
             Call<Address> addressCall = addressService.getAddress(place, getResources().getString(R.string.google_maps_key));
-//            Call<Address> addressCachedCall = addressServiceCached.getAddress(place, getResources().getString(R.string.google_maps_key));
-//
-//            addressCachedCall.enqueue(new Callback<Address>() {
-//
-//                @Override
-//                public void onResponse(Call<Address> call, Response<Address> response) {
-//                    Address address = response.body();
-//                    MapsFragment.setLat(Float.parseFloat(address.getLat()));
-//                    MapsFragment.setLng(Float.parseFloat(address.getLng()));
-//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                    fragmentTransaction.add(R.id.mapsFrame, new MapsFragment(), "MapsFragment");
-//                    fragmentTransaction.commitAllowingStateLoss();
-//                }
-//
-//                @Override
-//                public void onFailure(Call<Address> call, Throwable t) {
-//                    Log.d(TAG, t.toString());
-//                }
-//            });
-
             addressCall.enqueue(new Callback<Address>() {
 
                 @Override
@@ -119,28 +127,27 @@ public class MainActivity extends AppCompatActivity {
                     Log.d(TAG, t.toString());
                 }
             });
-        } else {
-            Call<Address> addressCall = addressServiceCached.getAddress(place, getResources().getString(R.string.google_maps_key));
-//            Call<Address> addressCachedCall = addressServiceCached.getAddress(place, getResources().getString(R.string.google_maps_key));
-//
-//            addressCachedCall.enqueue(new Callback<Address>() {
-//
-//                @Override
-//                public void onResponse(Call<Address> call, Response<Address> response) {
-//                    Address address = response.body();
-//                    MapsFragment.setLat(Float.parseFloat(address.getLat()));
-//                    MapsFragment.setLng(Float.parseFloat(address.getLng()));
-//                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                    fragmentTransaction.replace(R.id.mapsFrame, new MapsFragment(), "MapsFragment");
-//                    fragmentTransaction.commitAllowingStateLoss();
-//                }
-//
-//                @Override
-//                public void onFailure(Call<Address> call, Throwable t) {
-//                    Log.d(TAG, t.toString());
-//                }
-//            });
+        } else if(addReplaceURL.equals("replace")){
+            Call<Address> addressCall = addressService.getAddress(place, getResources().getString(R.string.google_maps_key));
+            addressCall.enqueue(new Callback<Address>() {
 
+                @Override
+                public void onResponse(Call<Address> call, Response<Address> response) {
+                    Address address = response.body();
+                    MapsFragment.setLat(Float.parseFloat(address.getLat()));
+                    MapsFragment.setLng(Float.parseFloat(address.getLng()));
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.mapsFrame, new MapsFragment(), "MapsFragment");
+                    fragmentTransaction.commitAllowingStateLoss();
+                }
+
+                @Override
+                public void onFailure(Call<Address> call, Throwable t) {
+                    Log.d(TAG, t.toString());
+                }
+            });
+        } else {
+            Call<Address> addressCall = addressService.getAddressURL(place, getResources().getString(R.string.google_maps_key));
             addressCall.enqueue(new Callback<Address>() {
 
                 @Override
@@ -165,5 +172,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.mapsFrame, new ProviderFragment(), "ProviderFragment");
         fragmentTransaction.commit();
+    }
+
+    public void cleanCache(View view) {
+        this.retrofitConfig.clean();
     }
 }
