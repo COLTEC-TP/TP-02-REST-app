@@ -22,9 +22,8 @@
             android:name=".CityActivity"
             android:label="Selecione uma cidade" />
         <activity android:name=".RotinaActivity" />
-        <activity android:name=".ConfiguracoesActivity" />
         <activity android:name=".SobreActivity" />
-        <activity android:name=".ClimaDetalesActivity"></activity>
+        <activity android:name=".ClimaDetalhesActivity"></activity>
     </application>
 
 </manifest>

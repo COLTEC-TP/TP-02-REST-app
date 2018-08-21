@@ -201,7 +201,7 @@ public class MainActivity extends Activity {
             startActivity(new Intent(MainActivity.this,RotinaActivity.class));
         }
         else if (id == R.id.btn_conf) {
-            startActivity(new Intent(MainActivity.this,ConfiguracoesActivity.class));
+            startActivity(new Intent(MainActivity.this,CityActivity.class));
         }
         else if (id == R.id.btn_sobre) {
             startActivity(new Intent(MainActivity.this,SobreActivity.class));
@@ -213,14 +213,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Button btnAlteraCidade = findViewById(R.id.btnCity);
-        btnAlteraCidade.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this,CityActivity.class));
-            }
-        });
 
         preencherTela();
 
@@ -246,7 +238,7 @@ public class MainActivity extends Activity {
                 break;
         }
 
-        Intent intent = new Intent(MainActivity.this,ClimaDetalesActivity.class);
+        Intent intent = new Intent(MainActivity.this,ClimaDetalhesActivity.class);
         Bundle args = new Bundle();
         args.putCharSequence("dia", x.toString());
         intent.putExtras(args);
