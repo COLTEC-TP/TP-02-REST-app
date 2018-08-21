@@ -8,12 +8,12 @@ import android.widget.TextView;
 import com.gui_rei.tempopreparar.rest.days.Dias;
 import com.gui_rei.tempopreparar.rest.days.data.Data;
 
-public class ClimaDetalesActivity extends Activity {
+public class ClimaDetalhesActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_clima_detales);
+        setContentView(R.layout.activity_clima_detalhes);
 
         Bundle activityBundle = this.getIntent().getExtras();
         String diaS = activityBundle.getString("dia");
@@ -26,7 +26,7 @@ public class ClimaDetalesActivity extends Activity {
 
         String cidade = dias.getName() + ", " + dias.getState();
 
-        TextView texto = findViewById(R.id.detalesInfo);
+        TextView texto = findViewById(R.id.detalhesInfo);
         texto.setText(cidade + "\n" + dados.getDate_br() + "\n" + "max: " + dados.getTemperature().getMax());
     }
 }
