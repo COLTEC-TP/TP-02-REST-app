@@ -19,25 +19,14 @@
         android:textSize="35dp" />
 
     <TextView
-        android:id="@+id/txtTemperaturaAtual"
+        android:id="@+id/txt_TemperaturaAtual"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/imageView"
-        android:text="23.0 Cº"
+        android:text="XX.0 ºC"
         android:textColor="#FFB700"
         android:textSize="70dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/txtTemperaturaAtual"
-        android:text="Amanhã temp"
-        android:textAlignment="center"
-        android:textColor="#FFB700"
-        android:textSize="20dp"
-        android:id="@+id/txt_tempAmanha"/>
 
     <Button
         android:id="@+id/btnCity"
@@ -63,7 +52,7 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txt_tempAmanha"
+        android:layout_below="@id/txt_TemperaturaAtual"
         android:stretchColumns="2"
         android:layout_margin="10dp">
         <TableRow
@@ -71,33 +60,48 @@
             <TextView
                 android:text="Hoje"/>
             <ImageView
-                android:src="@android:drawable/ic_menu_help"/>
+                android:src="@android:drawable/ic_menu_help"
+                android:id="@+id/dias_0_icon"
+                android:layout_height="30dp"
+                android:layout_width="30dp"/>
             <TextView
-                android:text="Mensagem"/>
+                android:text="Mensagem"
+                android:id="@+id/dias_0_msg"/>
             <TextView
-                android:text="Temperature"/>
+                android:text="Max: xx"
+                android:id="@+id/dias_0_temp"/>
         </TableRow>
         <TableRow
             android:gravity="center_vertical">
             <TextView
                 android:text="Amanhã"/>
             <ImageView
-                android:src="@android:drawable/ic_menu_help"/>
+                android:src="@android:drawable/ic_menu_help"
+                android:id="@+id/dias_1_icon"
+                android:layout_height="30dp"
+                android:layout_width="30dp"/>
             <TextView
-                android:text="Mensagem"/>
+                android:text="Mensagem"
+                android:id="@+id/dias_1_msg"/>
             <TextView
-                android:text="Temperature"/>
+                android:text="Max: xx"
+                android:id="@+id/dias_1_temp"/>
         </TableRow>
         <TableRow
             android:gravity="center_vertical">
             <TextView
                 android:text="Depois"/>
             <ImageView
-                android:src="@android:drawable/ic_menu_help"/>
+                android:src="@android:drawable/ic_menu_help"
+                android:id="@+id/dias_2_icon"
+                android:layout_height="30dp"
+                android:layout_width="30dp"/>
             <TextView
-                android:text="Mensagem"/>
+                android:text="Mensagem"
+                android:id="@+id/dias_2_msg"/>
             <TextView
-                android:text="Temperature"/>
+                android:text="Max: xx"
+                android:id="@+id/dias_2_temp"/>
         </TableRow>
     </TableLayout>
 

@@ -19,6 +19,8 @@ import com.gui_rei.tempopreparar.rest.RetrofitConfig;
 import com.gui_rei.tempopreparar.rest.days.Dias;
 import com.gui_rei.tempopreparar.rest.days.DiasService;
 
+import java.lang.reflect.Field;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,7 +28,6 @@ import retrofit2.Response;
 public class MainActivity extends Activity {
 
     private static final String BH_ID = "6879";
-    private static final String SP_ID = "3477";
     //Ex:
     // atual: http://apiadvisor.climatempo.com.br/api/v1/weather/locale/6879/current?token=
     // 15 dias (ou 7, n entendi): apiadvisor.climatempo.com.br/api/v1/forecast/locale/6879/days/15?token=
@@ -75,17 +76,44 @@ public class MainActivity extends Activity {
          * restante: chuva
          */
 
-        ImageView blueBtn = findViewById(R.id.imageView);
-        blueBtn.setImageResource(defIcon(codigoIcone));
+        ImageView climaIcon = findViewById(R.id.imageView);
+        climaIcon.setImageResource(defIcon(codigoIcone));
 
         //Mostrar a temperatura atual
-        TextView temperaturaAtual = findViewById(R.id.txtTemperaturaAtual);
+        TextView temperaturaAtual = findViewById(R.id.txt_TemperaturaAtual);
         temperaturaAtual.setText(clima.getData().getTemperature().toString() + "°");
+    }
+    private int getIdDeUmItemNaTabela(String prefix, int linha, String item) //Função muuuuuito louca pra pegar o id
+    {
+        int idReturn = 0;
+        try {
+            String id = prefix + "_" + Integer.toString( linha ) + "_" + item; //"dias_0_msg"
+            Log.i("Verificando", "getIdDeUmItemNaTabela: " + id);
+            idReturn = (int) R.id.class.getDeclaredField(id).get(int.class);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        if(idReturn == 0) Log.wtf ("Eita pora", "getIdDeUmItemNaTabela: N devia chegar aq");
+        return idReturn; //Se for 0 complica la na frente
     }
     private void preencheTela(Dias clima) //Função responsável for colocar dados de outros dias
     {
-        ((TextView) findViewById(R.id.txt_tempAmanha)).setText("Temp max amanhã: " + clima.getData().get(1).getTemperature().getMax() + "°"); // get(1) seria amanha
-        Toast.makeText(MainActivity.this,"Amanha é: " + clima.getData().get(1).getDate_br(), Toast.LENGTH_SHORT).show();
+        int linhasTabela = 3; //Quantas linhas tem a tabela
+        for(int x = 0;x<linhasTabela;x++){
+            ImageView icon = findViewById( getIdDeUmItemNaTabela("dias",x,"icon") );
+            TextView msg = findViewById( getIdDeUmItemNaTabela("dias",x,"msg") );
+            TextView temp = findViewById( getIdDeUmItemNaTabela("dias",x,"temp") );
+
+            icon.setImageResource(defIcon(clima.getData().get(x).getText_icon().getIcon().getDay())); //getDay retorna a media dos icones de todas as horas teoricamente
+            msg.setText(clima.getData().get(x).getText_icon().getText().getPt());
+            temp.setText(clima.getData().get(x).getTemperature().getMax() + "°");
+        }
+
+        //((TextView) findViewById(R.id.dias_1_temp)).setText("max: " + clima.getData().get(1).getTemperature().getMax() + "°");
+        //((TextView) findViewById(R.id.txt_tempAmanha)).setText("Temp max amanhã: " + clima.getData().get(1).getTemperature().getMax() + "°"); // get(1) seria amanha
+        Toast.makeText(MainActivity.this,"Amanha é: " + clima.getData().get(1).getDate_br(), Toast.LENGTH_SHORT).show(); //So pra verificar se ta certo
     }
     private void preencherTela()//Funcao que pega os dados do banco e chama as preenchedoras
     {
