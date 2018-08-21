@@ -1,4 +1,4 @@
-package com.bhavya.ibooks;
+package com.italo.ibooks;
 
 import org.junit.Test;
 
