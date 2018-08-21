@@ -18,8 +18,6 @@ public class EnterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter);
 
-        fa = this;
-
         Button login = findViewById(R.id.ent_login);
         Button register = findViewById(R.id.ent_register);
 
@@ -33,6 +31,7 @@ public class EnterActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(EnterActivity.this, LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
 
@@ -41,6 +40,7 @@ public class EnterActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(EnterActivity.this, RegisterActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             });
 

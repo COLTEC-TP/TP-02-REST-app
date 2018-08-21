@@ -22,10 +22,17 @@ import android.util.Log;
         static final String TABELA_FILMES = "filmes";
         static final String ID_FILMES = "id_movie";
         static final String ID_API = "id_api_find";
+        static final String NAME_API = "name_api";
+        static final String GENDER_API = "gender_api";
+        static final String GRADE_API = "grade_api";
+        static final String YEAR_API = "year_api";
+        static final String IMAGE_API = "image_api";
 
         static final String TABELA_FAVORITOS = "favoritos";
         static final String ID_USER = "id_user";
         static final String ID_MOVIE = "id_movie";
+
+        static final String TABELA_NEXT = "proximos";
 
     public DbOpener(Context context){
         super(context, NOME_BANCO_USUARIO,null,VERSAO);
@@ -42,7 +49,12 @@ import android.util.Log;
                     +");";
             String tabela_movies = "CREATE TABLE "+TABELA_FILMES+" ("
                     + ID_FILMES + " integer primary key autoincrement,"
-                    + ID_API + " integer"
+                    + ID_API + " integer,"
+                    + NAME_API + " text,"
+                    + GENDER_API + " text,"
+                    + YEAR_API + " text,"
+                    + GRADE_API + " text,"
+                    + IMAGE_API + " text"
                     +");";
             String tabela_fav = "CREATE TABLE "+TABELA_FAVORITOS+" ("
                     + ID_USER + " integer,"
@@ -50,11 +62,17 @@ import android.util.Log;
                     + "CONSTRAINT fk_fav_user FOREIGN KEY (id_user) REFERENCES usuarios(_id),"
                     +  "CONSTRAINT fk_fav_movie FOREIGN KEY (id_movie) REFERENCES filmes(id_movie)"
                     +");";
+            String tabela_next = "CREATE TABLE "+TABELA_NEXT+" ("
+                    + ID_USER + " integer,"
+                    + ID_MOVIE + " integer,"
+                    + "CONSTRAINT fk_fav_user FOREIGN KEY (id_user) REFERENCES usuarios(_id),"
+                    +  "CONSTRAINT fk_fav_movie FOREIGN KEY (id_movie) REFERENCES filmes(id_movie)"
+                    +");";
 
-            StringBuilder sql = new StringBuilder();
-            sql.append(tabela_user).append(tabela_movies).append(tabela_fav);
-            Log.d("TAG", sql.toString());
-            db.execSQL(sql.toString());
+            db.execSQL(tabela_user);
+            db.execSQL(tabela_movies);
+            db.execSQL(tabela_fav);
+            db.execSQL(tabela_next);
         }
 
         @Override

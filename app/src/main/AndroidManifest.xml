@@ -24,7 +24,9 @@
         <activity android:name=".LoginActivity" android:parentActivityName=".EnterActivity"/>
         <activity android:name=".EnterActivity" />
         <activity android:name=".RegisterActivity" android:parentActivityName=".EnterActivity"/>
-        <activity android:name=".MovieActivity"></activity>
+        <activity
+            android:name=".MovieActivity"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>

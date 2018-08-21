@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by a2016951790 on 07/08/18.
  */
@@ -36,20 +40,33 @@ public class DbController {
 
     }
 
-    public void salvarFilme(int id_api, int id_user, Context context){
+    public void salvarFilme(int controle, int id_api, int id_user, String name, String gender, String grade, String year, String imagem, Context context){
         db = banco.getWritableDatabase();
         ContentValues valor;
 
         valor = new ContentValues();
         valor.put(DbOpener.ID_API, id_api);
+        valor.put(DbOpener.NAME_API, name);
+        valor.put(DbOpener.GENDER_API, gender);
+        valor.put(DbOpener.GRADE_API, grade);
+        valor.put(DbOpener.YEAR_API, year);
+        valor.put(DbOpener.IMAGE_API, imagem);
 
         long id = db.insert(DbOpener.TABELA_FILMES, null, valor);
 
         Integer i = (int) (long) id;
 
-        Toast.makeText(context, i.toString(), Toast.LENGTH_LONG).show();
-
-        salvarFavorito(i, id_user);
+        //Toast.makeText(context, i.toString(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, name, Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, gender, Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, grade, Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, year, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, String.valueOf(id_api), Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, String.valueOf(id_user), Toast.LENGTH_LONG).show();
+        if(controle == 0)
+            salvarFavorito(i, id_user);
+        else if (controle == 1)
+            salvarProximo(i, id_user);
     }
 
     public void salvarFavorito(int id_movie, int id_user){
@@ -112,6 +129,99 @@ public class DbController {
 
         return valor;
     }
+
+    public ArrayList pegarFavoritoPorID(String id){
+
+        db = banco.getReadableDatabase();
+
+        ArrayList<Integer> valor = new ArrayList<>();
+
+        String querySql = "SELECT * FROM favoritos WHERE id_user = ?";
+        Cursor cursor = db.rawQuery(querySql, new String[]{id});
+        cursor.moveToFirst();
+
+        if (!cursor.isAfterLast()) {
+            do {
+                if(cursor.getInt(0) == Integer.parseInt(id)) {
+                    valor.add(cursor.getInt(1));
+                }
+            }
+            while (cursor.moveToNext());
+
+        }
+
+        cursor.close();
+        db.close();
+
+        return valor;
+    }
+
+    public ArrayList<Filme> pegarFilmePorID(ArrayList<Integer>  valor){
+        db = banco.getReadableDatabase();
+
+        String querySql = "SELECT * FROM filmes WHERE id_movie = ?";
+        ArrayList<Filme> filmes = new ArrayList<>();
+        int[ ] factorial = { 12, 16};
+
+
+        for(int i = 0; i < valor.size(); i++) {
+            Cursor cursor = db.rawQuery(querySql, new String[]{valor.get(i).toString()});
+            cursor.moveToFirst();
+            if(cursor.getInt(0) == valor.get(i)) {
+                Filme filme = new Filme();
+                filme.setId(cursor.getInt(1));
+                filme.setTitulo(cursor.getString(2));
+                filme.setSubtitle(cursor.getString(3));
+                filme.setAno(cursor.getString(4));
+                filme.setRating(cursor.getString(5));
+                filme.setFoto(cursor.getString(6));
+                filme.setGender(factorial);
+
+                filmes.add(filme);
+            }
+
+        }
+
+        return filmes;
+    }
+
+    public void salvarProximo(int id_movie, int id_user){
+        db = banco.getWritableDatabase();
+        ContentValues valores;
+
+        valores = new ContentValues();
+        valores.put(DbOpener.ID_MOVIE, id_movie);
+        valores.put(DbOpener.ID_USER, id_user);
+        db.insert(DbOpener.TABELA_NEXT, null, valores);
+
+    }
+
+    public ArrayList pegarProximoPorID(String id){
+
+        db = banco.getReadableDatabase();
+
+        ArrayList<Integer> valor = new ArrayList<>();
+
+        String querySql = "SELECT * FROM proximos WHERE id_user = ?";
+        Cursor cursor = db.rawQuery(querySql, new String[]{id});
+        cursor.moveToFirst();
+
+        if (!cursor.isAfterLast()) {
+            do {
+                if(cursor.getInt(0) == Integer.parseInt(id)) {
+                    valor.add(cursor.getInt(1));
+                }
+            }
+            while (cursor.moveToNext());
+
+        }
+
+        cursor.close();
+        db.close();
+
+        return valor;
+    }
+
 
 
 }
