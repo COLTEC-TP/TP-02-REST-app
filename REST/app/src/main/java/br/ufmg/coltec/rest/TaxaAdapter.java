@@ -1,6 +1,9 @@
 package br.ufmg.coltec.rest;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,13 +49,6 @@ public class TaxaAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         Taxa taxa = this.taxas.get(i);
-        //View newView = LayoutInflater.from(this.context).inflate(R.layout.activity_main, viewGroup, false);
-
-        // cria o componente que será carregado na lista
-        //TextView nome = new TextView(this.context);
-        //nome.setText(taxa.getNome() + "--" + taxa.getValor());
-
-        //return nome;
 
         // recupera a view do adapter que será customizada
         View newView = LayoutInflater.from(this.context).inflate(R.layout.taxa_adapter, viewGroup, false);
@@ -67,6 +63,20 @@ public class TaxaAdapter extends BaseAdapter {
         String ValorStr = Float.toString(taxa.getValor());
         lblValor.setText(ValorStr);
 
+
+        final Intent intent = new Intent(context, ItemSelecionado.class);
+
+        intent.putExtra("nome", taxa.getNome());
+        intent.putExtra("valor", ValorStr);
+
+        newView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                context.startActivity(intent);
+
+            }
+        });
 
         return newView;
 

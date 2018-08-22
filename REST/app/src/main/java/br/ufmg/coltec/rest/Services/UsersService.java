@@ -13,8 +13,4 @@ public interface UsersService {
     @GET("latest")
     Call<UltimasTaxas> getLatest(@Query("access_key") String access_key);
 
-    @GET("{urldate}")
-    Call<TaxaHistorica> historyRate(@Path("urldate") String urldate,
-                               @Query("access_key") String access_key,
-                               @Query("symbols") String symbols);
 }

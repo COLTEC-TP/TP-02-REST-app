@@ -99,5 +99,16 @@ public class Taxas {
 
     }
 
+     public ArrayList<Taxa> filtrarProdutos(String busca, ArrayList<Taxa> data) {
+        ArrayList<Taxa> filtrados = new ArrayList<>();
+
+        for(int i=0;i<data.size();i++){
+            if(data.get(i).getNome().toLowerCase().contains(busca.toLowerCase())){
+                filtrados.add(data.get(i));
+            }
+        }
+        return filtrados;
+
+    }
 
 }
