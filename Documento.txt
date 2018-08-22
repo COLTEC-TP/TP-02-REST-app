@@ -1,0 +1,20 @@
+Trabalho TP - Aplicativo REST
+Guilherme Assis e Reinaldo Magalhães
+
+Nome do App: Tempo de se preparar
+Api utilizada: Clima tempo
+
+O Problema…
+Have You Ever Seen The Rain? 
+Quantas vezes você já saiu de casa para ir para o trabalho ou faculdade, olhou para o céu e ele estava limpo, mas na volta estava caindo uma tromba d'água. 
+Mas você é esperto, e olhou a previsão do tempo antes. “Chuva” estava dizendo a previsão. Você decide pegar seu guarda-chuva mas a chuva só começou de fato à noite quando você já estava em casa. Você decide então levar o guarda-chuva todos os dias para o trabalho, ou pior você simplesmente nunca leva. Mas então o que você deveria fazer?
+
+A Solução do Problema...
+Pensando nas dificuldades que passamos no dia a dia, uma simples questão de levar ou não guarda-chuva, pode gerar um grande impacto no seu dia. Daí surgiu a ideia de criar um App que avisa o usuário se ele deve ou não levar guarda-chuva. O usuário precisa apenas escolher a cidade em que ele está e também o horário que ele estará fora de casa. Feito isso, o App mostrará para o usuário qual decisão tomar. Além desta funcionalidade, o App também mostra o que todo App de previsão do tempo faz. Ele mostra os dados do clima atual além de mostrar as previsão dos próximos 7 dias. Ao escolher um dia, o App mostra muitos outros detalhes além da previsão do tempo, por exemplo: umidade do ar, probabilidade de chuva, radiação UV, velocidade do vento, entre outros.
+
+As Decisões Técnicas...
+Foi muito difícil tomar a decisão de como seria organizado os dados dos climas de todos os dias, em qual tela colocar tais informações, para que uma tela não ficasse com muitos dados, para tornar o app mais simples e intuitivo. 
+Outra Decisão foi em escolher uma listview com adapter ou table layout. Neste caso, table layout funcionaria pois a API do clima tempo somente mostra os próximos 7 dias de previsão, ou seja, é um valor fixo e não dinâmico.
+Uma grande decisão também foi em escolher qual a forma que iremos utilizar para fazer o caching das informações. Após algumas tentativas frustradas em utilizar o SQLite, decidimos então utilizar arquivos para salvar os dados.
+
+
