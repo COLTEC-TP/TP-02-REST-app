@@ -5,13 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import coltectp.github.io.tp_02_rest_app.R;
+
 public class MiningInfoFragmentPagerAdapter extends FragmentPagerAdapter {
     final private static int PAGE_COUNT = 4;
-    private String tabTitles[] = new String[] { "Hash Rate",
-                                                "Miners Revenue",
-                                                "Transaction Fees",
-                                                "Cost/Transaction"
-                                                };
     private Context mContext;
 
     public MiningInfoFragmentPagerAdapter(FragmentManager fm, Context context) {
@@ -29,7 +26,15 @@ public class MiningInfoFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabTitles[position];
+        if (position == 0) {
+            return mContext.getString(R.string.hash_rate_fragment);
+        } else if (position == 1) {
+            return mContext.getString(R.string.transaction_fees_fragment);
+        } else if (position == 2) {
+            return mContext.getString(R.string.cost_per_transaction_fragment);
+        } else {
+            return mContext.getString(R.string.miners_revenue_fragment);
+        }
     }
 
     @Override

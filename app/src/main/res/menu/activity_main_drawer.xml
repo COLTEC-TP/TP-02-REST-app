@@ -3,46 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <item android:title="Explorer">
+    <item android:title="@string/explorer">
         <menu>
             <item
                 android:id="@+id/explore"
                 android:icon="@drawable/ic_explore_black_24dp"
-                android:title="Explore" />
+                android:title="@string/explore" />
         </menu>
     </item>
 
-    <item android:title="Charts">
+    <item android:title="@string/charts">
         <menu>
             <item
                 android:id="@+id/transaction"
                 android:icon="@drawable/ic_show_chart_black_24dp"
-                android:title="Transaction" />
+                android:title="@string/transaction" />
             <item
                 android:id="@+id/stats_of_coin"
                 android:icon="@drawable/ic_bitcoin_graphic_with_up_arrow"
-                android:title="Stats of coin" />
+                android:title="@string/stats_coin" />
             <item
                 android:id="@+id/info_mining"
                 android:icon="@drawable/ic_mining"
-                android:title="Mining Information" />
+                android:title="@string/mining_info" />
             <item
                 android:id="@+id/pools"
                 android:icon="@drawable/ic_pie_chart_black_24dp"
-                android:title="Pools" />
-        </menu>
-    </item>
-
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="@string/pools" />
         </menu>
     </item>
 

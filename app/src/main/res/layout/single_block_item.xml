@@ -20,61 +20,80 @@
 
             <TextView
                 android:id="@+id/hash_tv_editable"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="#DE000000"
-                app:layout_constraintBottom_toTopOf="@+id/output_tv_editable"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@id/relative_output"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <TextView
-                android:id="@+id/output_tv_editable"
-                android:layout_width="0dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:lineSpacingExtra="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#DE000000"
+                android:id="@+id/relative_output"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hash_tv_editable" />
+                app:layout_constraintTop_toBottomOf="@+id/hash_tv_editable">
+                <TextView
+                    android:id="@+id/output_non_editable_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_output"
+                    android:layout_margin="0dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                <TextView
+                    android:id="@+id/output_tv_editable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:lineSpacingExtra="8dp"
+                    android:layout_toEndOf="@id/output_non_editable_tv"
+                    android:layout_alignBaseline="@id/output_non_editable_tv"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="#DE000000"
+                     />
+            </RelativeLayout>
 
-            <TextView
-                android:id="@+id/input_tv_editable"
-                android:layout_width="0dp"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#DE000000"
-                app:layout_constraintBottom_toTopOf="@+id/output_btn_editable"
+                app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/output_tv_editable" />
+                app:layout_constraintTop_toBottomOf="@id/relative_output"
+                app:layout_constraintVertical_bias="0.0">
 
-            <Button
-                android:id="@+id/output_btn_editable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:minWidth="0dp"
-                android:paddingEnd="8dp"
-                android:paddingStart="8dp"
-                android:textColor="#DE000000"
-                android:theme="@style/PrimaryButton"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/input_tv_editable"
-                app:layout_constraintTop_toBottomOf="parent" />
+                <TextView
+                    android:id="@+id/input_non_editable_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/total_input"
+                    android:layout_margin="0dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
+                <TextView
+                    android:id="@+id/input_tv_editable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_toEndOf="@id/input_non_editable_tv"
+                    android:layout_alignBaseline="@id/input_non_editable_tv"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="#DE000000"
+                     />
+            </RelativeLayout>
+
 
 
             <android.support.constraint.Guideline

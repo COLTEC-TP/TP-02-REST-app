@@ -48,8 +48,10 @@ public class SingleTransactionInputAdapter extends BaseAdapter {
 
         TextView lblAddress = newView.findViewById(R.id.address);
         TextView lblValue = newView.findViewById(R.id.value);
-        lblAddress.setText(input.getPreviousOutput().getAddress());
-        lblValue.setText(String.valueOf(new BigDecimal(input.getPreviousOutput().getValue()).divide(BigDecimal.valueOf(100000000))) + " BTC");
+        if (input.getPreviousOutput() != null) {
+            lblAddress.setText(input.getPreviousOutput().getAddress());
+            lblValue.setText(String.valueOf(new BigDecimal(input.getPreviousOutput().getValue()).divide(BigDecimal.valueOf(100000000))) + " BTC");
+        }
 
         return newView;
     }

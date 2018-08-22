@@ -5,9 +5,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import coltectp.github.io.tp_02_rest_app.R;
+
 public class BlockChartsFragmentPagerAdapter extends FragmentPagerAdapter {
     final private static int PAGE_COUNT = 3;
-    private String tabTitles[] = new String[] { "Transaction", "Median Confirmation", "Block Size" };
+    private String tabTitles[] = new String[] { String.valueOf(R.string.transaction_fragment),
+                                                String.valueOf(R.string.median_confirmation_time_fragment),
+                                                String.valueOf(R.string.block_size_fragment) };
     private Context mContext;
 
     public BlockChartsFragmentPagerAdapter(FragmentManager fm, Context context) {
@@ -24,7 +28,13 @@ public class BlockChartsFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabTitles[position];
+        if (position == 0) {
+            return mContext.getString(R.string.transaction_fragment);
+        } else if (position == 1) {
+            return mContext.getString(R.string.median_confirmation_time_fragment);
+        } else {
+            return mContext.getString(R.string.block_size_fragment);
+        }
     }
 
     @Override

@@ -63,6 +63,8 @@ public class BlockSizeFragment extends Fragment {
         mProgressBar = view.findViewById(R.id.progressBar);
         mChart = view.findViewById(R.id.chart);
 
+        makeCall(view);
+
         return view;
     }
 

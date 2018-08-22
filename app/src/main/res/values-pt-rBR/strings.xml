@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CryptoChain</string>
+    <string name="nav_header_subtitle">Saiba tudo sobre as criptomoedas!</string>
+    <string name="hash_rate_fragment">Taxa de Hash</string>
+    <string name="miners_revenue_fragment">Receita de mineração</string>
+    <string name="cost_per_transaction_fragment">Custo por Transação</string>
+    <string name="transaction_fees_fragment">Comissão de Transação</string>
+    <string name="market_activity">Mercardo</string>
+    <string name="market_price_fragment">Preço</string>
+    <string name="market_cap_fragment">Capitalização</string>
+    <string name="trade_volume_fragment">Volume de Transação</string>
+    <string name="block_chart_activity">Detalhe de Bloco</string>
+    <string name="transaction_fragment">Transação Por Bloco</string>
+    <string name="median_confirmation_time_fragment">"Tempo Médio de Confirmação "</string>
+    <string name="block_size_fragment">Tamanho do Bloco</string>
+    <string name="input">Entrada</string>
+    <string name="output">Saída</string>
+    <string name="transaction_dialog">Transações</string>
+    <string name="hash">Hash</string>
+    <string name="time">Data</string>
+    <string name="height">Altura</string>
+    <string name="block">Bloco</string>
+    <string name="total_output">Total de Saída</string>
+    <string name="total_input">Total de Entrada</string>
+    <string name="action_settings">Configurações</string>
+    <string name="mining_activity">Informação de Mineração</string>
+    <string name="explore">Explorar</string>
+    <string name="transaction">Transações</string>
+    <string name="stats_coin">Estatistícas de moeda</string>
+    <string name="mining_info">Informação de Mineração</string>
+    <string name="pools">Pools de mineração</string>
+    <string name="charts">Gráficos</string>
+    <string name="explorer">Explore</string>
+</resources>

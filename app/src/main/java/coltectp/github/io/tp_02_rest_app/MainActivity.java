@@ -99,8 +99,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.pools) {
             Intent intent = new Intent(MainActivity.this, PoolChartActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_send) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

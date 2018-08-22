@@ -23,12 +23,32 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".charts.block.BlockChart" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".charts.coin.StatsCoinActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".charts.mining.MiningInfoActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".charts.pieChart.PoolChartActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".blockExplorer.activity.SimpleBlockActivity" android:parentActivityName=".MainActivity"/>
-        <activity android:name=".blockExplorer.activity.SingleBlockActivity" android:parentActivityName=".blockExplorer.activity.SimpleBlockActivity"/>
+        <activity
+            android:name=".charts.block.BlockChart"
+            android:label="@string/block_chart_activity"
+            android:parentActivityName=".MainActivity"
+            />
+
+        <activity
+            android:name=".charts.coin.StatsCoinActivity"
+            android:label="@string/market_activity"
+            android:parentActivityName=".MainActivity"
+            />
+
+        <activity
+            android:name=".charts.mining.MiningInfoActivity"
+            android:label="@string/mining_activity"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity
+            android:name=".charts.pieChart.PoolChartActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".blockExplorer.activity.SimpleBlockActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".blockExplorer.activity.SingleBlockActivity"
+            android:parentActivityName=".blockExplorer.activity.SimpleBlockActivity"/>
     </application>
 
 </manifest>

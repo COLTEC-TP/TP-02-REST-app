@@ -2,12 +2,9 @@ package coltectp.github.io.tp_02_rest_app.blockExplorer.activity;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -36,11 +33,9 @@ public class SingleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SingleB
     @Override
     public void onBindViewHolder(final SingleBlockRecyclerViewAdapter.ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mInputView.setText("Total Input: " + String.valueOf(BlockExplorerHelper.sumOfInputValue(mValues.get(position).getInputs())) + "BTC");
+        holder.mInputView.setText(String.valueOf(BlockExplorerHelper.sumOfInputValue(mValues.get(position).getInputs())) + "BTC");
         holder.mHashView.setText(mValues.get(position).getHash());
-        holder.mOutputView.setText("Total Output: " + String.valueOf(BlockExplorerHelper.sumOfValueOut(mValues.get(position).getOutputs())) + "BTC");
-        holder.mOutputButton.setText(String.valueOf(BlockExplorerHelper.sumOfInputValue(mValues.get(position).getInputs())));
-
+        holder.mOutputView.setText(String.valueOf(BlockExplorerHelper.sumOfValueOut(mValues.get(position).getOutputs())) + "BTC");
     }
 
     @Override
@@ -53,7 +48,6 @@ public class SingleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SingleB
         public final TextView mOutputView;
         public final TextView mHashView;
         public final TextView mInputView;
-        public final Button mOutputButton;
         public Transaction mItem;
 
         public ViewHolder(View view) {
@@ -62,7 +56,6 @@ public class SingleBlockRecyclerViewAdapter extends RecyclerView.Adapter<SingleB
             mOutputView = (TextView) view.findViewById(R.id.output_tv_editable);
             mHashView = (TextView) view.findViewById(R.id.hash_tv_editable);
             mInputView = (TextView) view.findViewById(R.id.input_tv_editable);
-            mOutputButton = (Button) view.findViewById(R.id.output_btn_editable);
 
             itemView.setOnClickListener(this);
         }

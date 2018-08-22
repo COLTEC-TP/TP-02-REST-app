@@ -61,7 +61,7 @@ public class SingleBlockActivity extends AppCompatActivity {
         alertBuilder = new AlertDialog.Builder(SingleBlockActivity.this);
 
         // Alert Dialog
-        alertBuilder.setTitle("Transaction");
+        alertBuilder.setTitle(String.valueOf(R.string.transaction_dialog));
 
 
         LayoutInflater inflater = getLayoutInflater();
