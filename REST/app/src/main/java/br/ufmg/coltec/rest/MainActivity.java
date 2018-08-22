@@ -3,8 +3,12 @@ package br.ufmg.coltec.rest;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import br.ufmg.coltec.rest.Services.Taxa;
 import br.ufmg.coltec.rest.Services.TaxaHistorica;
 import br.ufmg.coltec.rest.Services.UltimasTaxas;
 import br.ufmg.coltec.rest.Services.RetrofitConfig;
@@ -16,6 +20,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends Activity {
+
+    ArrayList<Taxa> txs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,17 +64,16 @@ public class MainActivity extends Activity {
 
         Call<UltimasTaxas> latestCall = service.getLatest(key);
 
+        // = new ArrayList<>();
+
         latestCall.enqueue(new Callback<UltimasTaxas>() {
             @Override
             public void onResponse(Call<UltimasTaxas> call, Response<UltimasTaxas> response) {
                 try {
                     UltimasTaxas resp = response.body();
-
-                    float br = resp.getMoedas().getUSD();
-                    String brST = Float.toString(br);
-                    Toast toast = Toast.makeText(getApplicationContext(), brST, Toast.LENGTH_LONG);
-                    toast.show();
-
+                    txs = resp.getMoedas().getTodosOsValores();
+                    ListView languagesListView = findViewById(R.id.languages_list);
+                    languagesListView.setAdapter(new TaxaAdapter(MainActivity.this, txs));
                 }catch (Exception e){
                     Log.i("I",e.toString());
                 }
@@ -79,8 +84,9 @@ public class MainActivity extends Activity {
             public void onFailure(Call<UltimasTaxas> call, Throwable t) {
                 Log.i("I",t.toString());
             }
-        });
 
+
+        });
 
     }
 

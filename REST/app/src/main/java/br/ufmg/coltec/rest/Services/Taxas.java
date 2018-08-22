@@ -16,6 +16,7 @@ public class Taxas {
     private float JPY;
     private float USD;
 
+
     public float getAUD() {
         return AUD;
     }
@@ -80,19 +81,23 @@ public class Taxas {
         this.USD = USD;
     }
 
-    public ArrayList<Float> returnAll(){
+    public ArrayList<Taxa> getTodosOsValores(){
 
-        ArrayList<Float> valores = new ArrayList<>();
-        valores.add(getAUD());
-        valores.add(getBRL());
-        valores.add(getCAD());
-        valores.add(getCHF());
-        valores.add(getCNY());
-        valores.add(getGBP());
-        valores.add(getJPY());
-        valores.add(getUSD());
+        ArrayList<Taxa> t = new ArrayList<>();
 
-        return valores;
+        t.add(new Taxa("AUD",getAUD()));
+        t.add(new Taxa("BRL",getBRL()));
+        t.add(new Taxa("CAD",getCAD()));
+        t.add(new Taxa("CHF",getCHF()));
+        t.add(new Taxa("CNY",getCNY()));
+        t.add(new Taxa("GBP",getGBP()));
+        t.add(new Taxa("JPY",getJPY()));
+        t.add(new Taxa("USD",getUSD()));
+
+        return t;
+
+
     }
+
 
 }
