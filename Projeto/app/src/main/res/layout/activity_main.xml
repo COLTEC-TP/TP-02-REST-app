@@ -87,20 +87,23 @@
 
                 <ImageView
                     android:id="@+id/dias_0_icon"
-                    android:layout_width="192dp"
+                    android:layout_width="148dp"
                     android:layout_height="30dp"
                     android:src="@android:drawable/ic_menu_help" />
+
                 <TextView
                     android:id="@+id/dias_0_tempMin"
+                    android:layout_width="wrap_content"
                     android:text="Min: xx"
-                    android:textSize="18dp"
-                    android:textColor="#FFB700" />
+                    android:textColor="#FFB700"
+                    android:textSize="18dp" />
+
                 <TextView
                     android:id="@+id/dias_0_tempMax"
-                    android:layout_width="158dp"
+                    android:layout_width="75dp"
                     android:text="Max: xx"
-                    android:textSize="18dp"
-                    android:textColor="#FFB700" />
+                    android:textColor="#FFB700"
+                    android:textSize="18dp" />
             </TableRow>
             <TableRow
                 android:id="@+id/row1"
