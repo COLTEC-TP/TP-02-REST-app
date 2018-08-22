@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CityActivity"
-    android:background="@drawable/backgroundescuro"
+    android:background="@color/azul"
     android:orientation="vertical">
     <TableLayout
         android:layout_width="match_parent"
@@ -14,45 +14,59 @@
         <TableRow android:gravity="bottom">
             <EditText
                 android:hint="Nome da cidade"
-                android:textColorHint="#80FFB700"
-                android:textColor="#FFB700"
+                android:textColorHint="#80FFFFFF"
+                android:textColor="#FFFFFF"
                 android:id="@+id/txtCityS"/>
             <ImageButton
                 android:src="@android:drawable/ic_menu_search"
+                android:tint="#FFFFFF"
+                android:background="@color/azul"
                 android:onClick="procura"/>
         </TableRow>
     </TableLayout>
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textSize="20dp"
         android:text="Ou então faça a busca"
+        android:textAlignment="center"
         android:padding="10dp"
-        android:textColor="#FFB700"
+        android:textColor="#FFFFFF"
         android:layout_marginTop="25dp"/>
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="1"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
-        <TableRow>
-            <Spinner
-                android:textColor="#FFB700"
-                android:textSize="50dp"
-                android:id="@+id/listaEstados"
-                />
-            <EditText
-                android:hint="Filtrar"
-                android:textColorHint="#80FFB700"
-                android:textColor="#FFB700"
-                android:id="@+id/filtroCity"/>
-        </TableRow>
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:stretchColumns="1">
+        <Spinner
+            android:id="@+id/listaEstados"
+            android:layout_width="190dp"
+            android:layout_height="30dp"
+            android:background="@color/branco"
+            android:textSize="50dp" />
+
+    </TableLayout>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:stretchColumns="1">
+
+        <EditText
+            android:id="@+id/filtroCity"
+            android:hint="Filtrar"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#80FFFFFF" />
     </TableLayout>
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/listaCidadeBusca"
-        android:textColor="#FFB700"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"/>
 

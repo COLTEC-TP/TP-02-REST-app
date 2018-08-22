@@ -1,6 +1,9 @@
 package com.gui_rei.tempopreparar;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gui_rei.tempopreparar.rest.RetrofitConfig;
@@ -38,6 +42,10 @@ public class CityActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city);
+
+        //Alterar cor da Action Bar
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.azul)));
 
         ListView cidadesList = findViewById(R.id.listaCidadeBusca);
         cidadesList.setAdapter(buscaAdapter);

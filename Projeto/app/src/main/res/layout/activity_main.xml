@@ -4,22 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/azul"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@drawable/backgroundescurooo" />
     <TextView
         android:id="@+id/txt_cidade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="11dp"
         android:text="Belo Horizonte"
-        android:textColor="#FFB700"
+        android:textColor="#FFFFFF"
         android:textSize="35dp" />
     <ImageView
         android:id="@+id/imageView"
@@ -36,7 +31,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/imageView"
         android:text="XX.0 ºC"
-        android:textColor="#FFB700"
+        android:textColor="#FFFFFF"
         android:textSize="70dp"
         android:padding="20dp"/>
 
@@ -63,6 +58,7 @@
                     android:id="@+id/dias_0_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
+                    android:tint="#FFB700"
                     android:src="@android:drawable/ic_menu_help" />
                 <TextView
                     android:id="@+id/dias_0_tempMin"
@@ -88,6 +84,7 @@
                     android:src="@android:drawable/ic_menu_help"
                     android:id="@+id/dias_1_icon"
                     android:layout_height="30dp"
+                    android:tint="#FFB700"
                     android:layout_width="30dp"/>
                 <TextView
                     android:text="Min: xx"
@@ -113,6 +110,7 @@
                     android:src="@android:drawable/ic_menu_help"
                     android:id="@+id/dias_2_icon"
                     android:layout_height="30dp"
+                    android:tint="#FFB700"
                     android:layout_width="30dp"/>
                 <TextView
                     android:text="Min: xx"
@@ -139,6 +137,7 @@
                     android:src="@android:drawable/ic_menu_help"
                     android:id="@+id/dias_3_icon"
                     android:layout_height="30dp"
+                    android:tint="#FFB700"
                     android:layout_width="30dp"/>
                 <TextView
                     android:text="Min: xx"
@@ -164,6 +163,7 @@
                     android:src="@android:drawable/ic_menu_help"
                     android:id="@+id/dias_4_icon"
                     android:layout_height="30dp"
+                    android:tint="#FFB700"
                     android:layout_width="30dp"/>
                 <TextView
                     android:text="Min: xx"
@@ -189,6 +189,7 @@
                     android:src="@android:drawable/ic_menu_help"
                     android:id="@+id/dias_5_icon"
                     android:layout_height="30dp"
+                    android:tint="#FFB700"
                     android:layout_width="30dp"/>
                 <TextView
                     android:text="Min: xx"
@@ -214,6 +215,7 @@
                     android:src="@android:drawable/ic_menu_help"
                     android:id="@+id/dias_6_icon"
                     android:layout_height="30dp"
+                    android:tint="#FFB700"
                     android:layout_width="30dp"/>
                 <TextView
                     android:text="Min: xx"

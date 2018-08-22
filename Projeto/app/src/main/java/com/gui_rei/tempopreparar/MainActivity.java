@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -211,7 +212,7 @@ public class MainActivity extends Activity {
 
         //Alterar cor da Action Bar
         ActionBar bar = getActionBar();
-        bar.setBackgroundDrawable(getDrawable(R.drawable.backgroundescurooo));
+        bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.azul)));
 
         preencherTela();
 

@@ -1,6 +1,8 @@
 package com.gui_rei.tempopreparar;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -15,6 +17,10 @@ public class ClimaDetalhesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clima_detalhes);
+
+        //Alterar cor da Action Bar
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.azul)));
 
         Bundle activityBundle = this.getIntent().getExtras();
         String diaS = activityBundle.getString("dia");
