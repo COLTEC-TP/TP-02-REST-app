@@ -210,6 +210,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Dados.setContext(MainActivity.this); //Permite ao dados manipula arquivos
+
         //Alterar cor da Action Bar
         ActionBar bar = getActionBar();
         bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.azul)));
@@ -241,6 +243,7 @@ public class MainActivity extends Activity {
                     Prefs.tempMostrarAviso = 0; //Já mostrou, n precisa mostrar mais
                 }
             });
+            Prefs.tempMostrarAviso = 0; //eh melhor mesmo sem apertar ok //Já mostrou, n precisa mostrar mais
             builder.show();
         }
     }
