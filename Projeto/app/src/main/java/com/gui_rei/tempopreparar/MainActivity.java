@@ -1,5 +1,6 @@
 package com.gui_rei.tempopreparar;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,8 +18,6 @@ import com.gui_rei.tempopreparar.rest.current.ClimaAtualService;
 import com.gui_rei.tempopreparar.rest.RetrofitConfig;
 import com.gui_rei.tempopreparar.rest.days.Dias;
 import com.gui_rei.tempopreparar.rest.days.DiasService;
-
-import java.lang.reflect.Field;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -213,6 +211,10 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Alterar cor da Action Bar
+        ActionBar bar = getActionBar();
+        bar.setBackgroundDrawable(getDrawable(R.drawable.backgroundescurooo));
 
         preencherTela();
 
