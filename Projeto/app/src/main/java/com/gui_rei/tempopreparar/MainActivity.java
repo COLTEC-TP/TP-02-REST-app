@@ -2,6 +2,8 @@ package com.gui_rei.tempopreparar;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -166,6 +168,7 @@ public class MainActivity extends Activity {
                 Dias clima = response.body();
                 Dados.getInstance().setClimaDias(clima);
                 preencheTela(clima);
+                avisar();
             }
             @Override
             public void onFailure(Call<Dias> call, Throwable t) {//executado quando houver erros
@@ -218,6 +221,27 @@ public class MainActivity extends Activity {
     protected void onStart() {
         super.onStart();
         atualizaTemp();
+
+        avisar();
+    }
+    private void avisar(){
+        Dias dias = Dados.getInstance().getClimaDias(Prefs.getInstance().getCity());
+        if(Prefs.tempMostrarAviso==1 && dias!=null && Prefs.getInstance().getTemRotinaAmanha() == 1) { //vai mudar muito
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Você vai sair amanhã");
+            String clima = Dados.getInstance().getClimaDias(Prefs.getInstance().getCity()).getData().get(1).getText_icon().getIcon().getDay();
+            if (clima.equals("1") || clima.equals("1") || clima.equals("9") || clima.equals("2"))
+                builder.setMessage("Mas não se preocupe, não vai chover");
+            else
+                builder.setMessage("É melhor levar uma blusa e um guarda chuva");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Prefs.tempMostrarAviso = 0; //Já mostrou, n precisa mostrar mais
+                }
+            });
+            builder.show();
+        }
     }
 
     public void rowClick(View view){

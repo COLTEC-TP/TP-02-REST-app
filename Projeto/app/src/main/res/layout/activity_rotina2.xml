@@ -10,8 +10,16 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="150dp"
         android:text="Rotina" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView4"
+        android:layout_centerHorizontal="true"
+        android:text="Setar q amanha vai sair"
+        android:id="@+id/btn_setrotina"/>
+
 </RelativeLayout>

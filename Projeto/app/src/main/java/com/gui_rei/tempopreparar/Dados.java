@@ -19,6 +19,15 @@ public class Dados { //TODO Salvar no banco de dados
         climaDias = null;
     }
 
+    private boolean temDadosAtual(){
+        if (climaAtual == null) return false;
+        else return true;
+    }
+    private boolean temDadosDias(){
+        if (climaDias == null) return false;
+        else return true;
+    }
+
     public void setClimaAtual(ClimaAtual climaAtual) {
         this.climaAtual = climaAtual;
     }
@@ -26,14 +35,14 @@ public class Dados { //TODO Salvar no banco de dados
         this.climaDias = climaDias;
     }
     public ClimaAtual getClimaAtual(int cityId) {
-        if(climaAtual != null) {
+        if(temDadosAtual()) {
             if (climaAtual.getId() == cityId) return climaAtual;
             else return null;
         }
         else return null;
     }
     public Dias getClimaDias(int cityId) {
-        if(climaDias != null) {
+        if(temDadosDias()) {
             if (climaDias.getId() == cityId) return climaDias;
             else return null;
         }
