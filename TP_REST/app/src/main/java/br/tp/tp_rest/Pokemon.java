@@ -12,17 +12,23 @@ public class Pokemon {
     private String nome;
 
     @SerializedName("stats")
-    private ArrayList<Stat> stats = null;
+    private ArrayList<Stat> stats;
 
     @SerializedName("sprites")
-    private Sprite sprite = null;
+    private Sprite sprite;
+
+    @SerializedName("types")
+    private ArrayList<PokeType> types;
+
+
 
     private Bitmap imagem = null;
 
-    public Pokemon(String nome, ArrayList<Stat> stats, Sprite sprite) {
+    public Pokemon(String nome, ArrayList<Stat> stats, Sprite sprite, ArrayList<PokeType> types) {
         this.nome = nome;
         this.stats = stats;
         this.sprite = sprite;
+        this.types = types;
     }
 
     public String getName() {
@@ -34,11 +40,15 @@ public class Pokemon {
     }
 
     public Sprite getSprite() {
-        return sprite;
+        return this.sprite;
+    }
+
+    public ArrayList<PokeType> getPokeTypes(){
+        return this.types;
     }
 
     public Bitmap getImagem() {
-        return imagem;
+        return this.imagem;
     }
 
     public void setBitmap(Bitmap imagem){

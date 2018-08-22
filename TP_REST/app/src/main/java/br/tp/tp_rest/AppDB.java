@@ -12,7 +12,7 @@ public class AppDB extends SQLiteOpenHelper {
 
         private static String DB_NOME = "Pokemons";
         private static final int DB_VERSAO = 1;
-        private static final String SCRIPT_CREATE = "CREATE TABLE Pokemons (nome TEXT, agilidade INT, hp INT, ataque INT, defesa INT, super_ataque INT, super_defesa INT, imagem TEXT)";
+        private static final String SCRIPT_CREATE = "CREATE TABLE Pokemons (nome TEXT, agilidade INT, hp INT, ataque INT, defesa INT, super_ataque INT, super_defesa INT, imagem TEXT, tipo1 TEXT, tipo2 TEXT)";
 
         public AppDB(Activity context){
             super(context, DB_NOME, null, DB_VERSAO);
@@ -49,6 +49,13 @@ public class AppDB extends SQLiteOpenHelper {
                 cv.put("super_ataque", p.getStats().get(2).getBase_stat());
                 cv.put("super_defesa", p.getStats().get(1).getBase_stat());
 
+                cv.put("tipo1", p.getPokeTypes().get(0).getNamePokeType());
+                if (p.getPokeTypes().size() > 1){
+                    cv.put("tipo2", p.getPokeTypes().get(1).getNamePokeType());
+                }else{
+                    cv.put("tipo2", "null");
+                }
+
                 db.insert("Pokemons", null, cv);
             }catch (Exception e){
                 e.printStackTrace();
@@ -76,7 +83,16 @@ public class AppDB extends SQLiteOpenHelper {
                         stats.add(new Stat(c.getInt(c.getColumnIndex("super_defesa"))));
 
                         Sprite sprite = new Sprite(c.getString(c.getColumnIndex("imagem")));
-                        Pokemon p = new Pokemon(nome, stats, sprite);
+
+                        ArrayList<PokeType> types = new ArrayList<>();
+                        PokeType tipo1 = new PokeType(new NameOfPokeType(c.getString(c.getColumnIndex("tipo1"))));
+                        PokeType tipo2 = new PokeType(new NameOfPokeType(c.getString(c.getColumnIndex("tipo2"))));
+                        types.add(tipo1);
+                        if (!tipo2.getNamePokeType().equals("null")){
+                            types.add(tipo2);
+                        }
+
+                        Pokemon p = new Pokemon(nome, stats, sprite, types);
 
                         // adiciona user na lista que será retornada
                         pokemons.add(p);

@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,11 +22,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends Activity implements ItemClickListener {
 
@@ -62,7 +57,7 @@ public class MainActivity extends Activity implements ItemClickListener {
                     pokemons.get(i).setBitmap(b);
                     dao.addPokemon(pokemons.get(i));
                     if (dao.getPokemons().get(i).getImagem() == null){
-                        Toast.makeText(this, "Dueu ruim", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Aviso: Imagem não carregada", Toast.LENGTH_SHORT).show();
                     }
                 }
                 catch (FileNotFoundException e)

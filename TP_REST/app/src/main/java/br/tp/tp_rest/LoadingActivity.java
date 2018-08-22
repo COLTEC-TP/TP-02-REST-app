@@ -10,8 +10,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +40,12 @@ public class LoadingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
+        // Usa o gif //
+        ImageView imageView = findViewById(R.id.img_loading);
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageView);
+        Glide.with(this).load(R.drawable.loading).into(imageViewTarget);
+
+        // Faz requisição //
         requisita(dao, this, db);
     }
 
@@ -46,8 +56,10 @@ public class LoadingActivity extends Activity {
                 Pokemon pokemon = response.body();
                 dao.addPokemon(pokemon);
                 db.insert(pokemon);
+
+                Toast.makeText(context, pokemon.getPokeTypes().get(0).getNamePokeType(), Toast.LENGTH_SHORT).show();
+
                 salvar_imagem(pokemon);
-                Toast.makeText(context, pokemon.getName(), Toast.LENGTH_SHORT).show();
                 id += 1;
                 if (id-1 < dao.getNum_pokemons()) {
                     requisita(dao, context, db);
