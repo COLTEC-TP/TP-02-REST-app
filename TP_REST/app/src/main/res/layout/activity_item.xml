@@ -4,34 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/Item_Lista"
-    android:background="#C29A58">
+    android:background="#FFFFF6">
+
+    <ImageView
+        android:layout_alignStart="@+id/Pokemon_Nome"
+        android:layout_alignEnd="@+id/Pokemon_Nome"
+        android:layout_alignTop="@+id/Pokemon_Nome"
+        android:layout_alignBottom="@+id/Pokemon_Nome"
+        android:src="@drawable/pokeballs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        />
 
     <TextView
         android:id="@+id/Pokemon_Nome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="14dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/Pokemon_Img"
+        android:gravity="center"
         android:fontFamily="monospace"
         android:text="Psyduck"
         android:textSize="30dp"
         android:textStyle="bold"
-        android:textColor="#525453"/>
-
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/circle"
-        android:id="@+id/imageView2" />
+        android:textColor="#FFFFF6"
+        android:background="#30142991"/>
 
     <ImageView
         android:id="@+id/Pokemon_Img"
         android:layout_width="110dp"
         android:layout_height="140dp"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/imageView2"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="18dp"
         android:scaleX="1.7"
         android:scaleY="1.7"
@@ -43,11 +47,12 @@
         style="@style/CustomProgressBar"
         android:layout_width="250dp"
         android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:max="120"
-        android:progress="70"
-        android:layout_marginBottom="10dp"/>
+        android:progress="55"
+        android:layout_marginBottom="60dp"
+        android:layout_marginRight="5dp"/>
 
     <TextView
         android:id="@+id/HP_Num"
@@ -59,7 +64,18 @@
         android:layout_height="0dp"
         android:layout_width="35dp"
         android:layout_centerHorizontal="true"
-        android:text="70"/>
+        android:text="55"/>
+
+    <TextView
+        android:id="@+id/Txt_HP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Bar_HP"
+        android:layout_toStartOf="@+id/Bar_HP"
+        android:fontFamily="monospace"
+        android:text="HP"
+        android:textColor="#53544E"
+        android:textSize="18dp" />
 
     <!-- Agilidade -->
     <ProgressBar
@@ -67,11 +83,12 @@
         style="@style/CustomProgressBar"
         android:layout_width="250dp"
         android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:layout_above="@+id/Bar_HP"
         android:layout_marginBottom="10dp"
         android:max="120"
-        android:progress="70" />
+        android:progress="70"
+        android:layout_marginRight="5dp"/>
 
     <TextView
         android:id="@+id/Agilidade_Num"
@@ -85,17 +102,29 @@
         android:layout_centerHorizontal="true"
         android:text="70"/>
 
+    <TextView
+        android:id="@+id/Txt_Agilidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Bar_Agilidade"
+        android:layout_toStartOf="@+id/Bar_Agilidade"
+        android:fontFamily="monospace"
+        android:text="Agilidade"
+        android:textColor="#53544E"
+        android:textSize="18dp" />
+
     <!-- Defesa Especial -->
     <ProgressBar
         android:id="@+id/Bar_Defesa_Especial"
         style="@style/CustomProgressBar"
         android:layout_width="250dp"
         android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:layout_above="@+id/Bar_Agilidade"
         android:layout_marginBottom="10dp"
         android:max="120"
-        android:progress="70" />
+        android:progress="70"
+        android:layout_marginRight="5dp"/>
 
     <TextView
         android:id="@+id/Defesa_Especial_Num"
@@ -109,17 +138,29 @@
         android:layout_centerHorizontal="true"
         android:text="70"/>
 
+    <TextView
+        android:id="@+id/Txt_Defesa_Especial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Bar_Defesa_Especial"
+        android:layout_alignStart="@+id/Txt_Agilidade"
+        android:fontFamily="monospace"
+        android:text="Defesa E."
+        android:textColor="#53544E"
+        android:textSize="18dp" />
+
     <!-- Defesa -->
     <ProgressBar
         android:id="@+id/Bar_Defesa"
         style="@style/CustomProgressBar"
         android:layout_width="250dp"
         android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:layout_above="@+id/Bar_Defesa_Especial"
         android:layout_marginBottom="10dp"
         android:max="120"
-        android:progress="70" />
+        android:progress="70"
+        android:layout_marginRight="5dp"/>
 
     <TextView
         android:id="@+id/Defesa_Num"
@@ -133,17 +174,29 @@
         android:layout_centerHorizontal="true"
         android:text="70"/>
 
+    <TextView
+        android:id="@+id/Txt_Defesa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Bar_Defesa"
+        android:layout_toStartOf="@+id/Bar_Defesa"
+        android:fontFamily="monospace"
+        android:text="Defesa"
+        android:textColor="#53544E"
+        android:textSize="18dp" />
+
     <!-- Ataque Especial -->
     <ProgressBar
         android:id="@+id/Bar_Ataque_Especial"
         style="@style/CustomProgressBar"
         android:layout_width="250dp"
         android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:layout_above="@+id/Bar_Defesa"
         android:layout_marginBottom="10dp"
         android:max="120"
-        android:progress="70" />
+        android:progress="70"
+        android:layout_marginRight="5dp"/>
 
     <TextView
         android:id="@+id/Ataque_Especial_Num"
@@ -157,17 +210,29 @@
         android:layout_centerHorizontal="true"
         android:text="70"/>
 
+    <TextView
+        android:id="@+id/Txt_Ataque_Especial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Bar_Ataque_Especial"
+        android:layout_toStartOf="@+id/Bar_Ataque_Especial"
+        android:fontFamily="monospace"
+        android:text="Ataque E."
+        android:textColor="#53544E"
+        android:textSize="18dp" />
+
     <!-- Ataque-->
     <ProgressBar
         android:id="@+id/Bar_Ataque"
         style="@style/CustomProgressBar"
         android:layout_width="250dp"
         android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
         android:layout_above="@+id/Bar_Ataque_Especial"
         android:layout_marginBottom="10dp"
         android:max="120"
-        android:progress="70" />
+        android:progress="45" />
 
     <TextView
         android:id="@+id/Ataque_Num"
@@ -180,6 +245,66 @@
         android:layout_width="35dp"
         android:layout_centerHorizontal="true"
         android:text="70"/>
+
+    <TextView
+        android:id="@+id/Txt_Ataque"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/Bar_Ataque"
+        android:layout_toStartOf="@+id/Bar_Ataque"
+        android:fontFamily="monospace"
+        android:text="Ataque"
+        android:textColor="#53544E"
+        android:textSize="18dp" />
+
+    <!-- Tipos -->
+    <Button
+        android:id="@+id/Tipo_1"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/Pokemon_Nome"
+        android:layout_marginTop="11dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="9dp"
+        android:background="#20D470FF"
+        android:text="Water"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp" />
+
+    <ImageView
+        android:layout_alignStart="@+id/Tipo_1"
+        android:layout_alignEnd="@+id/Tipo_1"
+        android:layout_alignTop="@+id/Tipo_1"
+        android:layout_alignBottom="@+id/Tipo_1"
+        android:src="@drawable/pokeballs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        />
+
+    <Button
+        android:id="@+id/Tipo_2"
+        android:layout_width="160dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/Pokemon_Nome"
+        android:layout_marginTop="11dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="9dp"
+        android:background="#20D470FF"
+        android:text="TYPE"
+        android:textColor="#FFFFFF"
+        android:textSize="30dp" />
+
+    <ImageView
+        android:layout_alignStart="@+id/Tipo_2"
+        android:layout_alignEnd="@+id/Tipo_2"
+        android:layout_alignTop="@+id/Tipo_2"
+        android:layout_alignBottom="@+id/Tipo_2"
+        android:src="@drawable/pokeballs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        />
 
 
 

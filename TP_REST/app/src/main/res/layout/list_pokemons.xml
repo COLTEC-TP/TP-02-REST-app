@@ -1,71 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:id="@+id/Item_Lista">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_height="130dp"
+    android:layout_width="match_parent"
+    android:layout_marginHorizontal="5dp"
+    android:layout_marginTop="5dp"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Psyduck"
-        android:textSize="17dp"
-        android:id="@+id/Pokemon_Nome"
-        android:layout_marginStart="20dp"/>
+    >
+    <!-- A CardView that contains a TextView -->
 
-    <ImageView
-        android:layout_width="110dp"
-        android:layout_height="140dp"
-        android:id="@+id/Pokemon_Img"
-        android:src="@drawable/psyduck" />
+    <android.support.v7.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_gravity="center"
+        card_view:cardCornerRadius="4dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ATQ 70"
-        android:id="@+id/Ataque_Num"
-        android:layout_below="@+id/Pokemon_Img" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Defesa_Num"
-        android:layout_toEndOf="@id/Ataque_Num"
-        android:layout_below="@id/Pokemon_Img"
-        android:layout_marginStart="15dp"
-        android:text="DEF 70" />
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/pokeballs_back"
+                android:scaleType="centerCrop"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Agilidade_Num"
-        android:layout_below="@id/Ataque_Num"
-        android:text="SPD 70" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Lista_Pokemon_Nome"
+                android:text="Psyduck"
+                android:fontFamily="monospace"
+                android:textColor="#FFFFFF"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="10dp"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Lista_Tipo1"
+                android:text="Type 1"
+                android:fontFamily="monospace"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_below="@id/Lista_Pokemon_Nome"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="10dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/HP_Num"
-        android:layout_below="@id/Defesa_Num"
-        android:layout_alignStart="@id/Defesa_Num"
-        android:text="HP 70" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/Lista_Tipo2"
+                android:text="Type 2"
+                android:fontFamily="monospace"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_toRightOf="@id/Lista_Tipo1"
+                android:layout_alignBaseline="@+id/Lista_Tipo1"
+                android:layout_marginLeft="30dp"/>
 
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/light"
+                android:layout_alignParentRight="true"
+                android:scaleX="2.5"
+                android:scaleY="2.5"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Ataque_Especial_Num"
-        android:layout_below="@id/Agilidade_Num"
-        android:text="SAT 70" />
+            <ImageView
+                android:id="@+id/Lista_Pokemon_Img"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:src="@drawable/psyduck"
+                android:layout_alignParentEnd="true"
+                android:scaleType="centerCrop"
+                android:layout_marginRight="14dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Defesa_Especial_Num"
-        android:layout_below="@id/HP_Num"
-        android:layout_alignStart="@id/HP_Num"
-        android:text="SDE 70" />
+        </RelativeLayout>
 
-
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

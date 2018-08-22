@@ -57,8 +57,6 @@ public class PokemonDAO {
         return pokemonsFiltrados;
     }
 
-
-    // Recupera lista completa dos imóveis //
     public ArrayList<Pokemon> getPokemons() {
         return this.pokemons;
     }

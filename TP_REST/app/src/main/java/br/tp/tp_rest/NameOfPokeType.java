@@ -15,5 +15,4 @@ public class NameOfPokeType {
         return this.nameOfType;
     }
 
-
 }

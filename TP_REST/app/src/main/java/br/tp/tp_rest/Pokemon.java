@@ -9,16 +9,16 @@ import java.util.ArrayList;
 
 public class Pokemon {
     @SerializedName("name")
-    private String nome;
+    private static String nome;
 
     @SerializedName("stats")
-    private ArrayList<Stat> stats;
+    private static ArrayList<Stat> stats;
 
     @SerializedName("sprites")
-    private Sprite sprite;
+    private static Sprite sprite;
 
     @SerializedName("types")
-    private ArrayList<PokeType> types;
+    private static ArrayList<PokeType> types;
 
 
 

@@ -66,13 +66,14 @@ public class MainActivity extends Activity implements ItemClickListener {
                 }
             }
 
-            //ListView listPokemons = findViewById(R.id.pokemonsList);
             RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pokemonsList);
 
             adapter = new PokemonAdapter(pokemons, MainActivity.this);
             recyclerView.setAdapter(adapter);
             layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
+
+            Toast.makeText(this, pokemons.get(0).getName(), Toast.LENGTH_SHORT).show();
 
             adapter.setClickListener(this); //liga ao listener
         }
@@ -128,6 +129,9 @@ public class MainActivity extends Activity implements ItemClickListener {
     @Override
     public void onClick(View view, int position) {
         Intent intent = new Intent(MainActivity.this, ItemActivity.class);
+        Bundle args = new Bundle();
+        args.putInt("position", position);
+        intent.putExtras(args);
         startActivity(intent);
     }
 }
