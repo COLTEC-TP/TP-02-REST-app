@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView mPriceTextView;
+    private TextView mPriceText2;
+    private TextView mPriceText3;
+    private TextView mRegion2;
+    private TextView mRegion3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,10 @@ public class MainActivity extends AppCompatActivity
 
         String currencyCode = displayCurrencyInfoForLocale(getResources().getConfiguration().locale);
         mPriceTextView = findViewById(R.id.price_tv);
+        mPriceText2 = findViewById(R.id.price2);
+        mPriceText3 = findViewById(R.id.price3);
+        mRegion2 = findViewById(R.id.region2);
+        mRegion3 = findViewById(R.id.region3);
         makeCall(mPriceTextView, currencyCode);
     }
 
@@ -117,25 +125,44 @@ public class MainActivity extends AppCompatActivity
             public void onResponse(Call<Coin> call, Response<Coin> response) {
                 Coin coin = response.body();
 
+                StringBuilder priceEUR = new StringBuilder();
+                priceEUR.append(String.valueOf(coin.getPriceEUR().getSymbol()))
+                        .append(" ")
+                        .append(String.valueOf(coin.getPriceEUR().getLast()));
+
+                StringBuilder priceBRL = new StringBuilder();
+                priceBRL.append(String.valueOf(coin.getPriceBRL().getSymbol()))
+                        .append(" ")
+                        .append(String.valueOf(coin.getPriceBRL().getLast()));
+                mPriceTextView.setText(priceBRL.toString());
+
+                StringBuilder priceUSD = new StringBuilder();
+                priceUSD.append(String.valueOf(coin.getPriceUSD().getSymbol()))
+                        .append(" ")
+                        .append(String.valueOf(coin.getPriceUSD().getLast()));
+
+
                 switch (currencyCode) {
                     case "EUR":
-                        StringBuilder priceEUR = new StringBuilder();
-                        priceEUR.append(String.valueOf(coin.getPriceEUR().getSymbol()))
-                                .append(String.valueOf(coin.getPriceEUR().getLast()));
                         mPriceTextView.setText(priceEUR.toString());
+                        mPriceText2.setText(priceUSD);
+                        mRegion2.setText("UNITED STATES");
+                        mPriceText3.setText(priceBRL);
+                        mRegion3.setText("BRAZIL");
                             break;
                     case "BRL":
-                        StringBuilder priceBRL = new StringBuilder();
-                        priceBRL.append(String.valueOf(coin.getPriceBRL().getSymbol()))
-                                .append(String.valueOf(coin.getPriceBRL().getLast()));
                         mPriceTextView.setText(priceBRL.toString());
+                        mPriceText2.setText(priceUSD);
+                        mRegion2.setText("ESTADOS UNIDOS");
+                        mPriceText3.setText(priceEUR);
+                        mRegion3.setText("EUROPA");
                             break;
                     default:
-                        StringBuilder priceUSD = new StringBuilder();
-                        priceUSD.append(String.valueOf(coin.getPriceUSD().getSymbol()))
-                                .append(String.valueOf(coin.getPriceUSD().getLast()));
-
                         mPriceTextView.setText(priceUSD.toString());
+                        mPriceText2.setText(priceBRL);
+                        mRegion2.setText("BRAZIL");
+                        mPriceText3.setText(priceEUR);
+                        mRegion3.setText("EUROPA");
                             break;
                 }
             }

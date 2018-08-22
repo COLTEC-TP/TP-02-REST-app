@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CryptoChain</string>
-    <string name="nav_header_subtitle">Get To Know everything about cryptocurrency</string>
+    <string name="nav_header_subtitle">Know all about bitcoins!</string>
     <string name="hash_rate_fragment">Hash Rate</string>
     <string name="miners_revenue_fragment">Miners Revenue</string>
     <string name="cost_per_transaction_fragment">Cost Per Transaction</string>
@@ -32,4 +32,8 @@
     <string name="pools">"Pools "</string>
     <string name="charts">Charts</string>
     <string name="explorer">Explorer</string>
+    <string name="price">PRICE CHARTS</string>
+    <string name="region">PRICE IN YOUR REGION</string>
+    <string name="search">Search by Pools</string>
+    <string name="search_results">Search Results</string>
 </resources>

@@ -41,6 +41,7 @@ public class SimpleBlockActivity extends AppCompatActivity {
     private ProgressBar mProgressBar;
 
     private TextView mInfoTextView;
+    private TextView mPoolExamplesTextView;
     private Button mButtonPoolButton;
 
     @Override
@@ -57,6 +58,7 @@ public class SimpleBlockActivity extends AppCompatActivity {
         mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(1, 4, true));
 
         mInfoTextView = findViewById(R.id.info_tv);
+        mPoolExamplesTextView = findViewById(R.id.pools_examples);
         mButtonPoolButton = findViewById(R.id.info_btn);
 
         mButtonPoolButton.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +84,7 @@ public class SimpleBlockActivity extends AppCompatActivity {
     private void showMoreInfo(boolean show) {
         mButtonPoolButton.setVisibility(show ? View.VISIBLE : View.GONE);
         mInfoTextView.setVisibility(show ? View.VISIBLE : View.GONE);
+        mPoolExamplesTextView.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 
     @Override

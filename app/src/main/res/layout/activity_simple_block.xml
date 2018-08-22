@@ -14,14 +14,24 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="219dp"
-        android:text="Search by Pool" />
+        android:textSize="20dp"
+        android:text="@string/search" />
+
+    <TextView
+        android:id="@+id/pools_examples"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/info_tv"
+        android:layout_centerHorizontal="true"
+        android:text="Ex: BTC.com, Unknown, ViaBTC, ..."/>
+
     <Button
         android:id="@+id/info_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Pools"
-        android:layout_below="@id/info_tv"/>
+        android:text="@string/pools"
+        android:layout_below="@id/pools_examples"/>
 
     <ProgressBar
         android:layout_width="wrap_content"
