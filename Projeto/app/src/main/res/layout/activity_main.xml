@@ -1,106 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    tools:context=".MainActivity">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@drawable/backgroundescurooo" />
+    <TextView
+        android:id="@+id/txt_cidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:text="Belo Horizonte"
+        android:textColor="#FFB700"
+        android:textSize="35dp" />
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="168dp"
+        android:layout_height="168dp"
+        android:layout_below="@+id/txt_cidade"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/solnuvem"
+        android:padding="10dp"/>
+    <TextView
+        android:id="@+id/txt_TemperaturaAtual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/imageView"
+        android:text="XX.0 ºC"
+        android:textColor="#FFB700"
+        android:textSize="70dp"
+        android:padding="20dp"/>
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
-
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/backgroundescurooo" />
-
-        <TextView
-            android:id="@+id/txt_cidade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="11dp"
-            android:text="Belo Horizonte"
-            android:textColor="#FFB700"
-            android:textSize="35dp" />
-
-        <TextView
-            android:id="@+id/txt_TemperaturaAtual"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/imageView"
-            android:text="XX.0 ºC"
-            android:textColor="#FFB700"
-            android:textSize="70dp" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="147dp"
-            android:layout_height="146dp"
-            android:layout_below="@+id/txt_cidade"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/solnuvem" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="321dp"
-            android:text="Pegue seu guarda chuva"
-            android:textColor="#FFB700"
-            android:textSize="20dp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="356dp"
-            android:text="Vista seu casaco"
-            android:textColor="#FFB700"
-            android:textSize="20dp" />
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_below="@id/txt_TemperaturaAtual"
+        android:layout_marginHorizontal="10dp">
 
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txt_TemperaturaAtual"
-            android:stretchColumns="2"
-            android:paddingTop="85dp"
-            android:layout_margin="10dp">
+            android:stretchColumns="1">
             <TableRow
                 android:id="@+id/row0"
                 android:onClick="rowClick"
                 android:gravity="center_vertical">
-
                 <TextView
-                    android:layout_width="84dp"
                     android:text="@string/hoje"
                     android:textColor="#FFB700"
                     android:textSize="18dp" />
-
                 <ImageView
                     android:id="@+id/dias_0_icon"
-                    android:layout_width="148dp"
+                    android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@android:drawable/ic_menu_help" />
-
                 <TextView
                     android:id="@+id/dias_0_tempMin"
-                    android:layout_width="wrap_content"
                     android:text="Min: xx"
                     android:textColor="#FFB700"
                     android:textSize="18dp" />
-
                 <TextView
                     android:id="@+id/dias_0_tempMax"
-                    android:layout_width="75dp"
                     android:text="Max: xx"
                     android:textColor="#FFB700"
                     android:textSize="18dp" />
@@ -181,7 +151,6 @@
                     android:textSize="18dp"
                     android:id="@+id/dias_3_tempMax"/>
             </TableRow>
-
             <TableRow
                 android:id="@+id/row4"
                 android:onClick="rowClick"
@@ -207,7 +176,6 @@
                     android:textSize="18dp"
                     android:id="@+id/dias_4_tempMax"/>
             </TableRow>
-
             <TableRow
                 android:id="@+id/row5"
                 android:onClick="rowClick"
@@ -233,7 +201,6 @@
                     android:textSize="18dp"
                     android:id="@+id/dias_5_tempMax"/>
             </TableRow>
-
             <TableRow
                 android:id="@+id/row6"
                 android:onClick="rowClick"
@@ -260,7 +227,5 @@
                     android:id="@+id/dias_6_tempMax"/>
             </TableRow>
 
-        </TableLayout>
+        </TableLayout></ScrollView>
     </RelativeLayout>
-
-</ScrollView>

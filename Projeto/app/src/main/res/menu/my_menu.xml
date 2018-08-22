@@ -4,16 +4,19 @@
         android:icon="@android:drawable/stat_notify_sync"
         android:iconTint="#FFB700"
         android:id="@+id/btn_atualizar"
-        android:showAsAction="ifRoom"
-        android:title="teste" />
+        android:showAsAction="always"
+        android:title="atualizar" />
 
     <item
-        android:id="@+id/btn_rotina"
-        android:title="Rotina" />
-    <item
         android:id="@+id/btn_conf"
-        android:title="Configurações" />
+        android:showAsAction="never"
+        android:title="Alterar cidade" />
+    <item
+        android:id="@+id/btn_rotina"
+        android:showAsAction="never"
+        android:title="Rotina e eventos" />
     <item
         android:id="@+id/btn_sobre"
+        android:showAsAction="never"
         android:title="Sobre" />
 </menu>

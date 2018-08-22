@@ -14,7 +14,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="13dp"
-        android:text="Cidade"
+        android:text="Cidade?"
         android:textAlignment="center"
         android:textColor="#FFB700"
         android:textSize="23dp" />
@@ -28,8 +28,7 @@
         android:layout_marginTop="45dp"
         android:textAlignment="center"
         android:textColor="#FFB700"
-        android:textSize="18dp"
-        android:text="Data" />
+        android:textSize="18dp"/>
 
     <TextView
         android:id="@+id/temp"
@@ -38,7 +37,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
-        android:text="Temperatura"
         android:textColor="#FFB700"
         android:textSize="18dp" />
 
@@ -49,7 +47,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="160dp"
-        android:text="Umidade"
         android:textColor="#FFB700"
         android:textSize="18dp" />
 
@@ -60,7 +57,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="220dp"
-        android:text="Sensacao"
         android:textColor="#FFB700"
         android:textSize="18dp" />
 
@@ -71,7 +67,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="280dp"
-        android:text="UV"
         android:textColor="#FFB700"
         android:textSize="18dp" />
 
@@ -82,7 +77,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="340dp"
-        android:text="Propabilidade de Chuva"
         android:textColor="#FFB700"
         android:textSize="18dp" />
 
@@ -93,7 +87,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="400dp"
-        android:text="Precipitacao de Chuva"
         android:textColor="#FFB700"
         android:textSize="18dp" />
 
@@ -104,7 +97,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="460dp"
-        android:text="Velocidade do vento"
         android:textColor="#FFB700"
         android:textSize="18dp" />
 

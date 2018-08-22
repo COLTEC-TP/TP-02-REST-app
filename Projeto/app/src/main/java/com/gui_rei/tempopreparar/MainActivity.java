@@ -116,23 +116,27 @@ public class MainActivity extends Activity {
     private void preencherTela()//Funcao que pega os dados do banco e chama as preenchedoras
     {
         int city = Prefs.getInstance().getCity();
+
         ClimaAtual climaA = Dados.getInstance().getClimaAtual(city);
-        Dias climaD = Dados.getInstance().getClimaDias(city);
-        if(climaA == null || climaD == null) //Se não tem a informação no banco ///!!! Redundante neh, de acordo com atualizaTemp se um eh null o outro tmb eh!!
+        if(climaA == null) //Se não tem a informação no banco
         {
-            Log.d("main", "Banco vazio!!!!!!!!!!");
+            Log.d("main", "A: Banco vazio!!!!!!!!!!");
             Toast.makeText(MainActivity.this,"Aguarde atualizar",Toast.LENGTH_SHORT).show();
         }
-        else {
-            preencheTela(climaA);
-            preencheTela(climaD);
+        else preencheTela(climaA);
+
+        Dias climaD = Dados.getInstance().getClimaDias(city);
+        if(climaD == null) //Se não tem a informação no banco
+        {
+            Log.d("main", "D: Banco vazio!!!!!!!!!!");
+            Toast.makeText(MainActivity.this,"Aguarde atualizar",Toast.LENGTH_SHORT).show();
         }
+        else preencheTela(climaD);
     }
 
     private void atualizaTemp(){
         Prefs prefs = Prefs.getInstance();
         Integer city = prefs.getCity();
-        final int[] pronto = {0,0}; //ponteiro de int
 
         RetrofitConfig retrofitConfig = new RetrofitConfig();
 
@@ -143,13 +147,8 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(Call<ClimaAtual> call, Response<ClimaAtual> response) {// executado quando resposta for recebida
                 ClimaAtual clima = response.body();
-                //preencheTela(clima);
                 Dados.getInstance().setClimaAtual(clima);
-
-                //Preencher: //precisa disso ou pode so preencher duas vez?
-                pronto[0] = 1; //avisar q ta pronto
-                if(pronto[0] == 1 && pronto[1] == 1) preencherTela(); //Se o outro call ja recebeu pode preencher
-                else Log.i("Call", "ClimaAtual chegou primeiro");
+                preencheTela(clima);
             }
             @Override
             public void onFailure(Call<ClimaAtual> call, Throwable t) {//executado quando houver erros
@@ -165,13 +164,8 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(Call<Dias> call, Response<Dias> response) {// executado quando resposta for recebida
                 Dias clima = response.body();
-                //preencheTela(clima);
                 Dados.getInstance().setClimaDias(clima);
-
-                //Preencher: //precisa disso ou pode so preencher duas vez?
-                pronto[1] = 1; //avisar q ta pronto
-                if(pronto[0] == 1 && pronto[1] == 1) preencherTela(); //Se o outro call ja recebeu pode preencher
-                else Log.i("Call", "Dias chegou primeiro");
+                preencheTela(clima);
             }
             @Override
             public void onFailure(Call<Dias> call, Throwable t) {//executado quando houver erros
