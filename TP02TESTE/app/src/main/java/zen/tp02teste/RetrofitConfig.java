@@ -31,11 +31,13 @@ public class RetrofitConfig {
     private Context context;
     private Gson gson;
     private Cache cache;
+    private File cacheDir;
     private OkHttpClient okHttpClient;
     private Retrofit retrofit;
 
     public RetrofitConfig(Context context, File cacheDir) {
         this.context = context;
+        this.cacheDir = cacheDir;
 
         final GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Address.class, new AddressDeserializer());
@@ -79,24 +81,6 @@ public class RetrofitConfig {
                 .addConverterFactory(GsonConverterFactory.create(this.gson))
                 .client(this.getOkHttpClient())
                 .build();
-    }
-
-    public void clean() {
-        if (this.getOkHttpClient() != null) {
-            this.getOkHttpClient().dispatcher().cancelAll();
-        }
-
-        this.retrofit = null;
-
-        if (this.getCache() != null) {
-            try {
-                this.getCache().evictAll();
-            } catch (IOException e) {
-                Log.e(TAG, "Error cleaning http cache");
-            }
-        }
-
-        this.setCache(null);
     }
 
     public AddressService getAddressCachedService() {

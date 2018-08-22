@@ -22,16 +22,7 @@
         android:onClick="getMyLocation"
         android:text="Location" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/btnClean"
-        android:layout_below="@+id/getLocation"
-        android:layout_alignParentEnd="true"
-        android:onClick="cleanCache"
-        android:text="Clean" />
-
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -40,15 +31,7 @@
         android:padding="13dp"
         android:alpha="0.7"
         android:background="@color/lime"
-        android:id="@+id/editTextAddress"
+        android:id="@+id/ACTextAddress"
         android:inputType="text"
         android:hint="location" />
-
-    <ListView
-        android:id="@+id/listAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:layout_below="@+id/editTextAddress"
-        android:layout_alignParentStart="true"
-        android:layout_toLeftOf="@+id/getLocation"/>
 </RelativeLayout>
