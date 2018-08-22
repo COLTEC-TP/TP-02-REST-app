@@ -6,11 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".SobreActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sobre"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/backgroundescuroo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="57dp"
+        android:text="Have you ever seen the rain?"
+        android:textAlignment="center"
+        android:textColor="#FFB700"
+        android:textSize="50dp"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="210dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="128dp"
+        android:text="By\nGuilherme Assis\n and \n Reinald Magalhães"
+        android:textAlignment="center"
+        android:textColor="#FFB700"
+        android:textSize="30dp"
+        tools:layout_editor_absoluteX="163dp"
+        tools:layout_editor_absoluteY="210dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="Coltec 2018 - Desenvolvimento de Sistemas"
+        android:textAlignment="center"
+        android:textColor="#FFB700"
+        android:textSize="20dp"
         tools:layout_editor_absoluteX="163dp"
         tools:layout_editor_absoluteY="210dp" />
 </RelativeLayout>
