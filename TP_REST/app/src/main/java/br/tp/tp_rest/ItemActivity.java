@@ -1,25 +1,15 @@
 package br.tp.tp_rest;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ItemActivity extends Activity {
-
-    ArrayList<Pokemon> pokemons = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,18 +19,20 @@ public class ItemActivity extends Activity {
         Bundle bundle = this.getIntent().getExtras();
         int position = bundle.getInt("position");
 
-        Toast.makeText(this, pokemons.get(0).getName(), Toast.LENGTH_SHORT).show();
+        PokemonDAO pokemonDAO = PokemonDAO.getInstance(this);
 
-        Pokemon pokemon = pokemons.get(position);
+        Toast.makeText(this, pokemonDAO.getPokemons().get(position).getName(), Toast.LENGTH_SHORT).show();
 
-        manipulaLayout(pokemon);
+        manipulaLayout(pokemonDAO.getPokemons().get(position));
     }
 
     private void manipulaLayout(Pokemon pokemon) {
 
         TextView nome = findViewById(R.id.Pokemon_Nome);
-        TextView tipo_1 = findViewById(R.id.Lista_Tipo1);
-        TextView tipo_2 = findViewById(R.id.Lista_Tipo2);
+
+        Button tipo_1 = findViewById(R.id.Tipo_1);
+        Button tipo_2 = findViewById(R.id.Tipo_2);
+
         ImageView imagem = findViewById(R.id.Pokemon_Img);
 
         //números de stats

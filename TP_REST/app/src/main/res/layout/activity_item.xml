@@ -266,7 +266,7 @@
         android:layout_marginTop="11dp"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="9dp"
-        android:background="#20D470FF"
+        android:background="#00D470FF"
         android:text="Water"
         android:textColor="#FFFFFF"
         android:textSize="30dp" />
