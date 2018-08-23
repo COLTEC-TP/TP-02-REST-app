@@ -10,7 +10,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Currency;
 import java.util.Locale;
@@ -49,6 +52,10 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ImageView imageView = findViewById(R.id.logo);
+
+        Glide.with(this).load(R.drawable.logo).into(imageView);
 
         String currencyCode = displayCurrencyInfoForLocale(getResources().getConfiguration().locale);
         mPriceTextView = findViewById(R.id.price_tv);
