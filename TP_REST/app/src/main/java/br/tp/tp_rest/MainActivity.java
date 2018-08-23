@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -28,7 +29,6 @@ public class MainActivity extends Activity implements ItemClickListener {
 
     PokemonDAO dao = PokemonDAO.getInstance(this);
     PokemonAdapter adapter = null;
-    AppDB db = new AppDB(this);
     RecyclerView.LayoutManager layoutManager = null;
     ArrayList<Pokemon> pokemons = new ArrayList<>();
 
@@ -37,43 +37,21 @@ public class MainActivity extends Activity implements ItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        dao.inicializar(this);
 
-        if (db.getAllPokemons().size() != dao.getNum_pokemons()) {
-            db.deleteAll();
+        if (dao.getPokemons().size() != dao.getNum_pokemons()) {
+            dao.deleteAllPokemon(this);
             Intent intent = new Intent(MainActivity.this, LoadingActivity.class);
             startActivity(intent);
         } else {
-            pokemons = db.getAllPokemons();
+            pokemons = dao.getPokemons();
 
-            // Atualiza DAO & Carrega Imagens
-            for (int i=0; i<pokemons.size(); i++){
-
-                try {
-                    ContextWrapper cw = new ContextWrapper(getApplicationContext());
-                    File dir= cw.getDir("imageDir", Context.MODE_PRIVATE);
-
-                    File f=new File(dir.getAbsolutePath(), String.valueOf(i+1) + ".png");
-                    Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
-                    pokemons.get(i).setBitmap(b);
-                    dao.addPokemon(pokemons.get(i));
-                    if (dao.getPokemons().get(i).getImagem() == null){
-                        Toast.makeText(this, "Aviso: Imagem não carregada", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                catch (FileNotFoundException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-
+            // Cria adapter //
             RecyclerView recyclerView = (RecyclerView) findViewById(R.id.pokemonsList);
-
             adapter = new PokemonAdapter(pokemons, MainActivity.this);
             recyclerView.setAdapter(adapter);
             layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false);
             recyclerView.setLayoutManager(layoutManager);
-
-            Toast.makeText(this, pokemons.get(0).getName(), Toast.LENGTH_SHORT).show();
 
             adapter.setClickListener(this); //liga ao listener
         }
@@ -108,6 +86,9 @@ public class MainActivity extends Activity implements ItemClickListener {
             @Override
             public boolean onQueryTextChange(String s) {
                 // executado enquanto texto é alterado pelo usuário
+                ArrayList<Pokemon> pokemonsFiltrados = dao.filtrarPokemons(s);
+                adapter.atualiza(pokemonsFiltrados);
+                adapter.notifyDataSetChanged();
                 return false;
             }
 

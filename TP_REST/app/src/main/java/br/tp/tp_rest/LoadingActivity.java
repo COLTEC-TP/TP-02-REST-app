@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -54,15 +55,29 @@ public class LoadingActivity extends Activity {
             @Override
             public void onResponse(Call<Pokemon> call, Response<Pokemon> response) {
                 Pokemon pokemon = response.body();
-                dao.addPokemon(pokemon);
-                db.insert(pokemon);
 
-                Toast.makeText(context, pokemon.getPokeTypes().get(0).getNamePokeType(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, String.valueOf(pokemon.getName()), Toast.LENGTH_SHORT).show();
 
-                salvar_imagem(pokemon);
+                salvar_imagem(pokemon); // Faz download da imagem
+
+                ContextWrapper cw = new ContextWrapper(getApplicationContext());
+                File dir= cw.getDir("imageDir", Context.MODE_PRIVATE);
+
+                File f = new File(dir.getAbsolutePath(), String.valueOf(id) + ".png");
+                Bitmap b = null;
+                try {
+                    b = BitmapFactory.decodeStream(new FileInputStream(f));
+                    pokemon.setImagem(b); // Adiciona imagem ao pokemon
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                pokemon.setId(id-1);
+                dao.addPokemon(pokemon, LoadingActivity.this); // Adiciona Pokemon
+
                 id += 1;
                 if (id-1 < dao.getNum_pokemons()) {
-                    requisita(dao, context, db);
+                    requisita(dao, context, db); // Realiza próxima requisição
                 } else {
                     Toast.makeText(context, "Todos os pokemons foram carregados", Toast.LENGTH_SHORT).show();
                     finish();

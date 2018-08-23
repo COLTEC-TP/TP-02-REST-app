@@ -1,6 +1,9 @@
 package br.tp.tp_rest;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,8 +23,6 @@ public class ItemActivity extends Activity {
         int position = bundle.getInt("position");
 
         PokemonDAO pokemonDAO = PokemonDAO.getInstance(this);
-
-        Toast.makeText(this, pokemonDAO.getPokemons().get(position).getName(), Toast.LENGTH_SHORT).show();
 
         manipulaLayout(pokemonDAO.getPokemons().get(position));
     }
@@ -56,7 +57,11 @@ public class ItemActivity extends Activity {
 
         ArrayList<PokeType> pokeTypes = pokemon.getPokeTypes();
         tipo_1.setText(String.valueOf(pokeTypes.get(0).getNamePokeType()));
-        tipo_2.setText(String.valueOf(pokeTypes.get(0).getNamePokeType()));
+        if (pokeTypes.size() > 1) { // Se possui mais de um tipo
+            tipo_2.setText(String.valueOf(pokeTypes.get(1).getNamePokeType()));
+        }else{
+            tipo_2.setText("Alo ALo");
+        }
 
         imagem.setImageBitmap(pokemon.getImagem());
 

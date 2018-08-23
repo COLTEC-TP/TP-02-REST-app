@@ -32,8 +32,10 @@ public class AppDB extends SQLiteOpenHelper {
             SQLiteDatabase db = this.getWritableDatabase();
             try {
                 ContentValues cv = new ContentValues();
+                //cv.put("id", p.getId());
                 cv.put("nome", p.getName());
                 cv.put("imagem", p.getSprite().getUrl());
+
                 /** 0 -> agilidade
                  *  1 -> super defesa
                  *  2 -> super ataque
@@ -73,6 +75,7 @@ public class AppDB extends SQLiteOpenHelper {
 
                 if(c.moveToFirst()) {
                     do {
+                        //int id = c.getInt(c.getColumnIndex("id"));
                         String nome = c.getString(c.getColumnIndex("nome"));
                         ArrayList<Stat> stats = new ArrayList<>();
                         stats.add(new Stat(c.getInt(c.getColumnIndex("ataque"))));
@@ -80,7 +83,7 @@ public class AppDB extends SQLiteOpenHelper {
                         stats.add(new Stat(c.getInt(c.getColumnIndex("agilidade"))));
                         stats.add(new Stat(c.getInt(c.getColumnIndex("hp"))));
                         stats.add(new Stat(c.getInt(c.getColumnIndex("super_ataque"))));
-                        stats.add(new Stat(c.getInt(c.getColumnIndex("super_defesa"))));
+                        stats.add(new Stat(c.getInt(c.getColumnIndex( "super_defesa"))));
 
                         Sprite sprite = new Sprite(c.getString(c.getColumnIndex("imagem")));
 

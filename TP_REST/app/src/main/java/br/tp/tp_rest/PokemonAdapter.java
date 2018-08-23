@@ -11,6 +11,8 @@ import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import static android.text.TextUtils.isEmpty;
@@ -45,8 +47,13 @@ public class PokemonAdapter extends RecyclerView.Adapter {
         viewHolder.nome.setText(pokemon.getName());
         ArrayList<PokeType> pokeTypes = pokemon.getPokeTypes();
         viewHolder.tipo_1.setText(String.valueOf(pokeTypes.get(0).getNamePokeType()));
-        viewHolder.tipo_2.setText(String.valueOf(pokeTypes.get(0).getNamePokeType()));
+        if (pokeTypes.size() > 1) { // Se possui mais de um tipo
+            viewHolder.tipo_2.setText(String.valueOf(pokeTypes.get(1).getNamePokeType()));
+        }else{
+            viewHolder.tipo_2.setText("");
+        }
         viewHolder.imagem.setImageBitmap(pokemon.getImagem());
+        viewHolder.id.setText(String.valueOf(pokemon.getId()));
         //ArrayList<Stat> stats = pokemon.getStats();
         //viewHolder.ataque.setText(String.valueOf(stats.get(0).getBase_stat()));
         //viewHolder.defesa.setText(String.valueOf(stats.get(1).getBase_stat()));
@@ -68,6 +75,7 @@ public class PokemonAdapter extends RecyclerView.Adapter {
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
+        final TextView id;
         final TextView nome;
         //final TextView ataque;
         //final TextView defesa;
@@ -91,12 +99,13 @@ public class PokemonAdapter extends RecyclerView.Adapter {
             imagem = (ImageView) itemView.findViewById(R.id.Lista_Pokemon_Img);
             tipo_1 = (TextView) itemView.findViewById(R.id.Lista_Tipo1);
             tipo_2 = (TextView) itemView.findViewById(R.id.Lista_Tipo2);
+            id = (TextView) itemView.findViewById(R.id.id_pokemon);
             itemView.setOnClickListener(this); //liga ao listener
         }
 
         @Override
         public void onClick(View view) {
-            clickListener.onClick(view, getAdapterPosition());
+            clickListener.onClick(view, Integer.parseInt(id.getText().toString()));//getAdapterPosition());
         }
     }
 

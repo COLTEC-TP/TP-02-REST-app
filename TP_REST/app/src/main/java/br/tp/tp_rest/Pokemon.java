@@ -8,6 +8,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 public class Pokemon {
+
+    //@SerializedName("id")
+    private int id;
+
     @SerializedName("name")
     private String nome;
 
@@ -19,7 +23,6 @@ public class Pokemon {
 
     @SerializedName("types")
     private ArrayList<PokeType> types;
-
 
 
     private Bitmap imagem = null;
@@ -51,7 +54,14 @@ public class Pokemon {
         return this.imagem;
     }
 
-    public void setBitmap(Bitmap imagem){
+    public void setImagem(Bitmap imagem){
         this.imagem = imagem;
+    }
+
+    public void setId(int id){
+        this.id = id;
+    }
+    public int getId(){
+        return this.id;
     }
 }
