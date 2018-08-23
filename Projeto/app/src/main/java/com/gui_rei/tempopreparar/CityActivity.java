@@ -36,6 +36,7 @@ public class CityActivity extends Activity{
 
     private ArrayList<BuscaCidade> buscaArray = new ArrayList<>();
     private ArrayList<BuscaCidade> buscaArrayB = new ArrayList<>();
+    private ArrayList<String> buscaArrayN = new ArrayList<>();
     private BuscaCidadeListAdapter buscaAdapter = new BuscaCidadeListAdapter(this,buscaArray);
 
     @Override
@@ -100,11 +101,13 @@ public class CityActivity extends Activity{
     public ArrayList<BuscaCidade> filtrarBusca(String txtFiltro) {
         ArrayList<BuscaCidade> newList = new ArrayList<>();
 
-        int n = buscaArrayB.size();
+        String pesquisa = sAcento(txtFiltro.toLowerCase());
+
+        int n = buscaArrayN.size();
         int i = 0;
         while (i<n){
-            String normalizada = sAcento(buscaArrayB.get(i).getName().toLowerCase());
-            if(normalizada.contains(sAcento(txtFiltro.toLowerCase()))) newList.add(buscaArrayB.get(i));
+            String normalizada = buscaArrayN.get(i);
+            if(normalizada.contains(pesquisa)) newList.add(buscaArrayB.get(i));
             i++;
         }
         return newList;
@@ -125,13 +128,14 @@ public class CityActivity extends Activity{
                 //criar backup
                 buscaArrayB.clear();
                 buscaArrayB.addAll(buscaArray);
+                buscaArrayN=sAcento(buscaArrayB);
 
                 if(resultados.length<1) Toast.makeText(CityActivity.this,"Ocorreu um erro, nenhuma cidade encontrada para esse estado",Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(Call<BuscaCidade[]> call, Throwable t) {//executado quando houver erros
                 t.printStackTrace();
-                Toast.makeText(CityActivity.this,"Algo deu errado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CityActivity.this,"Erro de rede",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -144,7 +148,7 @@ public class CityActivity extends Activity{
         RetrofitConfig retrofitConfig = new RetrofitConfig();
         final BuscaCidadeService serviceA = retrofitConfig.getBuscaCidadeService();
         Call<BuscaCidade[]> request = serviceA.getCidadeByName(cidade);
-        Toast.makeText(CityActivity.this,"Buscando por essa cidade", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(CityActivity.this,"Buscando por essa cidade", Toast.LENGTH_SHORT).show();
         request.enqueue(new Callback<BuscaCidade[]>() {
             @Override
             public void onResponse(Call<BuscaCidade[]> call, Response<BuscaCidade[]> response) {// executado quando resposta for recebida
@@ -156,10 +160,10 @@ public class CityActivity extends Activity{
                     BuscaCidade cidade = resultados[0];
                     Prefs prefs = Prefs.getInstance();
                     prefs.setCity(cidade.getId());
-                    if(resultados.length>1){ //"Em 20 anos dessa industria vital isso nunca me ocorreu"
+                    if(resultados.length>1){
                         Toast.makeText(CityActivity.this,"Encontramos mais de uma cidade com esse nome e selecionamos a primeira",Toast.LENGTH_SHORT).show();
                     }
-                    else Toast.makeText(CityActivity.this,"Cidade " + cidade.getName() + ", " + cidade.getState() + " selecionada",Toast.LENGTH_SHORT).show();
+                    else Toast.makeText(CityActivity.this,cidade.getName() + ", " + cidade.getState() + " selecionada",Toast.LENGTH_SHORT).show();
 
                     finish(); //fechar essa tela e voltar para a anterior
                 }
@@ -168,14 +172,23 @@ public class CityActivity extends Activity{
             @Override
             public void onFailure(Call<BuscaCidade[]> call, Throwable t) {//executado quando houver erros
                 t.printStackTrace();
-                Toast.makeText(CityActivity.this,"Algo deu errado, esta cidade pode não existir",Toast.LENGTH_SHORT).show();
+                Toast.makeText(CityActivity.this,"Ocorreu um erro, esta cidade pode não existir",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public static String sAcento(String str) //!!!!! Essa função está muito pesada
-    {
+    public static String sAcento(String str){
         return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+    }
+    public static ArrayList<String> sAcento(ArrayList<BuscaCidade> strs){
+        int t = strs.size();
+        ArrayList<String> normalized = new ArrayList<>();
+        //normalized.addAll(new ArrayList<BuscaCidade>( strs ) );
+        for(int i=0;i<t;i++){
+            String str = strs.get(i).getName();
+            normalized.add( Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "").toLowerCase() );
+        }
+        return normalized;
     }
 }
 

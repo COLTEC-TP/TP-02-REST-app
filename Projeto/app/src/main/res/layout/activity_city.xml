@@ -37,31 +37,23 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
-        android:stretchColumns="1">
-        <Spinner
-            android:id="@+id/listaEstados"
-            android:layout_width="190dp"
-            android:layout_height="30dp"
-            android:background="@color/branco"
-            android:textSize="50dp" />
-
-    </TableLayout>
-
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:stretchColumns="1">
+        <TableRow>
+            <Spinner
+                android:id="@+id/listaEstados"
+                android:layout_height="30dp"
+                android:background="@color/branco"
+                android:textSize="50dp" />
+            <EditText
+                android:id="@+id/filtroCity"
+                android:hint="Filtrar"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#80FFFFFF"
+                android:paddingLeft="10dp"/>
+        </TableRow>
 
-        <EditText
-            android:id="@+id/filtroCity"
-            android:hint="Filtrar"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#80FFFFFF" />
     </TableLayout>
     <ListView
         android:layout_width="match_parent"

@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
 
         //Verificar o clima para saber qual icone colocar
         String codigoIcone = clima.getData().getIcon().toString();
-        Toast.makeText(MainActivity.this,"Codigo do icone: " + codigoIcone, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this,"Codigo do icone: " + codigoIcone, Toast.LENGTH_SHORT).show();
 
         /**
          * MAPEAMENTO DOS ICONES
@@ -114,7 +114,7 @@ public class MainActivity extends Activity {
 
         //((TextView) findViewById(R.id.dias_1_temp)).setText("max: " + clima.getData().get(1).getTemperature().getMax() + "°");
         //((TextView) findViewById(R.id.txt_tempAmanha)).setText("Temp max amanhã: " + clima.getData().get(1).getTemperature().getMax() + "°"); // get(1) seria amanha
-        Toast.makeText(MainActivity.this,"Amanha é: " + clima.getData().get(1).getDate_br(), Toast.LENGTH_SHORT).show(); //So pra verificar se ta certo
+        //Toast.makeText(MainActivity.this,"Amanha é: " + clima.getData().get(1).getDate_br(), Toast.LENGTH_SHORT).show(); //So pra verificar se ta certo
     }
     private void preencherTela()//Funcao que pega os dados do banco e chama as preenchedoras
     {
@@ -145,36 +145,43 @@ public class MainActivity extends Activity {
 
         final ClimaAtualService serviceA = retrofitConfig.getClimaAtualService();
         Call<ClimaAtual> requestA = serviceA.getClima(city.toString());
-        Toast.makeText(MainActivity.this,"Buscando por temperatura", Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this,"Atualizando clima", Toast.LENGTH_SHORT).show();
         requestA.enqueue(new Callback<ClimaAtual>() {
             @Override
             public void onResponse(Call<ClimaAtual> call, Response<ClimaAtual> response) {// executado quando resposta for recebida
                 ClimaAtual clima = response.body();
-                Dados.getInstance().setClimaAtual(clima);
-                preencheTela(clima);
+                if(clima==null) Log.i("call", "onResponse: resposta nula");
+                else {
+                    Dados.getInstance().setClimaAtual(clima);
+                    preencheTela(clima);
+                }
             }
             @Override
             public void onFailure(Call<ClimaAtual> call, Throwable t) {//executado quando houver erros
                 t.printStackTrace();
-                Toast.makeText(MainActivity.this,"Algo deu errado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Erro de rede",Toast.LENGTH_SHORT).show();
             }
         });
 
         final DiasService serviceB = retrofitConfig.getDDiasService();
         Call<Dias> requestB = serviceB.getDias(city.toString());
-        Toast.makeText(MainActivity.this,"Buscando por temperatura da amanha", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this,"Buscando por temperatura de amanha", Toast.LENGTH_SHORT).show();
+        Log.i("call", "atualizaTemp: Buscando temp amanha");
         requestB.enqueue(new Callback<Dias>() {
             @Override
             public void onResponse(Call<Dias> call, Response<Dias> response) {// executado quando resposta for recebida
                 Dias clima = response.body();
-                Dados.getInstance().setClimaDias(clima);
-                preencheTela(clima);
-                avisar();
+                if(clima==null) Log.i("call", "onResponse: resposta nula");
+                else {
+                    Dados.getInstance().setClimaDias(clima);
+                    preencheTela(clima);
+                    avisar();
+                }
             }
             @Override
             public void onFailure(Call<Dias> call, Throwable t) {//executado quando houver erros
                 t.printStackTrace();
-                Toast.makeText(MainActivity.this,"Algo deu errado",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,"Erro de rede",Toast.LENGTH_SHORT).show();
             }
         });
 
