@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 import restapi.RetrofitConfig;
 import restapi.VagalumeService;
-import restapi.artmusBusca.ArtMusResponse;
-import restapi.artmusBusca.ArtMusDocs;
-import restapi.artmusBusca.ArtMus;
+import restapi.artmusModel.MusResponse;
+import restapi.artmusModel.MusDocs;
+import restapi.artmusModel.Mus;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,12 +66,12 @@ public class TelaBusca extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String query) { //durante a digitação do usuário filtra e seta a ListView com o resultado da busca
 
-                Call<ArtMusResponse> musicaDadosCall = service.buscaArtmus(query, limit, apikey);
-                musicaDadosCall.enqueue(new Callback<ArtMusResponse>() {
+                Call<MusResponse> musicaDadosCall = service.buscaArtmus(query, limit, apikey);
+                musicaDadosCall.enqueue(new Callback<MusResponse>() {
                     @Override
-                    public void onResponse(Call<ArtMusResponse> call, Response<ArtMusResponse> response) {
+                    public void onResponse(Call<MusResponse> call, Response<MusResponse> response) {
                         try {
-                            ArtMus resp = response.body().getResponse();
+                            Mus resp = response.body().getResponse();
                             mostraBusca(resp.getDocs());
                         }catch (Exception e){
                             Log.i("I", "onResponse: " + e.toString());
@@ -79,7 +79,7 @@ public class TelaBusca extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<ArtMusResponse> call, Throwable t) {
+                    public void onFailure(Call<MusResponse> call, Throwable t) {
                         Log.i("I", "onFailure: "+ t.toString());
 
                     }
@@ -90,8 +90,8 @@ public class TelaBusca extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void mostraBusca(ArrayList<ArtMusDocs> lista) {
-        final ArrayList<ArtMusDocs> lista_aux = lista;
+    private void mostraBusca(ArrayList<MusDocs> lista) {
+        final ArrayList<MusDocs> lista_aux = lista;
 
         final ListView buscaListView = findViewById(R.id.lista_busca);
         buscaListView.setAdapter(new TelaBuscaAdapter(this, lista));

@@ -6,13 +6,11 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import java.util.ArrayList;
-
 import restapi.RetrofitConfig;
 import restapi.VagalumeService;
-import restapi.musicadadosAttr.Musica;
-import restapi.musicadadosAttr.MusicaDados;
-import restapi.musicadadosAttr.Traducao;
+import restapi.musicadadosModel.Musica;
+import restapi.musicadadosModel.MusicaDados;
+import restapi.musicadadosModel.Traducao;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,10 +23,8 @@ public class ExibeLetra extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exibe_letra);
+
         final ToggleButton verTraducao = (ToggleButton) findViewById(R.id.traducao);
-
-
-
         Bundle extras = getIntent().getExtras();
         final String mus_name = extras.getString("mus");
         final String art_name = extras.getString("art");
@@ -44,6 +40,7 @@ public class ExibeLetra extends AppCompatActivity {
                 Log.i("I", "onResponse: " + response.raw());
 
                 try {
+
                     TextView letraView = findViewById(R.id.letra);
                     TextView tituloView = findViewById(R.id.titulo);
                     TextView artView = findViewById(R.id.artista);
@@ -53,15 +50,36 @@ public class ExibeLetra extends AppCompatActivity {
                     Traducao nossaTraducao;
 
                     dadosMusica = response.body(); //obtém resposta
-                    nossaMusica = dadosMusica.getMusica().get(0); //a api nos retorna um array do tipo Musica, a música solicitada está na posição 0
-                    nossaTraducao = nossaMusica.getTranslate().get(0); //o mesmo para a tradução
+                    nossaMusica = dadosMusica.getMusica().get(0); //a api nos retorna um array do tipo MusicaRank, a música solicitada está na posição 0
+
+                    if(nossaMusica.getTranslate()==null) { //
+                        verTraducao.setVisibility(View.INVISIBLE);
+                    }else{
+                        nossaTraducao = nossaMusica.getTranslate().get(0);
+                        traducao = nossaTraducao.getText();
+                        verTraducao.setOnClickListener(new View.OnClickListener() {
+                               @Override
+                               public void onClick(View v) {
+                                   TextView letraView = findViewById(R.id.letra);
+                                   if(verTraducao.isChecked()){
+                                       letraView.setText(traducao);
+                                   }else{
+                                       letraView.setText(letra);
+                                   }
+                               }
+                        });
+                    }
 
                     letra = nossaMusica.getText(); //na string Text está a letra
-                    traducao = nossaTraducao.getText();
 
                     tituloView.setText(mus_name);
                     artView.setText(art_name);
                     letraView.setText(letra);
+
+
+
+
+
 
                 }catch (Exception e){
                     Log.i("I", e.toString());
@@ -79,18 +97,6 @@ public class ExibeLetra extends AppCompatActivity {
             }
         });
 
-        verTraducao.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   TextView letraView = findViewById(R.id.letra);
-                   if(verTraducao.isChecked()){
-                        letraView.setText(traducao);
-                   }else{
-                        letraView.setText(letra);
-                   }
-               }
-           }
-        );
 
 
 

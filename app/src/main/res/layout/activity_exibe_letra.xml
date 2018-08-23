@@ -3,40 +3,46 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorLightBackgroud"
+    >
     <RelativeLayout
         android:id="@+id/cabecalho"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/titulo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Titulo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:text="@string/title"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/artista"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/titulo"
-            android:layout_alignTop="@+id/traducao"
-            android:text="Artista"
+            android:layout_below="@id/titulo"
+            android:layout_centerHorizontal="true"
+            android:text="@string/artist"
             android:textSize="15sp" />
 
 
         <ToggleButton
             android:id="@+id/traducao"
             style="@style/Widget.AppCompat.Button"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/titulo"
-            android:layout_below="@+id/titulo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="10dp"
+            android:layout_below="@id/artista"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textOff="Ver tradução"
-            android:textOn="Ver original" />
+            android:textOff="@string/transtaleOff"
+            android:textOn="@string/translateOn" />
     </RelativeLayout>
     <ScrollView
         android:layout_width="match_parent"

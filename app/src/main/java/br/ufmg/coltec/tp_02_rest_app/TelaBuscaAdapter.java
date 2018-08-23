@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import restapi.artmusBusca.ArtMusDocs;
+import restapi.artmusModel.MusDocs;
 import searchAdapter.BuscaDAO;
 
 public class TelaBuscaAdapter extends BaseAdapter{
-    private ArrayList<ArtMusDocs> busca;
+    private ArrayList<MusDocs> busca;
     private Context context;
 
     public TelaBuscaAdapter(Context context){
@@ -23,7 +23,7 @@ public class TelaBuscaAdapter extends BaseAdapter{
     }
 
 
-    public TelaBuscaAdapter(Context context, ArrayList<ArtMusDocs> bus){
+    public TelaBuscaAdapter(Context context, ArrayList<MusDocs> bus){
         this.context = context;
         busca = bus;
         //... seta o ListView com um Array de itens arbitrário
@@ -46,19 +46,15 @@ public class TelaBuscaAdapter extends BaseAdapter{
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup){
-        ArtMusDocs item = this.busca.get(i);
+        MusDocs item = this.busca.get(i);
         View newView  = LayoutInflater.from(this.context).inflate(R.layout.tela_busca_adapter, viewGroup, false);
 
-        TextView info1 = newView.findViewById(R.id.informacao_1);
-        TextView info2 = newView.findViewById(R.id.informacao_2);
+        TextView titulo = newView.findViewById(R.id.titulo_busca);
+        TextView artista = newView.findViewById(R.id.artista_busca);
 
-        if(item.getTitle()!=null){
-            info1.setText(item.getTitle());
-            info2.setText(item.getBand());
-        }else{
-            info1.setText(item.getBand());
-            info2.setText("Ver discografia");
-        }
+        titulo.setText(item.getTitle());
+        artista.setText(item.getBand());
+
 
         return newView;
     }

@@ -4,10 +4,10 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-import restapi.artmusBusca.ArtMusDocs;
+import restapi.artmusModel.MusDocs;
 
 public class BuscaDAO {
-    private ArrayList<ArtMusDocs> resultados;
+    private ArrayList<MusDocs> resultados;
     private static BuscaDAO instance;
     private Context context;
 
@@ -24,19 +24,19 @@ public class BuscaDAO {
     }
 
     private void carregaBusca() {
-        /*resultados.add(new ArtMusDocs("456789", 2, "oi.com", "2u", "u2"));
-        resultados.add(new ArtMusDocs("456789", 2, "oi.com", "2u", "u2"));
-        resultados.add(new ArtMusDocs("456789", 2, "oi.com", "2u", "u2"));
+        /*resultados.add(new MusDocs("456789", 2, "oi.com", "2u", "u2"));
+        resultados.add(new MusDocs("456789", 2, "oi.com", "2u", "u2"));
+        resultados.add(new MusDocs("456789", 2, "oi.com", "2u", "u2"));
         */
     }
-    public void adiconaItem (ArtMusDocs novoItem){
+    public void adiconaItem (MusDocs novoItem){
         instance.resultados.add(novoItem);
     }
     public void removeItem (int position){
         instance.resultados.remove(position);
     }
 
-    public ArrayList<ArtMusDocs> getBusca() {
+    public ArrayList<MusDocs> getBusca() {
         return instance.resultados;
     }
 
