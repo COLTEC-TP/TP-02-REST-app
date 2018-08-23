@@ -120,7 +120,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
             genero = genero.replaceFirst("/", "");
 
             mTitulo.setText(filme.getTitulo());
-            mRating.setText(filme.getRating());
+            if (filme.getRating().length() == 1){
+                mRating.setText(filme.getRating() + ".0");
+            } else {
+                mRating.setText(filme.getRating());
+            }
             mGenero.setText(genero);
             mAno.setText(context.getResources().getString(R.string.year) + ": " + filme.getAno().substring(0,4));
             mCartaz.setImageUrl("https://image.tmdb.org/t/p/original" + filme.getFoto());

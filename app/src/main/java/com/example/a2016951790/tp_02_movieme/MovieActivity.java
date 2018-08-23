@@ -8,8 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,12 +77,13 @@ public class MovieActivity extends AppCompatActivity {
         // verifica qual é o botão selecionado com base no id
         switch (id) {
             case R.id.menu_favorite:
-                Toast.makeText(this, getResources().getString(R.string.nav_favorite), Toast.LENGTH_SHORT).show();
                 crud.salvarFilme(0, filme.getId(), Integer.parseInt(result), filme.getTitulo(), filme.getSubtitle(), filme.getRating(), filme.getAno(),filme.getFoto(), MovieActivity.this);
                 return true;
             case R.id.menu_next:
-                Toast.makeText(this, "Clicou no refresh", Toast.LENGTH_SHORT).show();
                 crud.salvarFilme(1, filme.getId(), Integer.parseInt(result), filme.getTitulo(), filme.getSubtitle(), filme.getRating(), filme.getAno(),filme.getFoto(), MovieActivity.this);
+                return true;
+            case android.R.id.home:
+                super.onBackPressed();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

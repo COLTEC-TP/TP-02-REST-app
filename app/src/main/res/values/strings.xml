@@ -19,6 +19,8 @@
     <string name="nav_next">Watch Next</string>
     <string name="nav_watched">Watched</string>
     <string name="nav_logout">Logout</string>
+    <string name="nav_results">Results</string>
+    <string name="nav_popular">Popular</string>
 
     <string name="action">Action</string>
     <string name="adventure">Adventure</string>

@@ -137,4 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return builder.create();
     }
 
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
 }

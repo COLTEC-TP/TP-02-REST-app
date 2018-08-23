@@ -26,6 +26,8 @@ public class FavoriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
         final DbController crud = new DbController(container.getContext());
 
+        ((MainActivity) getActivity()).setActionBarTitle(getContext().getResources().getString(R.string.nav_favorite));
+
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("pref_key", Context.MODE_PRIVATE);
         final String result = sharedPreferences.getString("user_id", "");
 
@@ -40,4 +42,5 @@ public class FavoriteFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         return view;
     }
+
 }

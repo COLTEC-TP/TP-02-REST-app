@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.a2016951790.tp_02_movieme.ResultsFragment"
-    android:background="@color/colorAccent">
+    android:background="@color/white">
 
     <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView

@@ -12,7 +12,7 @@ import retrofit2.http.Query;
  */
 
 public interface FilmeService {
-    @GET("3/movie/popular?api_key=7bd6324cd7f2a1ec966c76a434e3c24e&language=en-US&page=1")
+    @GET("3/movie/now_playing?api_key=7bd6324cd7f2a1ec966c76a434e3c24e&language=en-US&page=1")
     Call<List<Filme>> getFilme();
 
     @GET("3/search/movie?api_key=7bd6324cd7f2a1ec966c76a434e3c24e")

@@ -25,6 +25,8 @@ public class ResultsFragment extends Fragment {
         String myDataFromActivity = getArguments().getString("Key");
         Call<List<Filme>> filmeCall = service.getFilmeByName(myDataFromActivity);
 
+        ((MainActivity) getActivity()).setActionBarTitle(getContext().getResources().getString(R.string.nav_results));
+
 
         filmeCall.enqueue(new Callback<List<Filme>>() {
             @Override

@@ -2,7 +2,6 @@ package com.example.a2016951790.tp_02_movieme;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * Created by a2016951790 on 07/08/18.
@@ -27,6 +26,7 @@ import android.util.Log;
         static final String GRADE_API = "grade_api";
         static final String YEAR_API = "year_api";
         static final String IMAGE_API = "image_api";
+        static final String CONTROL = "control";
 
         static final String TABELA_FAVORITOS = "favoritos";
         static final String ID_USER = "id_user";
@@ -54,7 +54,8 @@ import android.util.Log;
                     + GENDER_API + " text,"
                     + YEAR_API + " text,"
                     + GRADE_API + " text,"
-                    + IMAGE_API + " text"
+                    + IMAGE_API + " text,"
+                    + CONTROL + " text"
                     +");";
             String tabela_fav = "CREATE TABLE "+TABELA_FAVORITOS+" ("
                     + ID_USER + " integer,"

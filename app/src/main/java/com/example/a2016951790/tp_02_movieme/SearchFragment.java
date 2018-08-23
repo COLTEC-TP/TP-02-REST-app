@@ -21,6 +21,8 @@ public class SearchFragment extends Fragment {
         Button search = view.findViewById(R.id.search_button);
         final EditText conteudo = view.findViewById(R.id.search_string);
 
+        ((MainActivity) getActivity()).setActionBarTitle(getContext().getResources().getString(R.string.nav_search));
+
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

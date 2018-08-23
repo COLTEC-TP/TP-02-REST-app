@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,8 @@ public class NextFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_next, container, false);
         final DbController crud = new DbController(container.getContext());
+
+        ((MainActivity) getActivity()).setActionBarTitle(getContext().getResources().getString(R.string.nav_next));
 
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("pref_key", Context.MODE_PRIVATE);
         final String result = sharedPreferences.getString("user_id", "");

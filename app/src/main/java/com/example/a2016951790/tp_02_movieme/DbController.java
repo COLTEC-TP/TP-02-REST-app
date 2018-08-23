@@ -6,9 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by a2016951790 on 07/08/18.
@@ -16,6 +14,7 @@ import java.util.List;
 
 public class DbController {
     private SQLiteDatabase db;
+    private SQLiteDatabase db1;
     private DbOpener banco;
 
     public DbController(Context context){
@@ -44,29 +43,49 @@ public class DbController {
         db = banco.getWritableDatabase();
         ContentValues valor;
 
-        valor = new ContentValues();
-        valor.put(DbOpener.ID_API, id_api);
-        valor.put(DbOpener.NAME_API, name);
-        valor.put(DbOpener.GENDER_API, gender);
-        valor.put(DbOpener.GRADE_API, grade);
-        valor.put(DbOpener.YEAR_API, year);
-        valor.put(DbOpener.IMAGE_API, imagem);
+        db1 = banco.getReadableDatabase();
 
-        long id = db.insert(DbOpener.TABELA_FILMES, null, valor);
+        String querySql = "SELECT * FROM filmes WHERE id_api_find = ?";
+        Cursor cursor = db.rawQuery(querySql, new String[]{String.valueOf(id_api)});
+        cursor.moveToFirst();
+        int errado = 0;
 
-        Integer i = (int) (long) id;
+        if(cursor.getCount() > 0){
+            if(cursor.getInt(1) == id_api && cursor.getInt(7) == controle) {
+                errado++;
+            } else if (cursor.getInt(1) == id_api && cursor.getInt(7) != controle){
+                errado++;
+                errado++;
+            }
+        }
+        //TODO
+        if(errado != 1) {
+            valor = new ContentValues();
+            valor.put(DbOpener.ID_API, id_api);
+            valor.put(DbOpener.NAME_API, name);
+            valor.put(DbOpener.GENDER_API, gender);
+            valor.put(DbOpener.GRADE_API, grade);
+            valor.put(DbOpener.YEAR_API, year);
+            valor.put(DbOpener.IMAGE_API, imagem);
+            valor.put(DbOpener.CONTROL, controle);
 
-        //Toast.makeText(context, i.toString(), Toast.LENGTH_LONG).show();
-        //Toast.makeText(context, name, Toast.LENGTH_LONG).show();
-        //Toast.makeText(context, gender, Toast.LENGTH_LONG).show();
-        //Toast.makeText(context, grade, Toast.LENGTH_LONG).show();
-        //Toast.makeText(context, year, Toast.LENGTH_LONG).show();
-        Toast.makeText(context, String.valueOf(id_api), Toast.LENGTH_LONG).show();
-        //Toast.makeText(context, String.valueOf(id_user), Toast.LENGTH_LONG).show();
-        if(controle == 0)
-            salvarFavorito(i, id_user);
-        else if (controle == 1)
-            salvarProximo(i, id_user);
+            long id = db.insert(DbOpener.TABELA_FILMES, null, valor);
+
+            Integer i = (int) (long) id;
+
+            Toast.makeText(context, String.valueOf(id_api), Toast.LENGTH_LONG).show();
+
+            if (controle == 0)
+                salvarFavorito(i, id_user);
+            else if (controle == 1)
+                salvarProximo(i, id_user);
+        }
+        else {
+            Toast.makeText(context, "Ja existe", Toast.LENGTH_LONG).show();
+        }
+
+        cursor.close();
+        db1.close();
     }
 
     public void salvarFavorito(int id_movie, int id_user){
@@ -161,6 +180,7 @@ public class DbController {
 
         String querySql = "SELECT * FROM filmes WHERE id_movie = ?";
         ArrayList<Filme> filmes = new ArrayList<>();
+        ArrayList<Integer> ids = new ArrayList<>();
         int[ ] factorial = { 12, 16};
 
 
