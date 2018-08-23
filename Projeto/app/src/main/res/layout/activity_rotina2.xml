@@ -4,22 +4,72 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/azul"
     tools:context=".RotinaActivity">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/mensagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Rotina" />
+        android:paddingBottom="10dp"
+        android:text="Que dia você vai sair?"
+
+        android:textColor="#FFB7B7B7"
+        android:textSize="25dp" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_below="@id/mensagem">
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:background="#FFB7B7B7" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/calendarView">
+            <CheckedTextView
+                android:id="@+id/checkBox1"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="#FFB7B7B7"
+                android:text="Tarde"/>
+            <CheckedTextView
+                android:id="@+id/checkBox2"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="#FFB7B7B7"
+                android:text="Tarde"/>
+            <CheckedTextView
+                android:id="@+id/checkBox3"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="#FFB7B7B7"
+                android:text="Tarde"/>
+            <CheckedTextView
+                android:id="@+id/checkBox4"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:background="#FFB7B7B7"
+                android:text="Tarde"/>
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <Button
+        android:id="@+id/btn_setrotina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textView4"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Setar q amanha vai sair"
-        android:id="@+id/btn_setrotina"/>
+        android:text="Criar Evento" />
 
 </RelativeLayout>
