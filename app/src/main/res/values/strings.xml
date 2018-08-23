@@ -43,6 +43,7 @@
     <string name="western">Western</string>
 
     <string name="year">Year</string>
+    <string name="added">Added</string>
 
     <string name="failed">Fail to Insert User</string>
 
@@ -52,6 +53,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="user_incorrect">User Not Found</string>
+    <string name="pass_incorrect">Password Incorrect</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

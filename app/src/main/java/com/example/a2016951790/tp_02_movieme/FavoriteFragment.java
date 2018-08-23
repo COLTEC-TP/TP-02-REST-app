@@ -34,7 +34,6 @@ public class FavoriteFragment extends Fragment {
         ArrayList teste = crud.pegarFavoritoPorID(result);
         ArrayList<Filme> filmes = crud.pegarFilmePorID(teste);
 
-        Toast.makeText(container.getContext(), String.valueOf(teste.size()) , Toast.LENGTH_SHORT).show();
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_layour_recycler);
         RecyclerAdapter listAdapter = new RecyclerAdapter(container.getContext(), filmes);
         recyclerView.setAdapter(listAdapter);

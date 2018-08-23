@@ -52,7 +52,6 @@ public class MovieActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Filme> call, Throwable t) {
-                Log.d(MovieActivity.class.getSimpleName(),"mensagem", t);
                 Toast toast = Toast.makeText(MovieActivity.this, getResources().getString(R.string.connection_error),Toast.LENGTH_SHORT);
                 toast.show();
             }

@@ -42,11 +42,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
                 context.startActivity(intent);
             }
         });
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                removeItem(position);
+                return false;
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return this.filmes.size();
+    }
+
+    public void removeItem(int position) {
+        DbController crud = new DbController(context);
+        crud.deletarProximoPorID(String.valueOf(filmes.get(position).getId()));
+        filmes.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, filmes.size());
     }
 
     private class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -135,5 +150,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter {
         public void onClick(View view) {
 
         }
+
+
+
     }
+
+
 }

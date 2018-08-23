@@ -119,8 +119,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         builder.setMessage("Are you sure")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast toast = Toast.makeText(context, "a",Toast.LENGTH_SHORT);
-                        toast.show();
                         SharedPreferences sharedPreferences = getSharedPreferences("pref_key", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("user_id", "");

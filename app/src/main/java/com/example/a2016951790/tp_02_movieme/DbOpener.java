@@ -33,6 +33,7 @@ import android.database.sqlite.SQLiteOpenHelper;
         static final String ID_MOVIE = "id_movie";
 
         static final String TABELA_NEXT = "proximos";
+        static final String ID_CONTROLE = "controle";
 
     public DbOpener(Context context){
         super(context, NOME_BANCO_USUARIO,null,VERSAO);
@@ -66,6 +67,7 @@ import android.database.sqlite.SQLiteOpenHelper;
             String tabela_next = "CREATE TABLE "+TABELA_NEXT+" ("
                     + ID_USER + " integer,"
                     + ID_MOVIE + " integer,"
+                    + ID_CONTROLE + " integer,"
                     + "CONSTRAINT fk_fav_user FOREIGN KEY (id_user) REFERENCES usuarios(_id),"
                     +  "CONSTRAINT fk_fav_movie FOREIGN KEY (id_movie) REFERENCES filmes(id_movie)"
                     +");";

@@ -49,17 +49,31 @@ public class DbController {
         Cursor cursor = db.rawQuery(querySql, new String[]{String.valueOf(id_api)});
         cursor.moveToFirst();
         int errado = 0;
+        int value = 100000000;
 
         if(cursor.getCount() > 0){
             if(cursor.getInt(1) == id_api && cursor.getInt(7) == controle) {
                 errado++;
-            } else if (cursor.getInt(1) == id_api && cursor.getInt(7) != controle){
+            } else if (cursor.getInt(1) == id_api && cursor.getInt(7) != controle && cursor.getInt(7) != 3){
+                try {
+                    ContentValues values = new ContentValues();
+                    values.put("control", 3);
+
+                    String[] params = {String.valueOf(id_api)};
+                    db.update("filmes", values, "id_api_find=?", params);
+                } catch(Exception e) {
+                    // trata exceção
+                } finally {
+                    db.close();
+                }
+                value = cursor.getInt(0);
                 errado++;
-                errado++;
+            } else if (cursor.getInt(7) == 3){
+                controle = 3;
             }
         }
-        //TODO
-        if(errado != 1) {
+
+        if(errado == 0) {
             valor = new ContentValues();
             valor.put(DbOpener.ID_API, id_api);
             valor.put(DbOpener.NAME_API, name);
@@ -80,9 +94,13 @@ public class DbController {
             else if (controle == 1)
                 salvarProximo(i, id_user);
         }
-        else {
+
+        if (controle == 0 && errado != 0)
+            salvarFavorito(value, id_user);
+        else if (controle == 1 && errado != 0)
+            salvarProximo(value, id_user);
+        else if (controle == 3)
             Toast.makeText(context, "Ja existe", Toast.LENGTH_LONG).show();
-        }
 
         cursor.close();
         db1.close();
@@ -180,7 +198,7 @@ public class DbController {
 
         String querySql = "SELECT * FROM filmes WHERE id_movie = ?";
         ArrayList<Filme> filmes = new ArrayList<>();
-        ArrayList<Integer> ids = new ArrayList<>();
+
         int[ ] factorial = { 12, 16};
 
 
@@ -240,6 +258,10 @@ public class DbController {
         db.close();
 
         return valor;
+    }
+
+    public void deletarProximoPorID(String id){
+
     }
 
 

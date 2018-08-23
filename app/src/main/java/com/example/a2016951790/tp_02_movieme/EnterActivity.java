@@ -12,7 +12,6 @@ import android.widget.Button;
 
 public class EnterActivity extends AppCompatActivity {
 
-    public static Activity fa;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,13 +39,13 @@ public class EnterActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent intent = new Intent(EnterActivity.this, RegisterActivity.class);
                     startActivity(intent);
-                    finish();
                 }
             });
 
         } else {
             Intent intent = new Intent(EnterActivity.this, MainActivity.class);
             startActivity(intent);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             finish();
         }
     }
