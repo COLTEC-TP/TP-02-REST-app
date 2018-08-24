@@ -14,54 +14,100 @@
         android:layout_centerHorizontal="true"
         android:paddingBottom="10dp"
         android:text="Que dia você vai sair?"
-
         android:textColor="#FFB7B7B7"
         android:textSize="25dp" />
-
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="15dp"
         android:layout_below="@id/mensagem">
 
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="300dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:background="#FFB7B7B7" />
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/calendarView">
-            <CheckedTextView
-                android:id="@+id/checkBox1"
-                android:layout_width="80dp"
+            android:layout_below="@id/calendarView"
+            android:paddingTop="10dp">
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFB7B7B7"
-                android:text="Tarde"/>
-            <CheckedTextView
-                android:id="@+id/checkBox2"
-                android:layout_width="80dp"
+                android:id="@+id/guideline0"
+                app:layout_constraintGuide_percent=".0"
+                android:orientation="vertical"/>
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFB7B7B7"
-                android:text="Tarde"/>
-            <CheckedTextView
-                android:id="@+id/checkBox3"
-                android:layout_width="80dp"
+                android:id="@+id/guideline25"
+                app:layout_constraintGuide_percent=".25"
+                android:orientation="vertical"/>
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFB7B7B7"
-                android:text="Tarde"/>
-            <CheckedTextView
-                android:id="@+id/checkBox4"
-                android:layout_width="80dp"
+                android:id="@+id/guideline50"
+                app:layout_constraintGuide_percent=".50"
+                android:orientation="vertical"/>
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FFB7B7B7"
-                android:text="Tarde"/>
+                android:id="@+id/guideline75"
+                app:layout_constraintGuide_percent=".75"
+                android:orientation="vertical"/>
+            <android.support.constraint.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guidelinex"
+                app:layout_constraintGuide_percent="1.0"
+                android:orientation="vertical"/>
 
-        </LinearLayout>
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#FFB7B7B7"
+                android:text="Madruga"
+                android:textAlignment="center"
+                android:paddingVertical="5dp"
+                app:layout_constraintLeft_toRightOf="@id/guideline0"
+                app:layout_constraintRight_toLeftOf="@id/guideline25"/>
+            <CheckBox
+                android:id="@+id/checkBox2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#FFB7B7B7"
+                android:text="Manhã"
+                android:textAlignment="center"
+                android:paddingVertical="5dp"
+                app:layout_constraintLeft_toRightOf="@id/guideline25"
+                app:layout_constraintRight_toLeftOf="@id/guideline50"/>
+            <CheckBox
+                android:id="@+id/checkBox3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#FFB7B7B7"
+                android:text="Tarde"
+                android:textAlignment="center"
+                android:paddingVertical="5dp"
+                app:layout_constraintLeft_toRightOf="@id/guideline50"
+                app:layout_constraintRight_toLeftOf="@id/guideline75"/>
+            <CheckBox
+                android:id="@+id/checkBox4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="#FFB7B7B7"
+                android:text="Noite"
+                android:textAlignment="center"
+                android:paddingVertical="5dp"
+                app:layout_constraintLeft_toRightOf="@id/guideline75"
+                app:layout_constraintRight_toLeftOf="@id/guidelinex"/>
+        </android.support.constraint.ConstraintLayout>
+
     </RelativeLayout>
 
     <Button
@@ -70,6 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="Criar Evento" />
+        android:text="Criar Evento"
+        android:layout_marginBottom="10dp"/>
 
 </RelativeLayout>
