@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class ItemActivity extends Activity {
@@ -31,8 +34,8 @@ public class ItemActivity extends Activity {
 
         TextView nome = findViewById(R.id.Pokemon_Nome);
 
-        Button tipo_1 = findViewById(R.id.Tipo_1);
-        Button tipo_2 = findViewById(R.id.Tipo_2);
+        TextView tipo_1 = findViewById(R.id.Tipo_1);
+        TextView tipo_2 = findViewById(R.id.Tipo_2);
 
         ImageView imagem = findViewById(R.id.Pokemon_Img);
 
@@ -60,7 +63,7 @@ public class ItemActivity extends Activity {
         if (pokeTypes.size() > 1) { // Se possui mais de um tipo
             tipo_2.setText(String.valueOf(pokeTypes.get(1).getNamePokeType()));
         }else{
-            tipo_2.setText("Alo ALo");
+            tipo_2.setText("type");
         }
 
         imagem.setImageBitmap(pokemon.getImagem());

@@ -54,13 +54,6 @@ public class PokemonAdapter extends RecyclerView.Adapter {
         }
         viewHolder.imagem.setImageBitmap(pokemon.getImagem());
         viewHolder.id.setText(String.valueOf(pokemon.getId()));
-        //ArrayList<Stat> stats = pokemon.getStats();
-        //viewHolder.ataque.setText(String.valueOf(stats.get(0).getBase_stat()));
-        //viewHolder.defesa.setText(String.valueOf(stats.get(1).getBase_stat()));
-        //viewHolder.agilidade.setText(String.valueOf(stats.get(2).getBase_stat()));
-        //viewHolder.hp.setText(String.valueOf(stats.get(3).getBase_stat()));
-        //viewHolder.super_ataque.setText(String.valueOf(stats.get(4).getBase_stat()));
-        //viewHolder.super_defesa.setText(String.valueOf(stats.get(5).getBase_stat()));
 
     }
 
@@ -77,12 +70,6 @@ public class PokemonAdapter extends RecyclerView.Adapter {
 
         final TextView id;
         final TextView nome;
-        //final TextView ataque;
-        //final TextView defesa;
-        //final TextView agilidade;
-        //final TextView hp;
-        //final TextView super_ataque;
-        //final TextView super_defesa;
         final ImageView imagem;
         final TextView tipo_1;
         final TextView tipo_2;
@@ -90,12 +77,7 @@ public class PokemonAdapter extends RecyclerView.Adapter {
         public ViewHolder(View itemView) {
             super(itemView);
             nome = (TextView) itemView.findViewById(R.id.Lista_Pokemon_Nome);
-            //ataque = (TextView) itemView.findViewById(R.id.Ataque_Num);
-            //defesa = (TextView) itemView.findViewById(R.id.Defesa_Num);
-            //agilidade = (TextView) itemView.findViewById(R.id.Agilidade_Num);
-            //hp = (TextView) itemView.findViewById(R.id.HP_Num);
-            //super_ataque = (TextView) itemView.findViewById(R.id.Ataque_Especial_Num);
-            //super_defesa = (TextView) itemView.findViewById(R.id.Defesa_Especial_Num);
+
             imagem = (ImageView) itemView.findViewById(R.id.Lista_Pokemon_Img);
             tipo_1 = (TextView) itemView.findViewById(R.id.Lista_Tipo1);
             tipo_2 = (TextView) itemView.findViewById(R.id.Lista_Tipo2);

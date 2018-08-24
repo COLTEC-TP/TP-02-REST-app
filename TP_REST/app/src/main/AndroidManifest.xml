@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoadingActivity" />
+        <activity android:name=".LoadingActivity"
+            android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name=".ItemActivity"
             android:theme="@android:style/Theme.NoTitleBar" android:parentActivityName=".MainActivity"></activity>
     </application>

@@ -15,4 +15,16 @@
         android:src="@drawable/loading"
         />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ATPR"
+        android:textColor="#C9292B"
+        android:textSize="35dp"
+        android:fontFamily="casual"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"/>
+
 </RelativeLayout>

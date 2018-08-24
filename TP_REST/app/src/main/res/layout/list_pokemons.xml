@@ -27,54 +27,17 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/pokeballs_back"
+                android:src="@drawable/pokeballs_blur"
                 android:scaleType="centerCrop"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Lista_Pokemon_Nome"
-                android:text="Psyduck"
-                android:fontFamily="monospace"
-                android:textColor="#FFFFFF"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Lista_Tipo1"
-                android:text="Type 1"
-                android:fontFamily="monospace"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_below="@id/Lista_Pokemon_Nome"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="10dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Lista_Tipo2"
-                android:text="Type 2"
-                android:fontFamily="monospace"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_toRightOf="@id/Lista_Tipo1"
-                android:layout_alignBaseline="@+id/Lista_Tipo1"
-                android:layout_marginLeft="30dp"/>
 
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:src="@drawable/light"
                 android:layout_alignParentRight="true"
-                android:scaleX="2.5"
-                android:scaleY="2.5"/>
+                android:scaleX="3.0"
+                android:scaleY="3.0"
+                android:id="@+id/imageView" />
 
             <ImageView
                 android:id="@+id/Lista_Pokemon_Img"
@@ -84,6 +47,53 @@
                 android:layout_alignParentEnd="true"
                 android:scaleType="centerCrop"
                 android:layout_marginRight="14dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toStartOf="@+id/Lista_Pokemon_Img">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Lista_Pokemon_Nome"
+                    android:text="Psyduck"
+                    android:fontFamily="monospace"
+                    android:textColor="#FFFFFF"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="13dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Lista_Tipo1"
+                    android:text="Type 1"
+                    android:fontFamily="monospace"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_below="@id/Lista_Pokemon_Nome"
+                    android:layout_marginTop="15dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="30dp"
+                    android:background="#C9292B"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Lista_Tipo2"
+                    android:text="Type 2"
+                    android:fontFamily="monospace"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_alignBaseline="@+id/Lista_Tipo1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30dp"
+                    android:background="#C9292B"/>
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="0dp"

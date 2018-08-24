@@ -60,7 +60,7 @@ public class MainActivity extends Activity implements ItemClickListener {
 
         // Prepara Action Bar //
         ActionBar actionBar = getActionBar();
-        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#0000ff")));
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#C9292B")));
 
     }
 
