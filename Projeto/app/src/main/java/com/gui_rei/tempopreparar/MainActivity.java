@@ -28,11 +28,6 @@ import retrofit2.Response;
 
 public class MainActivity extends Activity {
 
-    private static final String BH_ID = "6879";
-    //Ex:
-    // atual: http://apiadvisor.climatempo.com.br/api/v1/weather/locale/6879/current?token=
-    // 15 dias (ou 7, n entendi): apiadvisor.climatempo.com.br/api/v1/forecast/locale/6879/days/15?token=
-
     private int defIcon(String cod){
         switch (cod) {
             case "1":
@@ -218,6 +213,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         Dados.setContext(MainActivity.this); //Permite ao dados manipula arquivos
+        Prefs.getInstance().setContextAndLoad(MainActivity.this);
 
         //Alterar cor da Action Bar
         ActionBar bar = getActionBar();
