@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">PetFinder</string>
+    <string-array name="pets_array">
+        <item>Gato</item>
+        <item>Cachorro</item>
+        <item>Animais de Fazenda</item>
+        <item>Aves</item>
+        <item>Cavalos</item>
+        <item>Répteis</item>
+        <item>Pequenos e Peludos</item>
+    </string-array>
+    <string name="search">Procurar</string>
+    <string name="Name">Nome</string>
+    <string name="Age">Idade</string>
+    <string name="Sex">Sexo</string>
+    <string name="breed">Raça</string>
+    <string name="Address">Endereço</string>
+    <string name="City">Cidade</string>
+    <string name="State">Estado</string>
+    <string name="Phone">Telefone de Contato</string>
+    <string name="Description">Descrição</string>
+</resources>

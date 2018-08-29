@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PetFinder</string>
+    <string-array name="pets_array">
+        <item>Cat</item>
+        <item>Dog</item>
+        <item>Barny Yard</item>
+        <item>Birds</item>
+        <item>Horses</item>
+        <item>Reptiles</item>
+        <item>Small Furry</item>
+    </string-array>
+    <string name="search">Search</string>
+    <string name="Name">Name</string>
+    <string name="Age">Age</string>
+    <string name="Sex">Sex</string>
+    <string name="breed">Breed</string>
+    <string name="Address">Address</string>
+    <string name="City">City</string>
+    <string name="State">State</string>
+    <string name="Phone">Contact Phone</string>
+    <string name="Description">Description</string>
+</resources>
