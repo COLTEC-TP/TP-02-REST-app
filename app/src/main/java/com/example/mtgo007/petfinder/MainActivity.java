@@ -18,11 +18,14 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String[] animals;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        animals = new String[]{"cat", "dog","barnyard","bird","horse","reptile","smallfurry"};
         final EditText zipcode = findViewById(R.id.zipcode);
         Button btn = findViewById(R.id.btnSearch);
         final Spinner spinner = (Spinner) findViewById(R.id.pet_spinner);
@@ -36,11 +39,12 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int index = spinner.getSelectedItemPosition();
                 if(zipcode.getText().toString().equals("")){
                     Toast.makeText(MainActivity.this, "Zipcode nulo", Toast.LENGTH_SHORT).show();
                 } else {
-                    PetService service = new RetrofitConfig().getPetService();
-                    Call<List<Pet>> petCall = service.getPets(spinner.getSelectedItem().toString(), zipcode.getText().toString());
+                    PetService service = new RetrofitConfig(MainActivity.this).getPetService();
+                    Call<List<Pet>> petCall = service.getPets(animals[index], zipcode.getText().toString());
 
                     petCall.enqueue(new Callback<List<Pet>>() {
                         @Override

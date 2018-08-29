@@ -32,7 +32,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nome: "/>
+                android:text="@string/Name"/>
 
             <TextView
                 android:id="@+id/nome_detalhe"
@@ -45,7 +45,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Idade: "/>
+                android:text="@string/Age"/>
 
             <TextView
                 android:id="@+id/idade_detalhe"
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Sexo: "/>
+                android:text="@string/Sex"/>
 
             <TextView
                 android:id="@+id/sexo_detalhe"
@@ -71,7 +71,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Raça: "/>
+                android:text="@string/breed"/>
 
             <TextView
                 android:id="@+id/raca_detalhe"
@@ -84,7 +84,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enderecço: "/>
+                android:text="@string/Address"/>
 
             <TextView
                 android:id="@+id/endereco_detalhe"
@@ -98,7 +98,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cidade: "/>
+                android:text="@string/City"/>
 
             <TextView
                 android:id="@+id/cidade_detalhe"
@@ -111,7 +111,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Estado: "/>
+                android:text="@string/State"/>
 
             <TextView
                 android:id="@+id/estado_detalhe"
@@ -124,7 +124,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Telefone de Contato: "/>
+                android:text="@string/Phone"/>
 
             <TextView
                 android:id="@+id/telefone_detalhe"
@@ -138,7 +138,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Descrição: "
+                android:text="@string/Description"
                 android:id="@+id/desc"/>
 
 
