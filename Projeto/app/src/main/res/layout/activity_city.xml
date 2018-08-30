@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CityActivity"
+    android:background="@color/azul"
+    android:orientation="vertical">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0">
+        <TableRow android:gravity="bottom">
+            <EditText
+                android:hint="Nome da cidade"
+                android:textColorHint="#80FFFFFF"
+                android:textColor="#FFFFFF"
+                android:id="@+id/txtCityS"/>
+            <ImageButton
+                android:src="@android:drawable/ic_menu_search"
+                android:tint="#FFFFFF"
+                android:background="@color/azul"
+                android:onClick="procura"/>
+        </TableRow>
+    </TableLayout>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Ou então faça a busca"
+        android:textAlignment="center"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="25dp"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:stretchColumns="1">
+        <TableRow>
+            <Spinner
+                android:id="@+id/listaEstados"
+                android:layout_height="30dp"
+                android:background="@color/branco"
+                android:textSize="50dp" />
+            <EditText
+                android:id="@+id/filtroCity"
+                android:hint="Filtrar"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#80FFFFFF"
+                android:paddingLeft="10dp"/>
+        </TableRow>
+
+    </TableLayout>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listaCidadeBusca"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"/>
+
+</LinearLayout>

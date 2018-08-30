@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/azul"
+    tools:context=".ClimaDetalhesActivity">
+
+    <TextView
+        android:id="@+id/cidade"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="13dp"
+        android:text="Cidade?"
+        android:textAlignment="center"
+        android:textColor="#FFB700"
+        android:textSize="23dp" />
+
+    <TextView
+        android:id="@+id/data"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp"
+        android:textAlignment="center"
+        android:textColor="#FFB700"
+        android:textSize="18dp"/>
+
+    <TextView
+        android:id="@+id/temp"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/umidade"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="160dp"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/sensacao"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/uv"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="280dp"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/propabilidadeChuva"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="340dp"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/precipitacaoChuva"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
+
+    <TextView
+        android:id="@+id/vento"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="460dp"
+        android:textColor="#FFB700"
+        android:textSize="18dp" />
+
+</RelativeLayout>
