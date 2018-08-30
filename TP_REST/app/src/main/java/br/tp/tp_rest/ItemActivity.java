@@ -63,7 +63,7 @@ public class ItemActivity extends Activity {
         if (pokeTypes.size() > 1) { // Se possui mais de um tipo
             tipo_2.setText(String.valueOf(pokeTypes.get(1).getNamePokeType()));
         }else{
-            tipo_2.setText("type");
+            tipo_2.setText("  ");
         }
 
         imagem.setImageBitmap(pokemon.getImagem());
