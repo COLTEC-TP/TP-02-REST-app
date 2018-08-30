@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">The Lyrics App</string>
+    <string name="search">Buscar</string>
+    <string name="title">Titulo</string>
+    <string name="artist">Artista</string>
+    <string name="position">1º</string>
+    <string name="rankingtitle">Top músicas do dia</string>
+    <string name="translateOn">Ver original</string>
+    <string name="transtaleOff">Ver tradução</string>
+
+</resources>
